@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "restaurant-congestion"
+version = "0.1.0"
+description = "restaurant congestion algorithm"
+authors = ["Hyeonproject <axzswq@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = "3.9"
+pandas = "^1.4.2"
+numpy = "^1.22.4"
+matplotlib = "^3.5.2"
+ipython = "^8.4.0"
+scikit-learn = "^1.1.1"
+Pillow = "^9.1.1"
+jupyter = "^1.0.0"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
