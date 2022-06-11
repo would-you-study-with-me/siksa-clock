@@ -495,3 +495,6 @@ doc/api/
 
 # redis
 *.rdb
+
+# congestion
+restaurant-congestion/data/*
