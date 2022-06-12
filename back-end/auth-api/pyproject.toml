@@ -15,6 +15,7 @@ strawberry-graphql = {extras = ["fastapi"], version = "^0.114.1"}
 SQLAlchemy = "^1.4.37"
 asyncpg = "^0.25.0"
 dependency-injector = "^4.39.1"
+pytest = "^7.1.2"
 
 [tool.poetry.dev-dependencies]
 
