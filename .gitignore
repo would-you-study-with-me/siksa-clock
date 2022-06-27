@@ -498,3 +498,6 @@ doc/api/
 
 # congestion
 restaurant-congestion/data/*
+
+# secret file patterns
+secret.json
