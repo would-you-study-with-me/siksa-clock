@@ -353,6 +353,14 @@ build_docs = ["sphinx (>=1.6)", "sphinxcontrib-fulltoc (>=1.2.0)", "cloud-spthem
 totp = ["cryptography"]
 
 [[package]]
+name = "password"
+version = "0.2"
+description = "A password attribute that stores hashes"
+category = "main"
+optional = false
+python-versions = "*"
+
+[[package]]
 name = "pluggy"
 version = "1.0.0"
 description = "plugin and hook calling mechanisms for python"
@@ -800,7 +808,7 @@ standard = ["websockets (>=10.0)", "httptools (>=0.4.0)", "watchfiles (>=0.13)",
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.10"
-content-hash = "ce6e70210463c727d92506e74f9f791d6086c8d8a0c61a35a63f756d3e3231b6"
+content-hash = "7b8237edebd231a61e0b8cfb2b96bacb84d847dc4deaad663b0f289b5b540761"
 
 [metadata.files]
 alabaster = [
@@ -1114,6 +1122,10 @@ packaging = [
 passlib = [
     {file = "passlib-1.7.4-py2.py3-none-any.whl", hash = "sha256:aa6bca462b8d8bda89c70b382f0c298a20b5560af6cbfa2dce410c0a2fb669f1"},
     {file = "passlib-1.7.4.tar.gz", hash = "sha256:defd50f72b65c5402ab2c573830a6978e5f202ad0d984793c8dde2c4152ebe04"},
+]
+password = [
+    {file = "password-0.2.tar.bz2", hash = "sha256:9ad8ed238c0c3f929778bc82237ecfd333a1b7357b5864bce7d7b5cd2b039b19"},
+    {file = "password-0.2.zip", hash = "sha256:c1502353c1c5c0541c0625b4f71255eb1b06e72b8146963a08ea3aa340c0bf53"},
 ]
 pluggy = [
     {file = "pluggy-1.0.0-py2.py3-none-any.whl", hash = "sha256:74134bbf457f031a36d68416e1509f34bd5ccc019f0bcc952c7b909d06b37bd3"},
