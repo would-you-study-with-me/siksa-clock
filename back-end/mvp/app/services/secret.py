@@ -17,4 +17,12 @@ def get_secret(setting, secret=secret):
         return secret[setting]
     except KeyError:
         error_msg = 'Set the {} environment variable'.format(setting)
-        raise HTTPException(status_code=500, message=error_msg)
+        raise HTTPException(status_code=404, message=error_msg)
+
+
+def get_os_secrets(setting):
+    "환경변수를 가져오는 기능"
+    try:
+        return os.environ[setting]
+    except KeyError:
+        raise HTTPException(status_code=404, message='Not found setting')

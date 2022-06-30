@@ -1,6 +1,7 @@
 from datetime import datetime
 from uuid import UUID
 
+import strawberry
 from pydantic import BaseModel
 
 
@@ -28,15 +29,29 @@ class TimeStampBase(BaseModel):
     updated_at: datetime.datetime
 
 
-class RestaurantAllInputData(RestaurantBase, OpeningTimeBase, TimeStampBase):
-    pass
-
-
 class RestaurantAllData(RestaurantBase, OpeningTimeBase, TimeStampBase):
     restaurants_id: UUID
-    opening_id: UUID
-    estaurants_id: UUID
     opening_id: UUID
 
     class Config:
         orm_mode = True
+
+
+@strawberry.experimental.pydantic.type(model=RestaurantAllData)
+class RestaurantDataInput:
+    restaurants_id: UUID
+    opening_id: UUID
+    name: str
+    rate: int
+    category: str | None
+    count_seats: int = 39
+    x: float
+    y: float
+    address: str | None
+    description: str | None
+    contact: str | None
+    opening_time_days: str | None
+    opening_time: str | None
+    break_time_days: str | None
+    break_time: str | None
+

@@ -16,16 +16,14 @@ class Restaurants(base):
     rate = Column(Integer(1), comment='식당평점 0~5')
     category = Column(String, nullable=True, comment='식당 카테고리')
     count_seats = Column(Integer, default=39, comment='식당 자리수')
-    x = Column(Float, comment='X좌표')
-    y = Column(Float, comment='Y좌표')
+    x = Column(Float, nullable=True, comment='X좌표')
+    y = Column(Float, nullable=True, comment='Y좌표')
     address = Column(String, nullable=True, comment='식당 주소')
     description = Column(String, nullable=True, comment='식당 설명')
     contact = Column(String, nullable=True, comment='식당 전화번호')
     created_at = Column(DateTime, default=datetime.datetime.now(), comment='생성날짜')
     updated_at = Column(DateTime, default=datetime.datetime.now(), onupdate=lambda: datetime.datetime.now(),
                         comment='수정날짜')
-
-
 
 
 class OpeningTime(base):
