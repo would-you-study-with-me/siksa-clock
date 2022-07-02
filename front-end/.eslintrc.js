@@ -8,9 +8,11 @@ module.exports = {
     'airbnb',
     'airbnb/hooks',
     'airbnb-typescript',
-    'plugin:prettier/recommended',
     'plugin:@typescript-eslint/recommended',
   ],
   parser: '@typescript-eslint/parser',
-  plugins: ['@typescript-eslint'],
+  plugins: ['@typescript-eslint', 'prettier'],
+  parserOptions: {
+    project: './tsconfig.json',
+  },
 };
