@@ -34,6 +34,14 @@ class OpeningTimeStampBase(BaseModel):
     opening_time_updated_at: datetime.datetime
 
 
+class RestaurantOutput(RestaurantBase, RestaurantTimeStampBase):
+    restaurants_id: UUID
+
+
+class OpeningTimeOutput(OpeningTimeBase, OpeningTimeStampBase):
+    opening_time_id: UUID
+
+
 class RestaurantAllData(RestaurantBase, OpeningTimeBase, RestaurantTimeStampBase, OpeningTimeStampBase):
     restaurants_id: UUID
     opening_time_id: UUID

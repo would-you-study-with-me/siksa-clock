@@ -26,6 +26,8 @@ class Subscription:
         for i in range(target):
             yield i
             await asyncio.sleep(0.5)
+    @strawberry.subscription
+    async def subscriptions_restaurants(self, t):
 
 
 schema = strawberry.Schema(query=Query, subscription=Subscription)
