@@ -19,15 +19,4 @@ class Query:
         return 'Hello World!'
 
 
-@strawberry.type
-class Subscription:
-    @strawberry.subscription
-    async def count(self, target: int = 100) -> AsyncGenerator[int, None]:
-        for i in range(target):
-            yield i
-            await asyncio.sleep(0.5)
-    @strawberry.subscription
-    async def subscriptions_restaurants(self, t):
-
-
-schema = strawberry.Schema(query=Query, subscription=Subscription)
+schema = strawberry.Schema(query=Query)
