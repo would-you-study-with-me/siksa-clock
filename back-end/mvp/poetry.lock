@@ -137,6 +137,14 @@ optional = false
 python-versions = ">=3.6"
 
 [[package]]
+name = "crud"
+version = "0.1"
+description = "CRUD operations for wsgi applications"
+category = "main"
+optional = false
+python-versions = "*"
+
+[[package]]
 name = "cryptography"
 version = "37.0.3"
 description = "cryptography is a package which provides cryptographic recipes and primitives to Python developers."
@@ -891,7 +899,7 @@ python-versions = ">=3.7"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.10"
-content-hash = "bbe34a9d245972fc320326313cf0e0d581dcf8ae44265ebbf74bb52c1e3485e4"
+content-hash = "10afb513598ec8d67ac6ab94f28f29c4e8121266a152731ee8b05d744f0d2197"
 
 [metadata.files]
 alabaster = [
@@ -1017,6 +1025,7 @@ contextlib2 = [
     {file = "contextlib2-21.6.0-py2.py3-none-any.whl", hash = "sha256:3fbdb64466afd23abaf6c977627b75b6139a5a3e8ce38405c5b413aed7a0471f"},
     {file = "contextlib2-21.6.0.tar.gz", hash = "sha256:ab1e2bfe1d01d968e1b7e8d9023bc51ef3509bba217bb730cee3827e1ee82869"},
 ]
+crud = []
 cryptography = [
     {file = "cryptography-37.0.3-cp36-abi3-macosx_10_10_universal2.whl", hash = "sha256:d10413d493e98075060d3e62e5826de372912ea653ccc948f3c41b21ddca087f"},
     {file = "cryptography-37.0.3-cp36-abi3-macosx_10_10_x86_64.whl", hash = "sha256:cd64147ff16506632893ceb2569624b48c84daa3ba4d89695f7c7bc24188eee9"},
