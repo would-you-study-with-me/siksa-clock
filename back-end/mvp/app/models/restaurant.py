@@ -1,44 +1,44 @@
 import uuid
 from datetime import datetime
 
-from sqlalchemy import Boolean, Column, String, Integer, Boolean, ForeignKey, DateTime, Float
+from sqlalchemy import Column, String, Integer, ForeignKey, DateTime, Float
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import relationship
 
-from app.config.database import base
+from app.config.database import Base
 
 
-class Restaurants(base):
-    __tablename__ = 'restaurants'
+class Restaurants(Base):
+    __tablename__ = 'restaurant'
 
-    id = Column(UUID, primary_key=True, default=lambda: uuid.uuid4(), comment='레스토랑 id')
-    name = Column(String, comment='식당이름')
-    rate = Column(Integer(1), comment='식당평점 0~5')
-    category = Column(String, nullable=True, comment='식당 카테고리')
-    count_seats = Column(Integer, default=39, comment='식당 자리수')
-    x = Column(Float, comment='X좌표')
-    y = Column(Float, comment='Y좌표')
-    address = Column(String, nullable=True, comment='식당 주소')
-    description = Column(String, nullable=True, comment='식당 설명')
-    contact = Column(String, nullable=True, comment='식당 전화번호')
-    created_at = Column(DateTime, default=datetime.datetime.now(), comment='생성날짜')
-    updated_at = Column(DateTime, default=datetime.datetime.now(), onupdate=lambda: datetime.datetime.now(),
+    restaurant_id = Column(UUID, primary_key=True, default=lambda: uuid.uuid4(), comment='레스토랑 id')
+    restaurant_name = Column(String, comment='식당이름')
+    restaurant_rate = Column(Integer, comment='식당평점 0~5')
+    restaurant_category = Column(String, nullable=True, comment='식당 카테고리')
+    restaurant_count_seats = Column(Integer, default=39, comment='식당 자리수')
+    restaurant_x = Column(Float, nullable=True, comment='X좌표')
+    restaurant_y = Column(Float, nullable=True, comment='Y좌표')
+    restaurant_address = Column(String, nullable=True, comment='식당 주소')
+    restaurant_description = Column(String, nullable=True, comment='식당 설명')
+    restaurant_contact = Column(String, nullable=True, comment='식당 전화번호')
+    restaurant_created_at = Column(DateTime, default=datetime.now(), comment='생성날짜')
+    restaurant_updated_at = Column(DateTime, default=datetime.now(), onupdate=lambda: datetime.now(),
                         comment='수정날짜')
 
+    opening_time = relationship('OpeningTime', back_populates='restaurant')
 
 
-
-class OpeningTime(base):
+class OpeningTime(Base):
     __tablename__ = 'opening_time'
 
-    id = Column(UUID, primary_key=True, default=lambda: uuid.uuid4(), comment='여는 시간 id')
-    restaurant_id = Column(UUID, ForeignKey('restaurants.id'))
-    opening_time_days = Column(String, nullable=True, commnet='식당 여는 시간 날짜 (ex: Mon,Tue,Fri,Sat)')
-    opening_time = Column(String, nullable=True, commnet='식당 여는 시간 (ex: 12:30~15:30/14:20~15:20)')
-    break_time_days = Column(String, nullable=True, comment='브레이크 타임 날짜 (ex: Mon, Tue, Wed, Thu')
-    break_time = Column(String, nullable=True, comment='브레이크 타임 시간(ex : 12:30~17:40/12:12~16:45)')
-    created_at = Column(DateTime, default=datetime.datetime.now(), comment='생성날짜')
-    updated_at = Column(DateTime, default=datetime.datetime.now(), onupdate=lambda: datetime.datetime.now(),
+    opening_time_id = Column(UUID, primary_key=True, default=lambda: uuid.uuid4(), comment='여는 시간 id')
+    restaurant_id = Column(UUID, ForeignKey('restaurant.restaurant_id'), comment='레스토랑 테이블 외래키')
+    restaurant_opening_time_days = Column(String, nullable=True, comment='식당 여는 시간 날짜 (ex: Mon,Tue,Fri,Sat)')
+    restaurant_opening_time = Column(String, nullable=True, comment='식당 여는 시간 (ex: 12:30~15:30/14:20~15:20)')
+    restaurant_break_time_days = Column(String, nullable=True, comment='브레이크 타임 날짜 (ex: Mon, Tue, Wed, Thu')
+    restaurant_break_time = Column(String, nullable=True, comment='브레이크 타임 시간(ex : 12:30~17:40/12:12~16:45)')
+    opening_time_created_at = Column(DateTime, default=datetime.now(), comment='생성날짜')
+    opening_time_updated_at = Column(DateTime, default=datetime.now(), onupdate=lambda: datetime.now(),
                         comment='수정날짜')
 
-    restaurant_id = relationship("Restaurants")
+    restaurant = relationship('Restaurants', back_populates='opening_time')
