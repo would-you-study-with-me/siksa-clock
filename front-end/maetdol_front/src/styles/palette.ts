@@ -10,3 +10,4 @@ const colors = {
 } as const;
 
 export default colors;
+export type colors = typeof colors;
