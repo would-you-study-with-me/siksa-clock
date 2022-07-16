@@ -51,7 +51,7 @@ def change_restaurants_data():
                 restaurant_count_seats=round(int(value['식사가능인원'])),
                 restaurant_x=float(value['좌표정보(x)']),
                 restaurant_y=float(value['좌표정보(y)']),
-                restaurant_address=value['도로명전체주소']
+                restaurant_address=str(value['도로명전체주소']).replace("'", "")
             )
 
             f.write('{}\n'.format(query))
