@@ -57,7 +57,36 @@ def change_restaurants_data():
             f.write('{}\n'.format(query))
 
 
+def opening_time_migration(restaurant_id: uuid.UUID):
+    query = """
+        INSERT INTO opening_time (opening_time_id, restaurant_id)
+        VALUES ('{opening_time_id}', '{restaurant_id}')
+    """.format(
+        opening_time_id=uuid.uuid4(),
+        restaurant_id=restaurant_id
+    )
+    return query
+
+
 if __name__ == '__main__':
-    change_restaurants_data()
+    secret = SecretFile()
+
+    sql = """
+        SELECT * FROM restaurant
+    """
+
+    restaurants_data = query(
+        user=secret.get_secret('database_user'),
+        password=secret.get_secret('database_password'),
+        host=secret.get_secret('database_host'),
+        port=secret.get_secret('database_port'),
+        db_name=secret.get_secret('database_name'),
+        query=sql
+    )
+
+    with open('injection.sql', 'w') as f:
+        for data in restaurants_data:
+            f.write('{} \n'.format(opening_time_migration(data['restaurant_id'])))
+
 
 
