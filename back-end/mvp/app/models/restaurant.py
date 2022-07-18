@@ -25,8 +25,6 @@ class Restaurants(Base):
     restaurant_updated_at = Column(DateTime, default=datetime.now(), onupdate=lambda: datetime.now(),
                         comment='수정날짜')
 
-    opening_time = relationship('OpeningTime', back_populates='restaurant')
-
 
 class OpeningTime(Base):
     __tablename__ = 'opening_time'
@@ -41,4 +39,4 @@ class OpeningTime(Base):
     opening_time_updated_at = Column(DateTime, default=datetime.now(), onupdate=lambda: datetime.now(),
                         comment='수정날짜')
 
-    restaurant = relationship('Restaurants', back_populates='opening_time')
+    restaurant = relationship('Restaurants', backref='restaurant')
