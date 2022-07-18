@@ -1,3 +1,4 @@
+from datetime import datetime
 import json
 import os
 import random
@@ -42,8 +43,8 @@ def change_restaurants_data():
             value = data.loc[i, :]
 
             query = """
-            INSERT INTO restaurant (restaurant_id, restaurant_name, restaurant_rate, restaurant_count_seats, restaurant_x, restaurant_y, restaurant_address)
-            VALUES ('{restaurant_id}', '{restaurant_name}', '{restaurant_rate}', '{restaurant_count_seats}','{restaurant_x}', '{restaurant_y}', '{restaurant_address}');
+            INSERT INTO restaurant (restaurant_id, restaurant_name, restaurant_rate, restaurant_count_seats, restaurant_x, restaurant_y, restaurant_address, restaurant_created_at, restaurant_updated_at,)
+            VALUES ('{restaurant_id}', '{restaurant_name}', '{restaurant_rate}', '{restaurant_count_seats}','{restaurant_x}', '{restaurant_y}', '{restaurant_address}', '{restaurant_created_at}', '{restaurant_updated_at}');
             """.format(
                 restaurant_id=uuid.uuid4(),
                 restaurant_name=str(value['사업장명']).replace("'", ""),
@@ -51,7 +52,9 @@ def change_restaurants_data():
                 restaurant_count_seats=round(int(value['식사가능인원'])),
                 restaurant_x=float(value['좌표정보(x)']),
                 restaurant_y=float(value['좌표정보(y)']),
-                restaurant_address=str(value['도로명전체주소']).replace("'", "")
+                restaurant_address=str(value['도로명전체주소']).replace("'", ""),
+                restaurant_created_at=datetime.now(),
+                restaurant_updated_at=datetime.now(),
             )
 
             f.write('{}\n'.format(query))
@@ -59,34 +62,40 @@ def change_restaurants_data():
 
 def opening_time_migration(restaurant_id: uuid.UUID):
     query = """
-        INSERT INTO opening_time (opening_time_id, restaurant_id)
-        VALUES ('{opening_time_id}', '{restaurant_id}')
+        INSERT INTO opening_time (opening_time_id, restaurant_id, opening_time_created_at, opening_time_updated_at)
+        VALUES ('{opening_time_id}', '{restaurant_id}', '{opening_time_created_at}','{opening_time_updated_at}')
     """.format(
         opening_time_id=uuid.uuid4(),
-        restaurant_id=restaurant_id
+        restaurant_id=restaurant_id,
+        opening_time_created_at=datetime.now(),
+        opening_time_updated_at=datetime.now(),
     )
     return query
 
+def opening_data():
+    change_restaurants_data()
 
-if __name__ == '__main__':
     secret = SecretFile()
 
     sql = """
-        SELECT * FROM restaurant
+       SELECT * FROM restaurant
     """
 
     restaurants_data = query(
-        user=secret.get_secret('database_user'),
-        password=secret.get_secret('database_password'),
-        host=secret.get_secret('database_host'),
-        port=secret.get_secret('database_port'),
-        db_name=secret.get_secret('database_name'),
-        query=sql
+       user=secret.get_secret('database_user'),
+       password=secret.get_secret('database_password'),
+       host=secret.get_secret('database_host'),
+       port=secret.get_secret('database_port'),
+       db_name=secret.get_secret('database_name'),
+       query=sql
     )
 
     with open('injection.sql', 'w') as f:
-        for data in restaurants_data:
-            f.write('{} \n'.format(opening_time_migration(data['restaurant_id'])))
+       for data in restaurants_data:
+           f.write('{} \n'.format(opening_time_migration(data['restaurant_id'])))
+
+
+if __name__ == '__main__':
 
 
 
