@@ -37,7 +37,7 @@ def get_kakao_api(search: str, x: str = None, y: str = None, radius: int = 10, s
     headers = {'Authorization': 'KakaoAK {}'.format(kakao)}
 
     r = requests.get('{host}{url}}'.format(host, url))
-    
+    print('code')    
 
     return r
     

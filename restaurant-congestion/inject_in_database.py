@@ -42,8 +42,10 @@ def change_restaurants_data():
         for i in data.index:
             value = data.loc[i, :]
 
+            opening_time_id = uuid.uuid4()
+
             query = """
-            INSERT INTO restaurant (restaurant_id, restaurant_name, restaurant_rate, restaurant_count_seats, restaurant_x, restaurant_y, restaurant_address, restaurant_created_at, restaurant_updated_at,)
+            INSERT INTO restaurant (restaurant_id, restaurant_name, restaurant_rate, restaurant_count_seats, restaurant_x, restaurant_y, restaurant_address, restaurant_created_at, restaurant_updated_at)
             VALUES ('{restaurant_id}', '{restaurant_name}', '{restaurant_rate}', '{restaurant_count_seats}','{restaurant_x}', '{restaurant_y}', '{restaurant_address}', '{restaurant_created_at}', '{restaurant_updated_at}');
             """.format(
                 restaurant_id=uuid.uuid4(),
@@ -60,6 +62,7 @@ def change_restaurants_data():
             f.write('{}\n'.format(query))
 
 
+
 def opening_time_migration(restaurant_id: uuid.UUID):
     query = """
         INSERT INTO opening_time (opening_time_id, restaurant_id, opening_time_created_at, opening_time_updated_at)
@@ -73,8 +76,6 @@ def opening_time_migration(restaurant_id: uuid.UUID):
     return query
 
 def opening_data():
-    change_restaurants_data()
-
     secret = SecretFile()
 
     sql = """
@@ -96,6 +97,4 @@ def opening_data():
 
 
 if __name__ == '__main__':
-
-
-
+    opening_data()
