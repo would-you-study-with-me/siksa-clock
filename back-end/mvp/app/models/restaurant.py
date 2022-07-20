@@ -24,15 +24,13 @@ class Restaurants(Base):
     restaurant_created_at = Column(DateTime, default=datetime.now(), comment='생성날짜')
     restaurant_updated_at = Column(DateTime, default=datetime.now(), onupdate=lambda: datetime.now(),
                         comment='수정날짜')
-    opening_time_id = Column(UUID, ForeignKey('opening_time.opening_time_id'), nullable=False, default=lambda: uuid.uuid4())
-
-    opening_time = relationship('OpeningTime', backref='opening_time')
 
 
 class OpeningTime(Base):
     __tablename__ = 'opening_time'
 
     opening_time_id = Column(UUID, primary_key=True, comment='여는 시간 id')
+    restaurant_id = Column(UUID, ForeignKey('restaurant.restaurant_id'), comment='레스토랑 id')
     restaurant_opening_time_days = Column(String, nullable=True, comment='식당 여는 시간 날짜 (ex: Mon,Tue,Fri,Sat)')
     restaurant_opening_time = Column(String, nullable=True, comment='식당 여는 시간 (ex: 12:30~15:30/14:20~15:20)')
     restaurant_break_time_days = Column(String, nullable=True, comment='브레이크 타임 날짜 (ex: Mon, Tue, Wed, Thu')
@@ -41,3 +39,4 @@ class OpeningTime(Base):
     opening_time_updated_at = Column(DateTime, default=datetime.now(), onupdate=lambda: datetime.now(),
                         comment='수정날짜')
 
+    restaurant = relationship('Restaurants', backref='opening_time')
