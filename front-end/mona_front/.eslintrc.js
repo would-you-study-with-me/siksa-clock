@@ -20,5 +20,7 @@ module.exports = {
       2,
       { namedComponents: 'arrow-function' },
     ],
+    'react/react-in-jsx-scope': 0,
+    'react/button-has-type': 'off',
   },
 };
