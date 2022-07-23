@@ -37,7 +37,7 @@ def get_kakao_local_search_api(search: str, x: str = None, y: str = None, radius
     headers = {'Authorization': 'KakaoAK {}'.format(kakao)}
 
     r = requests.get('{host}{url}}'.format(host, url))
-    print('code')    
+    print('code')
 
     return r
 
