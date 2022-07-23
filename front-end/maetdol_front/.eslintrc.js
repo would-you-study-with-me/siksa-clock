@@ -17,5 +17,6 @@ module.exports = {
     'import/extensions': 0, // import 경로 에러 해제
     'import/no-unresolved': 0, // import 경로 에러 해제
     'react/react-in-jsx-scope': 0, // import React from 'react'; 를 생략 가능하게, 에러 해제
+    'no-restricted-exports': ['error', { restrictedNamedExports: ['default'] }],
   },
 };
