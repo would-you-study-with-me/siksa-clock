@@ -500,4 +500,5 @@ doc/api/
 restaurant-congestion/data/*
 
 # secret file patterns
-secret.json
+.secret.json
+*.json
