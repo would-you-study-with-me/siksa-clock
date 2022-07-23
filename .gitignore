@@ -1,6 +1,7 @@
 # ide
 .idea
 .vscode
+.vim
 
 # jetbrain
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio, WebStorm and Rider
@@ -472,7 +473,7 @@ cython_debug/
 # Files and directories created by pub
 .dart_tool/
 .packages
-build/
+build/*
 # If you're building an application, you may want to check-in your pubspec.lock
 pubspec.lock
 
@@ -500,4 +501,5 @@ doc/api/
 restaurant-congestion/data/*
 
 # secret file patterns
-secret.json
+.secret.json
+*.json
