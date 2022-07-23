@@ -22,7 +22,7 @@ def get_restaurants_data(secret: SecretFile):
     return restaurants_db_data
 
 
-def get_kakao_api(search: str, x: str = None, y: str = None, radius: int = 10, secret: SecretFile = None):
+def get_kakao_local_search_api(search: str, x: str = None, y: str = None, radius: int = 10, secret: SecretFile = None):
     kakao = secret.get_secret('kakao_api')
     
     host = 'dapi.kakao.com'
@@ -40,8 +40,10 @@ def get_kakao_api(search: str, x: str = None, y: str = None, radius: int = 10, s
     print('code')    
 
     return r
-    
-   
+
+
+def get_naver_api():
+    pass
 
 
 if __name__ == '__main__':
