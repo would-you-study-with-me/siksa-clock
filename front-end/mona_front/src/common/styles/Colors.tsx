@@ -4,7 +4,7 @@ const Colors = {
   primaryDark: '#C80C0D',
   white: '#F2F2F2',
   gray: '#B7B7B7',
-  fontBlakc: '#212121',
+  fontBlack: '#212121',
   green: '#4EC03B',
   yellow: '#EDD068',
 };
