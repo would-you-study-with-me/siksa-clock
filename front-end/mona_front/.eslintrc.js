@@ -22,5 +22,6 @@ module.exports = {
     ],
     'react/react-in-jsx-scope': 0,
     'react/button-has-type': 'off',
+    'react/jsx-props-no-spreading': 'off',
   },
 };
