@@ -13,6 +13,7 @@ export function getJson(url: string, option?: RequestInit) {
   return getRequest(url, option).then(res => res.json());
 }
 
+// To 헤일: https://github.com/would-you-study-with-me/siksa-clock/pull/55#discussion_r928808582
 export function getHtml(
   url: string,
   mimeType:
