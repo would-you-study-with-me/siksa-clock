@@ -42,7 +42,7 @@ class KakaoApi(object):
         self.host = 'dapi.kakao.com'
 
         self.headers = {
-            'Authorization': 'KakaoAK ${REST_API_KEY}'.format(self.kakao_api)
+            'Authorization': 'KakaoAK ${REST_API_KEY}'.format(REST_API_KEY=self.kakao_api)
         }
 
     def get_local_serach(self, query: str, **kwargs):
