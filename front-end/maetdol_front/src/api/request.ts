@@ -22,7 +22,7 @@ export function getHtml(
     | 'application/xml'
     | 'application/xhtml+xml'
     | 'image/svg+xml' = 'text/html',
-  option?: RequestInit,
+  option: RequestInit = {},
 ): Promise<HTMLElement | Document> {
   const parser = new DOMParser();
   return getRequest(url, option)
