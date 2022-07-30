@@ -20,5 +20,6 @@ export enum IconFileNames {
   STORE = 'StoreIcon.svg',
 }
 
-export type UsedColors = 'black' | 'none';
-export type ReplaceColorSet = { [k in UsedColors]?: Colors };
+// svg에 적용된 색상 목록. 해당 값을 기준으로 색상을 변경할 수 있다
+type DefaultColors = 'black' | 'none';
+export type ReplaceColorSet = { [k in DefaultColors]?: Colors };
