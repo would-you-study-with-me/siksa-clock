@@ -1,21 +1,20 @@
-import { getHtml } from "api/request";
-import { useEffect, useRef, useState } from "react";
-import { baseIconUrl, IconFileNames } from "./Icon.models";
+import { useRef } from 'react';
+import { useAppendIconTo, useColoringIcon, useLoadIcon } from './Icon.hooks';
+import { baseIconUrl, IconFileNames, ReplaceColorSet } from './Icon.models';
 
 type Props = {
-  type: IconFileNames
-}
+  type: IconFileNames;
+  colors?: ReplaceColorSet;
+};
 
-export default function Icon({ type }: Props) {
+function Icon({ type, colors = {} }: Props) {
+  const iconElement = useLoadIcon(`${baseIconUrl}/${type}`);
   const ref = useRef<HTMLSpanElement>(null);
-  useEffect(() => {
 
-    (async () => {
-      if(!ref.current) return;
+  useColoringIcon(iconElement, colors);
+  useAppendIconTo(ref, iconElement);
 
-      const icon = await getHtml(`${baseIconUrl}/${type}`)
-      ref.current.append(icon);
-    })();
-  }, [type]);
   return <span ref={ref} />;
 }
+
+export default Icon;

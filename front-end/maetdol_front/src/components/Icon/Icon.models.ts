@@ -1,3 +1,5 @@
+import { Colors } from 'styles/palette';
+
 export const baseIconUrl = `${process.env.PUBLIC_URL}/statics/images/icons`;
 
 export enum IconFileNames {
@@ -17,3 +19,6 @@ export enum IconFileNames {
   Star = 'StarIcon.svg',
   Store = 'StoreIcon.svg',
 }
+
+export type UsedColors = 'black' | 'none';
+export type ReplaceColorSet = { [k in UsedColors]?: Colors };
