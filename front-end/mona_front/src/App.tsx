@@ -1,9 +1,16 @@
-import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import { ThemeProvider } from '@mui/material/styles';
+import TestComponent from './pages/TestComponent';
+import customTheme from './assets/styles/CustomTheme';
 
-function App() {
-  return <div className="App" />;
-}
+const App = () => {
+  return (
+    <ThemeProvider theme={customTheme}>
+      <div className="App">
+        <TestComponent />
+      </div>
+    </ThemeProvider>
+  );
+};
 
 export default App;
