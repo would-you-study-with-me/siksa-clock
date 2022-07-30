@@ -14,10 +14,10 @@ export enum IconFileNames {
   FACE_NORMAL = 'MoodNormalIcon.svg',
   LOCATION_PIN = 'PinIcon.svg',
   PIN = 'PushPinIcon.svg',
-  Search = 'SearchIcon.svg',
-  Setting = 'SettingIcon.svg',
-  Star = 'StarIcon.svg',
-  Store = 'StoreIcon.svg',
+  SEARCH = 'SearchIcon.svg',
+  SETTING = 'SettingIcon.svg',
+  STAR = 'StarIcon.svg',
+  STORE = 'StoreIcon.svg',
 }
 
 export type UsedColors = 'black' | 'none';
