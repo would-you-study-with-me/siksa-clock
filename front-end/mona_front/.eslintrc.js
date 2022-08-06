@@ -30,5 +30,6 @@ module.exports = {
       {
         functions: 'defaultArguments', // 타입스크립트는 type 으로 옵셔널을 지정해줄 수 있기 때문에..
       },
+    ],
   },
 };
