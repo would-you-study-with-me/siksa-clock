@@ -1,10 +1,9 @@
 import Icon, { IconFileNames } from 'components/Icon';
-import { MouseEventHandler, ReactNode } from 'react';
+import { MouseEventHandler, PropsWithChildren } from 'react';
 import colors, { Colors } from 'styles/palette';
 import { StyledButton } from './Button.styles';
 
-type Props = {
-  children: ReactNode;
+type Props = PropsWithChildren<{
   onClick?: MouseEventHandler<HTMLButtonElement>;
   backgroundColor?: Colors;
   textColor?: Colors;
@@ -12,10 +11,10 @@ type Props = {
   icon?: IconFileNames;
   iconPosition?: 'begin' | 'end';
   outline?: boolean;
-};
+}>;
 
 export default function Button({
-  children,
+  children = undefined,
   onClick = undefined,
   backgroundColor = colors.green,
   textColor = colors.white,
