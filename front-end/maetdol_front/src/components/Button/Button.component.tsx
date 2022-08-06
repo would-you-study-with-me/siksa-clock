@@ -11,6 +11,7 @@ type Props = {
   submitType?: boolean;
   icon?: IconFileNames;
   iconPosition?: 'begin' | 'end';
+  outline?: boolean;
 };
 
 export default function Button({
@@ -21,6 +22,7 @@ export default function Button({
   submitType = false,
   icon = undefined,
   iconPosition = 'begin',
+  outline = false,
 }: Props) {
   const RenderedIcon = icon && (
     <Icon size={25} type={icon} colors={{ black: textColor }} />
@@ -33,6 +35,7 @@ export default function Button({
       backgroundColor={backgroundColor}
       textColor={textColor}
       hasIcon={!!icon}
+      outline={outline}
     >
       {iconPosition === 'begin' && RenderedIcon}
       {children}
