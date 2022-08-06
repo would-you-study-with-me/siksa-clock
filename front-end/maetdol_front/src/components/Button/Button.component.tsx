@@ -23,14 +23,16 @@ export default function Button({
   iconPosition = 'begin',
 }: Props) {
   const RenderedIcon = icon && (
-    <Icon type={icon} colors={{ black: textColor }} />
+    <Icon size={25} type={icon} colors={{ black: textColor }} />
   );
+
   return (
     <StyledButton
       onClick={onClick}
       type={submitType ? 'submit' : 'button'}
       backgroundColor={backgroundColor}
       textColor={textColor}
+      hasIcon={!!icon}
     >
       {iconPosition === 'begin' && RenderedIcon}
       {children}
