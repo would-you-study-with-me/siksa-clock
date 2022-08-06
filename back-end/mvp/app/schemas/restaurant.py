@@ -60,6 +60,7 @@ class OpeningTimeOutput(OpeningTimeBase, OpeningTimeStampBase):
 class RestaurantOpeningTimeOutput(RestaurantBase, RestaurantTimeStampBase, OpeningTimeBase, OpeningTimeStampBase):
     restaurant_id: UUID
     opening_time_id: UUID
+    restaurant_congestion: str
 
 
 class RestaurantAllData(RestaurantBase, RestaurantTimeStampBase):
@@ -77,16 +78,6 @@ class OpeningTimeAllData(OpeningTimeBase, OpeningTimeStampBase):
         orm_mode = True
 
 
-# @strawberry.experimental.pydantic.type(model=RestaurantOpeningTimeOutput)
-# class RestaurantOpeningTimeOutput:
-#     restaurant_id: UUID
-#     opening_time_id: UUID
-#     restaurant_name: str
-#     restaurant_rate: int
-#     restaurant_category: str | None
-#     restaurant_count_seats: int = 39
-#     restaurant_x: float | None
-#     restaurant_y: float | None
-#     restaurant_address: str | None
-#     restaurant_description: str | None
-#     restaurant_contact: str | None
+@strawberry.experimental.pydantic.type(model=RestaurantOpeningTimeOutput, all_fields=True)
+class RestaurantAll:
+    pass
