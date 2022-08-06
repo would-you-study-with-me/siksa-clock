@@ -18,7 +18,7 @@ module.exports = {
     'import/no-unresolved': 0, // import 경로 에러 해제
     'react/react-in-jsx-scope': 0, // import React 생략
     'no-shadow': 0, // Enum 버그로 인해 해당 기능 비활성화
-    'no-restricted-exports': ['error', { restrictedNamedExports: ['default'] }], // export { default } 를 사용하기 위해 허용
+    'no-restricted-exports': 0, // export { default } from '...' 를 사용할 수 있게
     'import/prefer-default-export': 0, // 하나만 있더라도 named export 가능하게
     'react/require-default-props': [
       'error',
