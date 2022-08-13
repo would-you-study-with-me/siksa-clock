@@ -9,7 +9,7 @@ from app.services.restaurants import RestaurantService
 
 Base.metadata.create_all(bind=engine)
 
-app = FastAPI(version=0.2)
+app = FastAPI(version=0.3)
 
 app.include_router(restaurant_graphql_app, prefix='/restaurant')
 app.add_websocket_route('/restaurant', restaurant_graphql_app)
