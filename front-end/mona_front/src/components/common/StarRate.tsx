@@ -10,7 +10,7 @@ const StarRate = ({ rate }: Props) => {
     .map((item, index) => (
       <StarIcon
         key={`starIcon-${index + 100}`}
-        color={rate - (index + 1) >= 0 ? 'primary' : 'disabled'}
+        color={rate > index ? 'primary' : 'disabled'}
       />
     ));
   return <div>{makeStarIcon}</div>;
