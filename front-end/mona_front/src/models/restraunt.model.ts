@@ -1,14 +1,14 @@
 export type Congestion = 'crowded' | 'normal' | 'smooth';
 
-export interface RestrauntListInfo {
+export interface RestaurantListInfo {
   id: string;
   name: string;
   rate: number;
-  congestion: string;
+  congestion: Congestion;
   distance: number;
   category: string;
 }
-export interface RestrauntDetailInfo extends RestrauntListInfo {
+export interface RestaurantDetailInfo extends RestaurantListInfo {
   phone: number;
   opening_time: string; // ??? datetime형식으로 들어올 수도 있음
   menu_image: string[];
