@@ -45,6 +45,12 @@ const RightContainer = styled.div`
   margin-left: auto;
 `;
 
+const CongestionContainer = styled.div`
+  margin-right: 24px;
+  display: flex;
+  align-items: center;
+`;
+
 const CardItem = ({
   title,
   rate,
@@ -78,8 +84,10 @@ const CardItem = ({
           <DetailText variant="body1">{category}</DetailText>
         </LeftContainer>
         <RightContainer>
-          <DetailText variant="body1">혼잡도</DetailText>
-          {makeCongestionIcon()}
+          <CongestionContainer>
+            <DetailText variant="body1">혼잡도</DetailText>
+            {makeCongestionIcon()}
+          </CongestionContainer>
           <DetailText variant="body1">{distance}km</DetailText>
         </RightContainer>
       </DetailContainer>
