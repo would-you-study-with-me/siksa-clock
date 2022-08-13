@@ -54,9 +54,15 @@ const Container = styled.div`
   padding: 0 16px;
 `;
 
+const CardItemContainer = styled.div`
+  padding-bottom: 24px;
+  &:last-of-type {
+    padding-bottom: 0;
+  }
+`;
 const CardList = () => {
   const cards = mock.map(data => (
-    <div key={`${data.id}-임시키`}>
+    <CardItemContainer key={`${data.id}-임시키`}>
       <CardItem
         rate={data.rate}
         congestion={data.congestion}
@@ -64,7 +70,7 @@ const CardList = () => {
         distance={data.distance}
         category={data.category}
       />
-    </div>
+    </CardItemContainer>
   ));
   return (
     <Container>
