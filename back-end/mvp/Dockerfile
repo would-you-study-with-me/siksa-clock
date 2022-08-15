@@ -1,9 +1,13 @@
-FROM python:3.10
+FROM python:3
 
-RUN curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python -
+COPY requirements.txt requirements.txt
 
-RUN poetry install
+RUN pip install -r requirements.txt
 
-RUN poetry add
+COPY ./app /app
 
-RUN uvicorn app.main:app
+COPY secret.json secret.json
+
+EXPOSE 80
+
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "80"]
