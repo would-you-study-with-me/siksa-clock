@@ -1,5 +1,5 @@
 from datetime import datetime
-from typing import List
+from typing import List, Dict
 
 import strawberry
 
@@ -134,7 +134,7 @@ class Query:
             opening_time_created_at=datetime.utcnow(),
             opening_time_updated_at=datetime.utcnow(),
         )
-        return List[mock_data_1, mock_data_2, mock_data_3, mock_data_4]
+        return [mock_data_1, mock_data_2, mock_data_3, mock_data_4]
 
 
 schema = strawberry.Schema(
