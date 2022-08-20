@@ -145,4 +145,3 @@ restaurant_graphql_app = GraphQLRouter(
     schema=schema,
     graphiql=True,
 )
-
