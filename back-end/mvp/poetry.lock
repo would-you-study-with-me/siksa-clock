@@ -785,7 +785,7 @@ full = ["itsdangerous", "jinja2", "python-multipart", "pyyaml", "requests"]
 
 [[package]]
 name = "strawberry-graphql"
-version = "0.114.7"
+version = "0.124.0"
 description = "A library for creating GraphQL APIs"
 category = "main"
 optional = false
@@ -802,16 +802,16 @@ python-multipart = ">=0.0.5,<0.0.6"
 typing_extensions = ">=3.7.4,<5.0.0"
 
 [package.extras]
-asgi = ["starlette (>=0.13.6)"]
-debug-server = ["starlette (>=0.13.6)", "uvicorn (>=0.11.6,<0.19.0)"]
-django = ["Django (>=3.2)", "asgiref (>=3.2,<4.0)"]
-flask = ["flask (>=1.1)"]
-opentelemetry = ["opentelemetry-api (<2)", "opentelemetry-sdk (<2)"]
-chalice = ["chalice (>=1.22,<2.0)"]
-pydantic = ["pydantic (<2)"]
-sanic = ["sanic (>=20.12.2,<22.0.0)"]
-aiohttp = ["aiohttp (>=3.7.4.post0,<4.0.0)"]
 fastapi = ["fastapi (>=0.65.2)"]
+aiohttp = ["aiohttp (>=3.7.4.post0,<4.0.0)"]
+sanic = ["sanic (>=20.12.2,<22.0.0)"]
+pydantic = ["pydantic (<2)"]
+chalice = ["chalice (>=1.22,<2.0)"]
+opentelemetry = ["opentelemetry-sdk (<2)", "opentelemetry-api (<2)"]
+flask = ["flask (>=1.1)"]
+django = ["asgiref (>=3.2,<4.0)", "Django (>=3.2)"]
+debug-server = ["uvicorn (>=0.11.6,<0.19.0)", "starlette (>=0.13.6)"]
+asgi = ["starlette (>=0.13.6)"]
 
 [[package]]
 name = "tomli"
@@ -899,7 +899,7 @@ python-versions = ">=3.7"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.10"
-content-hash = "10afb513598ec8d67ac6ab94f28f29c4e8121266a152731ee8b05d744f0d2197"
+content-hash = "75d49e91a17023a3ca6098349b2d65632bd61149d06b15b489c8515cc9956ec4"
 
 [metadata.files]
 alabaster = [
@@ -1490,10 +1490,7 @@ starlette = [
     {file = "starlette-0.19.1-py3-none-any.whl", hash = "sha256:5a60c5c2d051f3a8eb546136aa0c9399773a689595e099e0877704d5888279bf"},
     {file = "starlette-0.19.1.tar.gz", hash = "sha256:c6d21096774ecb9639acad41b86b7706e52ba3bf1dc13ea4ed9ad593d47e24c7"},
 ]
-strawberry-graphql = [
-    {file = "strawberry-graphql-0.114.7.tar.gz", hash = "sha256:04971a35884fa78ede70c633d7dfff66de957ea811d175d654eb7f8abd5952c9"},
-    {file = "strawberry_graphql-0.114.7-py3-none-any.whl", hash = "sha256:cb43c8a1b81a00c427fd28bbd27d5d6a6b45cf56b953e5e7ce9aa18d88b9260c"},
-]
+strawberry-graphql = []
 tomli = [
     {file = "tomli-2.0.1-py3-none-any.whl", hash = "sha256:939de3e7a6161af0c887ef91b7d41a53e7c5a1ca976325f429cb46ea9bc30ecc"},
     {file = "tomli-2.0.1.tar.gz", hash = "sha256:de526c12914f0c550d15924c62d72abc48d6fe7364aa87328337a31007fe8a4f"},
