@@ -6,7 +6,7 @@ from fastapi import HTTPException
 from app.models.restaurant import Restaurants, OpeningTime
 from app.models.restaurant import OpeningTime
 from app.schemas.restaurant import RestaurantOutput, RestaurantInput, RestaurantOpeningTimeOutput, OpeningTimeInput, \
-    OpeningTimeOutput
+    OpeningTimeOutput, RestaurantAll
 from app.services.main import AppCRUD, AppService
 
 
@@ -17,14 +17,14 @@ class RestaurantService(AppService):
             raise HTTPException(status_code=404, message="Couldn't create restaurant")
         return restaurant
 
-    def get_restaurant(self, restaurant_id: UUID):
+    def get_restaurant(self, restaurant_id: UUID) -> RestaurantAll:
         restaurant = RestaurantCRUD(self.db).get_restaurant(restaurant_id)
         if not restaurant:
             raise HTTPException(status_code=404, message="Couldn't find restaurant")
         return restaurant
 
-    def get_restaurants(self, skip: int = 0, limit: int = 10):
-        restaurants = RestaurantCRUD(self.db).get_restaurants(skip, limit)
+    def get_restaurants(self, skip: int = 0, limit: int = 10) -> List[RestaurantAll]:
+        restaurants = RestaurantCRUD.get_restaurants(skip, limit).all()
         if not restaurants:
             raise HTTPException(status_code=404, message="Couldn't find")
         return restaurants
@@ -50,6 +50,7 @@ class OpeningTimeService(AppService):
 
 
 class RestaurantCRUD(AppCRUD):
+
     def create_restaurant(self, restaurant: RestaurantInput) -> RestaurantOutput:
         db_restaurant = Restaurants(**restaurant.dict())
         self.db.add(db_restaurant)
