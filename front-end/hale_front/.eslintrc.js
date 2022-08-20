@@ -30,5 +30,6 @@ module.exports = {
         functions: 'defaultArguments', // 타입스크립트는 type 으로 옵셔널을 지정해줄 수 있기 때문에..
       },
     ],
+    'react/jsx-props-no-spreading': 'off', // props를 스프레드로 사용할 수 있게
   },
 };
