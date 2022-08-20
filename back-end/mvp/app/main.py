@@ -1,11 +1,8 @@
-from fastapi import FastAPI, Depends
-from sqlalchemy.orm import Session
+from fastapi import FastAPI
 
 from app.config.database import Base
 from app.config.database import engine
-from app.dependencies import get_db
 from app.routers.restaurant import restaurant_graphql_app
-from app.services.restaurants import RestaurantService
 
 Base.metadata.create_all(bind=engine)
 
