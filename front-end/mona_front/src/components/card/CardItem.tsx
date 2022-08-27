@@ -7,10 +7,10 @@ import MoodNormalIcon from '../../assets/icons/MoodNormalIcon';
 import MoodGoodIcon from '../../assets/icons/MoodGoodIcon';
 
 interface Props extends React.PropsWithChildren {
-  title: RestaurantListInfo['name'];
-  rate: RestaurantListInfo['rate'];
+  title: RestaurantListInfo['restaurantName'];
+  rate: RestaurantListInfo['restaurantRate'];
   congestion: RestaurantListInfo['congestion'];
-  category: RestaurantListInfo['category'];
+  category: RestaurantListInfo['restaurantCategory'];
   distance: RestaurantListInfo['distance'];
   imgsrc?: string;
 }
