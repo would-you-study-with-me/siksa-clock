@@ -27,7 +27,7 @@ const Header = () => {
   if (location.pathname === '/') {
     return (
       <HeaderContainer>
-        <PinIcon />
+        <PinIcon color="primary" fontSize="medium" />
         <AddressTypo variant="body1">주소1</AddressTypo>
       </HeaderContainer>
     );

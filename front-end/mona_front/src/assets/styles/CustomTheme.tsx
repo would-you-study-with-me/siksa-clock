@@ -33,14 +33,17 @@ const customTheme = createTheme({
     h1: {
       fontSize: '1.714rem', // 24px
       lineHeight: 2,
+      fontWeight: 'bold',
     },
     h2: {
       fontSize: '1.286rem', // 18px
       lineHeight: 1.5,
+      fontWeight: 'bold',
     },
     h4: {
       fontSize: '1.143rem', // 16px
       lineHeight: 1.3,
+      fontWeight: 'bold',
     },
     body1: {
       fontSize: '1rem',
