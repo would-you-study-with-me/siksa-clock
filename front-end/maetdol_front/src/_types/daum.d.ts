@@ -55,10 +55,12 @@ interface ConstructorProps {
 }
 
 declare namespace daum {
+  type ConstructorProps = ConstructorProps;
+
   class Postcode {
     constructor(props?: ConstructorProps);
 
-    open(param: {
+    open(param?: {
       q?: string;
       left?: number;
       top?: number;
@@ -67,6 +69,6 @@ declare namespace daum {
       autoClose?: boolean;
     });
 
-    embed(param: { q?: string; autoClose?: boolean });
+    embed(param?: { q?: string; autoClose?: boolean });
   }
 }
