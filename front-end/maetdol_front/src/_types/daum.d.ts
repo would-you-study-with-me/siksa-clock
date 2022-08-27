@@ -56,7 +56,7 @@ interface ConstructorProps {
 
 declare namespace daum {
   class Postcode {
-    constructor(props: ConstructorProps);
+    constructor(props?: ConstructorProps);
 
     open(param: {
       q?: string;
