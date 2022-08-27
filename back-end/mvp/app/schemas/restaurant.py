@@ -1,42 +1,87 @@
 from datetime import datetime
 from uuid import UUID
 
+import strawberry.experimental.pydantic
 from pydantic import BaseModel
 
 
 class RestaurantBase(BaseModel):
-    name: str
-    rate: int
-    category: str | None
-    count_seats: int = 39
-    x: float
-    y: float
-    address: str | None
-    description: str | None
-    contact: str | None
+    restaurant_name: str
+    restaurant_rate: int
+    restaurant_category: str | None
+    restaurant_count_seats: int = 39
+    restaurant_x: float | None
+    restaurant_y: float | None
+    restaurant_address: str | None
+    restaurant_description: str | None
+    restaurant_contact: str | None
 
 
 class OpeningTimeBase(BaseModel):
-    opening_time_days: str | None
-    opening_time: str | None
-    break_time_days: str | None
-    break_time: str | None
+    restaurant_opening_time_days: str | None
+    restaurant_opening_time: str | None
+    restaurant_break_time_days: str | None
+    restaurant_break_time: str | None
 
 
-class TimeStampBase(BaseModel):
-    created_at: datetime.dateitme
-    updated_at: datetime.datetime
-
-
-class RestaurantAllInputData(RestaurantBase, OpeningTimeBase, TimeStampBase):
+class RestaurantInput(RestaurantBase):
     pass
 
 
-class RestaurantAllData(RestaurantBase, OpeningTimeBase, TimeStampBase):
-    restaurants_id: UUID
-    opening_id: UUID
-    estaurants_id: UUID
-    opening_id: UUID
+class OpeningTimeInput(OpeningTimeBase):
+    pass
+
+
+class RestaurantTimeStampBase(BaseModel):
+    restaurant_created_at: datetime
+    restaurant_updated_at: datetime
+
+
+class OpeningTimeStampBase(BaseModel):
+    opening_time_created_at: datetime
+    opening_time_updated_at: datetime
+
+
+class RestaurantOutput(RestaurantBase, RestaurantTimeStampBase):
+    restaurant_id: UUID
 
     class Config:
         orm_mode = True
+
+
+class OpeningTimeOutput(OpeningTimeBase, OpeningTimeStampBase):
+    opening_time_id: UUID
+    restaurant_id: UUID
+
+    class Config:
+        orm_mode = True
+
+
+class RestaurantOpeningTimeOutput(RestaurantBase, RestaurantTimeStampBase, OpeningTimeBase, OpeningTimeStampBase):
+    restaurant_id: UUID
+    opening_time_id: UUID
+    restaurant_congestion: str
+
+
+class RestaurantAllData(RestaurantBase, RestaurantTimeStampBase):
+    restaurant_id: UUID
+
+    class Config:
+        orm_mode = True
+
+
+class OpeningTimeAllData(OpeningTimeBase, OpeningTimeStampBase):
+    opening_time_id: UUID
+    restaurants_id: UUID
+
+    class Config:
+        orm_mode = True
+
+
+@strawberry.experimental.pydantic.type(
+    model=RestaurantOpeningTimeOutput,
+    all_fields=True,
+    description="레스토랑에 대한 전체 데이터타입"
+)
+class RestaurantAll:
+    pass
