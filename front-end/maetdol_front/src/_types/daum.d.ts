@@ -54,20 +54,23 @@ interface ConstructorProps {
   };
 }
 
+type OpenParameter = {
+  q?: string;
+  left?: number;
+  top?: number;
+  popupTitle?: string;
+  popupKey?: string;
+  autoClose?: boolean;
+};
+
 declare namespace daum {
   type ConstructorProps = ConstructorProps;
+  type OpenParameter = OpenParameter;
 
   class Postcode {
     constructor(props?: ConstructorProps);
 
-    open(param?: {
-      q?: string;
-      left?: number;
-      top?: number;
-      popupTitle?: string;
-      popupKey?: string;
-      autoClose?: boolean;
-    });
+    open(param?: OpenParameter);
 
     embed(param?: { q?: string; autoClose?: boolean });
   }
