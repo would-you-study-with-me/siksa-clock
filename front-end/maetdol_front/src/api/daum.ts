@@ -15,6 +15,6 @@ setTimeout(() => {
   clearInterval(loading);
 }, DAUM_POSTCODE_TIMEOUT);
 
-export function getPostcode(option: daum.ConstructorProps = {}) {
+export function getPostcode(option?: daum.ConstructorProp) {
   return loadDaumPostcode.then(() => new daum.Postcode(option));
 }
