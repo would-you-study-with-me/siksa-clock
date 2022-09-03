@@ -34,7 +34,6 @@ const CardItemContainer = styled.div`
 `;
 const CardList = () => {
   const { loading, error, data } = useQuery(GET_RESTAURANT);
-  console.log('data', data);
   if (loading) return <div>로딩</div>;
   const cards = data.mockRestaurants.map((item: RestaurantListInfo) => (
     <CardItemContainer key={`${item.restaurantId}-임시키`}>
