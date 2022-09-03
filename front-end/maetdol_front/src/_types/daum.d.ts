@@ -8,7 +8,7 @@ interface ConstructorProps {
    */
   onsearch?(data: { q: string; count: number }): void;
   width?: number;
-  height: number;
+  height?: number;
   /** default false */
   animation?: boolean;
   /** default true */
@@ -64,7 +64,7 @@ type OpenParameter = {
 };
 
 declare namespace daum {
-  type ConstructorProps = ConstructorProps;
+  type ConstructorProp = ConstructorProps;
   type OpenParameter = OpenParameter;
 
   class Postcode {
