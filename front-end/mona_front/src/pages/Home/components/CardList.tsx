@@ -13,6 +13,7 @@ const GET_RESTAURANT = gql`
       restaurantCategory
       restaurantAddress
       restaurantRate
+      restaurantCongestion
     }
   }
 `;
