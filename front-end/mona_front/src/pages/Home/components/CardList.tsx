@@ -1,50 +1,22 @@
 import styled from '@emotion/styled';
 import { Typography } from '@mui/material';
+import { useQuery, gql } from '@apollo/client';
 import { RestaurantListInfo } from '../../../models/restaurant.model';
 import CardItem from '../../../components/card/CardItem';
 
-const mock: RestaurantListInfo[] = [
-  {
-    id: 'uuid',
-    name: '식당이름',
-    rate: 4,
-    congestion: 'normal',
-    distance: 1111,
-    category: '양식',
-  },
-  {
-    id: 'uuid1',
-    name: '식당이름',
-    rate: 5,
-    congestion: 'crowded',
-    distance: 1111,
-    category: '양식',
-  },
-  {
-    id: 'uuid2',
-    name: '식당이름',
-    rate: 2,
-    congestion: 'smooth',
-    distance: 1111,
-    category: '양식',
-  },
-  {
-    id: 'uuid3',
-    name: '식당이름',
-    rate: 3,
-    congestion: 'smooth',
-    distance: 1111,
-    category: '양식',
-  },
-  {
-    id: 'uuid000',
-    name: '식당이름',
-    rate: 0,
-    congestion: 'smooth',
-    distance: 1111,
-    category: '양식',
-  },
-];
+const GET_RESTAURANT = gql`
+  query Query {
+    mockRestaurants {
+      restaurantName
+      restaurantId
+      restaurantDescription
+      restaurantCategory
+      restaurantAddress
+      restaurantRate
+      restaurantCongestion
+    }
+  }
+`;
 
 const Title = styled(Typography)`
   padding: 40px 0 16px;
@@ -61,14 +33,16 @@ const CardItemContainer = styled.div`
   }
 `;
 const CardList = () => {
-  const cards = mock.map(data => (
-    <CardItemContainer key={`${data.id}-임시키`}>
+  const { loading, error, data } = useQuery(GET_RESTAURANT);
+  if (loading) return <div>로딩</div>;
+  const cards = data.mockRestaurants.map((item: RestaurantListInfo) => (
+    <CardItemContainer key={`${item.restaurantId}-임시키`}>
       <CardItem
-        rate={data.rate}
-        congestion={data.congestion}
-        title={data.name}
-        distance={data.distance}
-        category={data.category}
+        rate={item.restaurantRate}
+        congestion={item.restaurantCongestion}
+        title={item.restaurantName}
+        distance={item.distance}
+        category={item.restaurantCategory}
       />
     </CardItemContainer>
   ));
