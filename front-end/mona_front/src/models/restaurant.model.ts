@@ -4,7 +4,7 @@ export interface RestaurantListInfo {
   restaurantId: string;
   restaurantName: string;
   restaurantRate: number;
-  congestion: Congestion;
+  restaurantCongestion: Congestion;
   distance: number;
   restaurantCategory: string;
 }

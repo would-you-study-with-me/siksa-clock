@@ -13,6 +13,7 @@ const GET_RESTAURANT = gql`
       restaurantCategory
       restaurantAddress
       restaurantRate
+      restaurantCongestion
     }
   }
 `;
@@ -33,12 +34,13 @@ const CardItemContainer = styled.div`
 `;
 const CardList = () => {
   const { loading, error, data } = useQuery(GET_RESTAURANT);
+  console.log('data', data);
   if (loading) return <div>로딩</div>;
   const cards = data.mockRestaurants.map((item: RestaurantListInfo) => (
     <CardItemContainer key={`${item.restaurantId}-임시키`}>
       <CardItem
         rate={item.restaurantRate}
-        congestion={item.congestion}
+        congestion={item.restaurantCongestion}
         title={item.restaurantName}
         distance={item.distance}
         category={item.restaurantCategory}
