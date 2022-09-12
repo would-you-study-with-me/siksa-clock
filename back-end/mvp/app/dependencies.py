@@ -1,9 +1,20 @@
-from app.config.database import SessionLocal
+from dependency_injector import containers, providers
+from sqlalchemy.ext.asyncio import AsyncSession
+
+from app.config.database import async_session
 
 
-def get_db():
-    db = SessionLocal()
+async def get_db_session() -> AsyncSession:
+    sess = async_session
     try:
-        yield db
+        yield sess
     finally:
-        db.close()
+        await sess.close()
+
+
+class Container(containers.DeclarativeContainer):
+    wiring_config = containers.WiringConfiguration(modules=[".endpoints"])
+
+    config = providers.Configuration(yaml_files=["config.yaml"])
+
+
