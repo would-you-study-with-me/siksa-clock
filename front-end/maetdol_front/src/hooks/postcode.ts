@@ -3,6 +3,7 @@ import { useCallback, useEffect, useState } from 'react';
 
 export function usePostcode(
   initialOption: daum.ConstructorProp,
+  embed?: HTMLElement,
 ): [daum.Postcode | undefined, () => void] {
   const [postcode, setPostcode] = useState<daum.Postcode>();
 
@@ -22,9 +23,13 @@ export function usePostcode(
 
   const open = useCallback(
     (option?: daum.OpenParameter) => {
-      postcode?.open(option);
+      if (!embed) {
+        postcode?.open(option);
+      } else {
+        postcode?.embed(embed, option);
+      }
     },
-    [postcode],
+    [postcode, embed],
   );
 
   return [postcode, open];
