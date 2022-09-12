@@ -72,6 +72,6 @@ declare namespace daum {
 
     open(param?: OpenParameter);
 
-    embed(param?: { q?: string; autoClose?: boolean });
+    embed(element: HTMLElement, param?: { q?: string; autoClose?: boolean });
   }
 }
