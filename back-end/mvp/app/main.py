@@ -4,7 +4,7 @@ import uvicorn
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.config.database import async_main
+from app.config.database import create_table
 from app.routers.restaurant import restaurant_graphql_app
 
 app = FastAPI(version=0.4)
@@ -35,7 +35,7 @@ async def welcome():
 
 if __name__ == '__main__':
     print("Database Loading")
-    asyncio.run(async_main())
+    asyncio.run(create_table())
     print("Database Done!")
 
     print("Start Server")
