@@ -29,7 +29,12 @@ const Main: React.FC = () => {
       <Typography variant="h2">내 주변 식사</Typography>
       {data &&
         data.mockRestaurants.map(restaurant => (
-          <RestaurantCard restaurantInfo={restaurant} />
+          <RestaurantCard
+            name={restaurant.restaurantName}
+            rate={restaurant.restaurantRate}
+            category={restaurant.restaurantCategory}
+            congestion={restaurant.restaurantCongestion}
+          />
         ))}
     </div>
   );
