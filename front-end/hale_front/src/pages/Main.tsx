@@ -7,6 +7,7 @@ import { RestaurantCardInfo } from '../model/restaurant-card.interface';
 const GET_RESTAURANTS = gql`
   query GetRestaurants {
     mockRestaurants {
+      restaurantId
       restaurantName
       restaurantRate
       restaurantCategory
@@ -30,6 +31,7 @@ const Main: React.FC = () => {
       {data &&
         data.mockRestaurants.map(restaurant => (
           <RestaurantCard
+            key={restaurant.restaurantId}
             name={restaurant.restaurantName}
             rate={restaurant.restaurantRate}
             category={restaurant.restaurantCategory}

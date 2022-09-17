@@ -5,6 +5,7 @@ export enum Congestion {
 }
 
 export interface RestaurantCardInfo {
+  restaurantId: string;
   restaurantName: string;
   restaurantRate: number;
   restaurantCategory: string;
