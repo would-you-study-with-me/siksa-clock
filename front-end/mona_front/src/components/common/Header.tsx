@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { Typography } from '@mui/material';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useCallback } from 'react';
 import PinIcon from '../../assets/icons/PinIcon';
 import Colors from '../../assets/styles/Colors';
@@ -27,7 +27,9 @@ const Header = () => {
   if (location.pathname === '/') {
     return (
       <HeaderContainer>
-        <PinIcon color="primary" fontSize="medium" />
+        <Link to="/address">
+          <PinIcon color="primary" fontSize="medium" />
+        </Link>
         <AddressTypo variant="body1">주소1</AddressTypo>
       </HeaderContainer>
     );
