@@ -7,8 +7,8 @@ interface ConstructorProps {
    * count: 검색결과의 총 갯수
    */
   onsearch?(data: { q: string; count: number }): void;
-  width?: number;
-  height?: number;
+  width?: number | `${number}%`;
+  height?: number | `${number}%`;
   /** default false */
   animation?: boolean;
   /** default true */
