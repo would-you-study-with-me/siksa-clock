@@ -5,7 +5,7 @@ from app.config.database import Base
 from app.config.database import engine
 from app.routers.restaurant import restaurant_graphql_app
 
-Base.metadata.create_all(bind=engine)
+# Base.metadata.create_all(bind=engine)
 
 app = FastAPI(version=0.3)
 

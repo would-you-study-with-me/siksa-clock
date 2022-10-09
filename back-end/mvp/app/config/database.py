@@ -4,7 +4,7 @@ from sqlalchemy.orm import sessionmaker
 
 from app.services.secret import get_secret
 
-SQLALCHEMY_DATABASE_URL = "postgresql://{user}:{password}@{host}:{port}/{database_name}".format(
+SQLALCHEMY_DATABASE_URL = "mysql+aiomysql://{user}:{password}@{host}:{port}/{database_name}".format(
     user=get_secret('database_user'),
     password=get_secret('database_password'),
     host=get_secret('database_host'),
