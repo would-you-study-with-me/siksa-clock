@@ -5,6 +5,7 @@ from sqlalchemy import delete, select, update
 
 from app.config.database import get_session
 from app.models.restaurant import Restaurants, OpeningTime
+from app.scalars.restaurant import RestaurantAll
 
 
 async def get_restaurants() -> typing.List[Restaurants]:
@@ -17,11 +18,11 @@ async def get_restaurants() -> typing.List[Restaurants]:
     return db_users
 
 
-async def get_restaurant(restaurant_id: UUID) -> Restaurants:
+async def get_restaurant(restaurant_id: UUID) -> RestaurantAll:
 
     async with get_session() as s:
         sql = select(Restaurants).join(OpeningTime).where(Restaurants.restaurant_id == restaurant_id)
-        db_user = (await s.execute(sql)).scalars().all()
+        db_user = (await s.execute(sql)).scalars().first()
         print(db_user)
 
     return db_user

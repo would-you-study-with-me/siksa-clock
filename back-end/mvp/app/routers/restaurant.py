@@ -1,16 +1,8 @@
-import asyncio
-from typing import List
-
 import strawberry
 
 from strawberry.fastapi import GraphQLRouter
 
-from app.schemas.restaurant import RestaurantAll
-
-
-@strawberry.type
-class Query:
-    pass
+from app.services.restaurants import Query
 
 schema = strawberry.Schema(
     query=Query
