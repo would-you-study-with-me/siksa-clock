@@ -6,7 +6,7 @@ from sqlalchemy.orm import sessionmaker, declarative_base
 
 from app.services.secret import get_secret
 
-SQLALCHEMY_DATABASE_URL = "postgresql+asyncpg://{user}:{password}@{host}:{port}/{database_name}".format(
+SQLALCHEMY_DATABASE_URL = "mysql+aiomysql://{user}:{password}@{host}:{port}/{database_name}".format(
     user=get_secret('database_user'),
     password=get_secret('database_password'),
     host=get_secret('database_host'),
