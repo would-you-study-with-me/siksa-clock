@@ -1,7 +1,9 @@
+import { useCallback } from 'react';
 import DaumPostcodeEmbed, { Address } from 'react-daum-postcode';
 import { useNavigate } from 'react-router-dom';
 
 export const Postcode = (props: any) => {
+  let address = '';
   const navigate = useNavigate();
   const handleComplete = (data: Address) => {
     let fullAddress = data.address;
@@ -17,13 +19,16 @@ export const Postcode = (props: any) => {
       }
       fullAddress += extraAddress !== '' ? ` (${extraAddress})` : '';
     }
-
-    console.log(fullAddress); // e.g. '서울 성동구 왕십리로2길 20 (성수동1가)'
+    address = fullAddress;
   };
 
-  const goHome = () => {
-    navigate('/');
-  };
+  const goHome = useCallback(() => {
+    navigate('/', {
+      state: {
+        address,
+      },
+    });
+  }, [address, navigate]);
 
   return (
     <div>

@@ -1,6 +1,8 @@
 import styled from '@emotion/styled';
 import { Typography } from '@mui/material';
 import { useQuery, gql } from '@apollo/client';
+import { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { RestaurantListInfo } from '../../../models/restaurant.model';
 import CardItem from '../../../components/card/CardItem';
 
@@ -34,6 +36,13 @@ const CardItemContainer = styled.div`
 `;
 const CardList = () => {
   const { loading, error, data } = useQuery(GET_RESTAURANT);
+  const location: { address: string } = useLocation().state as {
+    address: string;
+  };
+  useEffect(() => {
+    // TODO: 주소 검색보내는거 구현할 것
+    console.log(location);
+  }, [location]);
   if (loading) return <div>로딩</div>;
   const cards = data.mockRestaurants.map((item: RestaurantListInfo) => (
     <CardItemContainer key={`${item.restaurantId}-임시키`}>
