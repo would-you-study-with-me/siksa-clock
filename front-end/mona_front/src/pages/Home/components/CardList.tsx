@@ -38,6 +38,7 @@ const CardList = () => {
   const { loading, error, data } = useQuery(GET_RESTAURANT);
   const location: { address: string } = useLocation().state as {
     address: string;
+    bcode: string;
   };
   useEffect(() => {
     // TODO: 주소 검색보내는거 구현할 것

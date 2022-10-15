@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 export const Postcode = (props: any) => {
   let address = '';
+  let bcode = ''; // 법정동코드
   const navigate = useNavigate();
   const handleComplete = (data: Address) => {
     let fullAddress = data.address;
@@ -19,6 +20,7 @@ export const Postcode = (props: any) => {
       }
       fullAddress += extraAddress !== '' ? ` (${extraAddress})` : '';
     }
+    bcode = data.bcode;
     address = fullAddress;
   };
 
@@ -26,9 +28,10 @@ export const Postcode = (props: any) => {
     navigate('/', {
       state: {
         address,
+        bcode,
       },
     });
-  }, [address, navigate]);
+  }, [address, bcode, navigate]);
 
   return (
     <div>
