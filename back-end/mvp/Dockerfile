@@ -6,7 +6,7 @@ RUN pip install -r requirements.txt
 
 COPY ./app /app
 
-COPY secret.json secret.json
+COPY app/secret.json secret.json
 
 EXPOSE 80
 
