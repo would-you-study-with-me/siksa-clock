@@ -1,12 +1,17 @@
 import { Icon, StarRate } from 'components';
 import { IconFileNames } from 'components/Icon';
-import { Link } from 'react-router-dom';
 import {
+  StyeldCardInformationWrapper,
   StyeldCardList,
   StyledCard,
+  StyledCardCategory,
   StyledCardImage,
   StyledCardTitle,
+  StyledCongestion,
   StyledContainer,
+  StyledDisatnce,
+  StyledLink,
+  StyledRightContents,
   StyledTitle,
 } from './Home.styles';
 
@@ -16,21 +21,104 @@ export function Home() {
       <StyledTitle>내 주변 식사</StyledTitle>
       <StyeldCardList>
         <StyledCard>
-          <Link to="/">
-            <StyledCardImage src="/asd" alt="temp" />
+          <StyledLink to="/">
+            <StyledCardImage
+              src="https://via.placeholder.com/150x270"
+              alt="temp"
+            />
             <StyledCardTitle>
               젠킨스 할아버지는 왜 달사를 괴롭히나
             </StyledCardTitle>
-            <div>
+            <StyeldCardInformationWrapper>
               <StarRate rating={4} />
-              <span>양식</span>
-              <span>
-                <span>혼잡도</span>
+              <StyledCardCategory>양식</StyledCardCategory>
+              <StyledRightContents>
+                <StyledCongestion>혼잡도</StyledCongestion>
                 <Icon type={IconFileNames.FACE_GOOD} />
-                <span>99999m</span>
-              </span>
-            </div>
-          </Link>
+                <StyledDisatnce>99999m</StyledDisatnce>
+              </StyledRightContents>
+            </StyeldCardInformationWrapper>
+          </StyledLink>
+        </StyledCard>
+        <StyledCard>
+          <StyledLink to="/">
+            <StyledCardImage
+              src="https://via.placeholder.com/150x270"
+              alt="temp"
+            />
+            <StyledCardTitle>
+              젠킨스 할아버지는 왜 달사를 괴롭히나
+            </StyledCardTitle>
+            <StyeldCardInformationWrapper>
+              <StarRate rating={4} />
+              <StyledCardCategory>양식</StyledCardCategory>
+              <StyledRightContents>
+                <StyledCongestion>혼잡도</StyledCongestion>
+                <Icon type={IconFileNames.FACE_GOOD} />
+                <StyledDisatnce>99999m</StyledDisatnce>
+              </StyledRightContents>
+            </StyeldCardInformationWrapper>
+          </StyledLink>
+        </StyledCard>
+        <StyledCard>
+          <StyledLink to="/">
+            <StyledCardImage
+              src="https://via.placeholder.com/150x270"
+              alt="temp"
+            />
+            <StyledCardTitle>
+              젠킨스 할아버지는 왜 달사를 괴롭히나
+            </StyledCardTitle>
+            <StyeldCardInformationWrapper>
+              <StarRate rating={4} />
+              <StyledCardCategory>양식</StyledCardCategory>
+              <StyledRightContents>
+                <StyledCongestion>혼잡도</StyledCongestion>
+                <Icon type={IconFileNames.FACE_GOOD} />
+                <StyledDisatnce>99999m</StyledDisatnce>
+              </StyledRightContents>
+            </StyeldCardInformationWrapper>
+          </StyledLink>
+        </StyledCard>
+        <StyledCard>
+          <StyledLink to="/">
+            <StyledCardImage
+              src="https://via.placeholder.com/150x270"
+              alt="temp"
+            />
+            <StyledCardTitle>
+              젠킨스 할아버지는 왜 달사를 괴롭히나
+            </StyledCardTitle>
+            <StyeldCardInformationWrapper>
+              <StarRate rating={4} />
+              <StyledCardCategory>양식</StyledCardCategory>
+              <StyledRightContents>
+                <StyledCongestion>혼잡도</StyledCongestion>
+                <Icon type={IconFileNames.FACE_GOOD} />
+                <StyledDisatnce>99999m</StyledDisatnce>
+              </StyledRightContents>
+            </StyeldCardInformationWrapper>
+          </StyledLink>
+        </StyledCard>
+        <StyledCard>
+          <StyledLink to="/">
+            <StyledCardImage
+              src="https://via.placeholder.com/150x270"
+              alt="temp"
+            />
+            <StyledCardTitle>
+              젠킨스 할아버지는 왜 달사를 괴롭히나
+            </StyledCardTitle>
+            <StyeldCardInformationWrapper>
+              <StarRate rating={4} />
+              <StyledCardCategory>양식</StyledCardCategory>
+              <StyledRightContents>
+                <StyledCongestion>혼잡도</StyledCongestion>
+                <Icon type={IconFileNames.FACE_GOOD} />
+                <StyledDisatnce>99999m</StyledDisatnce>
+              </StyledRightContents>
+            </StyeldCardInformationWrapper>
+          </StyledLink>
         </StyledCard>
       </StyeldCardList>
     </StyledContainer>
