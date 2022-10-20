@@ -20,7 +20,7 @@ export const StyledCard = styled.li`
   margin-bottom: 2.4rem;
 `;
 
-export const StyledCardImage = styled.image`
+export const StyledCardImage = styled.img`
   width: 100%;
   height: 1.2rem;
   border-radius: 8px;
