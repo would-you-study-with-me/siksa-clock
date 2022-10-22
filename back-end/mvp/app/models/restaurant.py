@@ -1,14 +1,13 @@
 import uuid
 from datetime import datetime
 
-from sqlalchemy import Column, String, Integer, ForeignKey, DateTime
-from sqlalchemy.dialects.mysql import DOUBLE
+from sqlalchemy import Column, String, Integer, ForeignKey, DateTime, Float
 from sqlalchemy.orm import relationship
 
 from app.config.database import Base
 
 
-class Restaurants(Base):
+class Restaurant(Base):
     __tablename__ = 'restaurant'
 
     restaurant_id = Column(String(36), primary_key=True, default=lambda: uuid.uuid4(), comment='레스토랑 id')
@@ -16,14 +15,16 @@ class Restaurants(Base):
     restaurant_rate = Column(Integer, comment='식당평점 0~5')
     restaurant_category = Column(String(30), nullable=True, comment='식당 카테고리')
     restaurant_count_seats = Column(Integer, default=39, comment='식당 자리수')
-    restaurant_x = Column(DOUBLE, nullable=True, comment='X좌표')
-    restaurant_y = Column(DOUBLE, nullable=True, comment='Y좌표')
-    restaurant_address = Column(String(100), nullable=True, comment='식당 주소')
+    restaurant_x = Column(Float, nullable=True, comment='X좌표')
+    restaurant_y = Column(Float, nullable=True, comment='Y좌표')
+    restaurant_address = Column(String(150), nullable=True, comment='식당 주소')
     restaurant_description = Column(String(100), nullable=True, comment='식당 설명')
     restaurant_contact = Column(Integer, nullable=True, comment='식당 전화번호')
     restaurant_created_at = Column(DateTime, default=datetime.now(), comment='생성날짜')
     restaurant_updated_at = Column(DateTime, default=datetime.now(), onupdate=lambda: datetime.now(),
                         comment='수정날짜')
+
+    opening_time = relationship('OpeningTime', back_populates='restaurant')
 
 
 class OpeningTime(Base):
@@ -39,4 +40,4 @@ class OpeningTime(Base):
     opening_time_updated_at = Column(DateTime, default=datetime.now(), onupdate=lambda: datetime.now(),
                         comment='수정날짜')
 
-    restaurant = relationship('Restaurants', backref='opening_time')
+    restaurant = relationship('Restaurant', back_populates='opening_time')
