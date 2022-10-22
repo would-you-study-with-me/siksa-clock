@@ -1,8 +1,9 @@
 [tool.poetry]
 name = "mvp"
-version = "0.1.0"
-description = "siksa_clock mvp"
-authors = ["Your Name <you@example.com>"]
+version = "0.1.1"
+description = "siksa_clock graphql mvp"
+authors = ["Hyeonproject <axzswq@gmail.com>"]
+readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.10"
@@ -23,8 +24,15 @@ schema = "^0.7.5"
 crud = "^0.1"
 asyncpg = "^0.26.0"
 dependency-injector = "^4.40.0"
+black = "^22.10.0"
 
 [tool.poetry.dev-dependencies]
+
+
+[tool.black]
+line-length = 120
+target-version = ['py3.10']
+
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
