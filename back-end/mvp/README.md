@@ -18,6 +18,8 @@
 - 웹 프레임워크 : FastAPI
 - GraphQL 라이브러리 : Strawberry
 - 테스트 라이브러리 : Pytest
+- 파이썬 정적 타입 분석 : Pyright
+- 린트 : black
 - DB 프레임워크 및 라이브러리 : SQLAlchemy 1.4 (async)
 - DBMS : MariaDB, MongoDB(Log용)
 
