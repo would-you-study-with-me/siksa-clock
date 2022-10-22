@@ -1,6 +1,6 @@
 # Siksa Clock Back-End MVP
 
-> 째깍식사를 GraphQL MVP를 만듭니다.
+> 째깍식사를 MVP를 만듭니다.
 
 ## 기능 정리
 
