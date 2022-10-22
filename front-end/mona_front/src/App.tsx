@@ -1,9 +1,14 @@
-import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import { ThemeProvider } from '@mui/material/styles';
+import customTheme from './assets/styles/CustomTheme';
+import AppRoutes from './routes/AppRoutes';
 
-function App() {
-  return <div className="App" />;
-}
+const App = () => {
+  return (
+    <ThemeProvider theme={customTheme}>
+      <AppRoutes />
+    </ThemeProvider>
+  );
+};
 
 export default App;
