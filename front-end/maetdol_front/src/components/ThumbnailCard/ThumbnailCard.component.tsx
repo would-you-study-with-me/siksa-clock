@@ -1,5 +1,6 @@
-import Icon, { IconFileNames } from 'components/Icon';
+import Icon from 'components/Icon';
 import StarRate from 'components/StarRate';
+import { Congestion, CongestionIconMap } from './ThumbnailCard.model';
 import {
   StyeldCardInformationWrapper,
   StyledCard,
@@ -12,19 +13,37 @@ import {
   StyledRightContents,
 } from './ThumbnailCard.styles';
 
-export default function ThumbnailCard() {
+interface Props {
+  thumbnailSrc: string;
+  title: string;
+  rating: number;
+  restaurantId: string;
+  meterDistance: number;
+  congestion: Congestion;
+  category: string;
+}
+
+export default function ThumbnailCard({
+  category,
+  congestion,
+  meterDistance,
+  rating,
+  restaurantId,
+  thumbnailSrc,
+  title,
+}: Props) {
   return (
     <StyledCard>
-      <StyledLink to="/">
-        <StyledCardImage src="https://via.placeholder.com/150x270" alt="temp" />
-        <StyledCardTitle>젠킨스 할아버지는 왜 달사를 괴롭히나</StyledCardTitle>
+      <StyledLink to={`/r/${restaurantId}`}>
+        <StyledCardImage src={thumbnailSrc} />
+        <StyledCardTitle>{title}</StyledCardTitle>
         <StyeldCardInformationWrapper>
-          <StarRate rating={4} />
-          <StyledCardCategory>양식</StyledCardCategory>
+          <StarRate rating={rating} />
+          <StyledCardCategory>{category}</StyledCardCategory>
           <StyledRightContents>
             <StyledCongestion>혼잡도</StyledCongestion>
-            <Icon type={IconFileNames.FACE_GOOD} />
-            <StyledDisatnce>99999m</StyledDisatnce>
+            <Icon type={CongestionIconMap[congestion]} />
+            <StyledDisatnce>{meterDistance}m</StyledDisatnce>
           </StyledRightContents>
         </StyeldCardInformationWrapper>
       </StyledLink>
