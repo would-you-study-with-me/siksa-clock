@@ -2,6 +2,7 @@ import pytest
 from fastapi.testclient import TestClient
 
 from app.main import app
+from app.services.restaurant import calc_congestion
 
 client = TestClient(app)
 
