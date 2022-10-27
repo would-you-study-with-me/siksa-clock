@@ -1,8 +1,9 @@
 [tool.poetry]
 name = "mvp"
-version = "0.1.0"
-description = "siksa_clock mvp"
-authors = ["Your Name <you@example.com>"]
+version = "0.1.1"
+description = "siksa_clock graphql mvp"
+authors = ["Hyeonproject <axzswq@gmail.com>"]
+readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.10"
@@ -11,7 +12,7 @@ uvicorn = {extras = ["standard"], version = "^0.18.2"}
 python-multipart = "^0.0.5"
 python-jose = {extras = ["cryptography"], version = "^3.3.0"}
 passlib = {extras = ["bcrypt"], version = "^1.7.4"}
-SQLAlchemy = "^1.4.39"
+SQLAlchemy = {extras = ["asyncio"], version = "^1.4.40"}
 strawberry-graphql = {extras = ["fastapi"], version = "^0.124.0"}
 none = "^0.1.0-alpha.2"
 httpx = "^0.23.0"
@@ -21,9 +22,20 @@ requests = "^2.28.0"
 password = "^0.2"
 schema = "^0.7.5"
 crud = "^0.1"
+dependency-injector = "^4.40.0"
+pyright = "^1.1.276"
+black = "^22.10.0"
 aiomysql = "^0.1.1"
 
 [tool.poetry.dev-dependencies]
+
+
+[tool.black]
+line-length = 120
+target-version = ['py3.10']
+include = '\.pyi?$'
+
+
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

@@ -61,6 +61,7 @@ class RestaurantOpeningTimeOutput(RestaurantBase, RestaurantTimeStampBase, Openi
     restaurant_id: UUID
     opening_time_id: UUID
     restaurant_congestion: str
+    restaurant_waiting_people: int
 
 
 class RestaurantAllData(RestaurantBase, RestaurantTimeStampBase):
