@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useQuery, gql } from '@apollo/client';
 import Typography from '@mui/material/Typography';
 import RestaurantCard from '../components/RestaurantCard';
 import { RestaurantCardInfo } from '../model/restaurant-card.interface';
+import { calculateDistance } from '../utils/util';
 
 const GET_RESTAURANTS = gql`
   query GetRestaurants {
@@ -19,6 +20,26 @@ const GET_RESTAURANTS = gql`
 `;
 
 const Main: React.FC = () => {
+  const [currentCoords, setCurrentCoords] = useState({
+    latitude: 0,
+    longitude: 0,
+  });
+
+  useEffect(() => {
+    navigator.geolocation?.getCurrentPosition(
+      position => {
+        console.dir(position.coords);
+        setCurrentCoords({
+          latitude: position?.coords?.latitude,
+          longitude: position?.coords?.longitude,
+        });
+      },
+      error => {
+        console.error(error);
+      },
+    );
+  }, []);
+
   const { loading, error, data } = useQuery<{
     mockRestaurants: RestaurantCardInfo[];
   }>(GET_RESTAURANTS);
