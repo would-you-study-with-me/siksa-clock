@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { Typography } from '@mui/material';
 import { useQuery, gql } from '@apollo/client';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { RestaurantListInfo } from '../../../models/restaurant.model';
 import CardItem from '../../../components/card/CardItem';
@@ -40,10 +40,35 @@ const CardList = () => {
     address: string;
     bcode: string;
   };
+  const [cordinate, setCordinate] = useState<{ x: number; y: number }>({
+    x: NaN,
+    y: NaN,
+  });
+
   useEffect(() => {
-    // TODO: 주소 검색보내는거 구현할 것
-    console.log(location);
-  }, [location]);
+    if ('geolocation' in navigator) {
+      /* geolocation is available */
+      navigator.geolocation.getCurrentPosition(
+        (res: GeolocationPosition) => {
+          // y위도(latitude) x경도(longitude)
+          setCordinate({
+            x: res.coords.longitude,
+            y: res.coords.latitude,
+          });
+        },
+        err => {
+          console.warn(err.message);
+        },
+      );
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!loading) {
+      console.log('cordinate', cordinate);
+    }
+  });
+
   if (loading) return <div>로딩</div>;
   const cards = data.mockRestaurants.map((item: RestaurantListInfo) => (
     <CardItemContainer key={`${item.restaurantId}-임시키`}>
