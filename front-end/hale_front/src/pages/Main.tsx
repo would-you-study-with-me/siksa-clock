@@ -4,6 +4,7 @@ import Typography from '@mui/material/Typography';
 import RestaurantCard from '../components/RestaurantCard';
 import { RestaurantCardInfo } from '../model/restaurant-card.interface';
 import { calculateDistance } from '../utils/util';
+import { Coordinate } from '../model/coordinate.interface';
 
 const GET_RESTAURANTS = gql`
   query GetRestaurants {
@@ -20,18 +21,18 @@ const GET_RESTAURANTS = gql`
 `;
 
 const Main: React.FC = () => {
-  const [currentCoords, setCurrentCoords] = useState({
+  const [currentCoords, setCurrentCoords] = useState<Coordinate>({
     latitude: 0,
     longitude: 0,
   });
 
   useEffect(() => {
     navigator.geolocation?.getCurrentPosition(
-      position => {
+      (position: GeolocationPosition) => {
         console.dir(position.coords);
         setCurrentCoords({
-          latitude: position?.coords?.latitude,
-          longitude: position?.coords?.longitude,
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
         });
       },
       error => {

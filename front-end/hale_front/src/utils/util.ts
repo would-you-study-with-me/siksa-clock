@@ -1,9 +1,8 @@
+import { Coordinate } from '../model/coordinate.interface';
+
 export function calculateDistance(
-  currentLocation: {
-    latitude: number;
-    longitude: number;
-  },
-  targetLocation: { latitude: number; longitude: number },
+  currentLocation: Coordinate,
+  targetLocation: Coordinate,
 ) {
   const distance = Math.sqrt(
     (currentLocation.latitude - targetLocation.latitude) ** 2 +
