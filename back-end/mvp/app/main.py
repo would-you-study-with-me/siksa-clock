@@ -20,7 +20,10 @@ app.add_websocket_route('/coords', choord_graphql_app)
 origins = [
     "http://localhost",
     "http://127.0.0.1",
-    "http://web.siksa-clock.kro.kr"
+    "http://127.0.0.1:3000",
+    "http://localhost:3000",
+    "http://web.siksa-clock.kro.kr",
+    "https://web.siksa-clock.kro.kr",
 ]
 
 app.add_middleware(
