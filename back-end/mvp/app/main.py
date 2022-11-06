@@ -8,7 +8,7 @@ from app.config.database import create_table
 from app.routers.choord import choord_graphql_app
 from app.routers.restaurant import restaurant_graphql_app
 
-app = FastAPI(version=0.4)
+app = FastAPI(version='0.5')
 
 app.include_router(restaurant_graphql_app, prefix='/restaurant')
 app.add_websocket_route('/restaurant', restaurant_graphql_app)
@@ -38,6 +38,16 @@ app.add_middleware(
 @app.get('/')
 async def welcome():
     return {'detail': 'I love you baby!!'}
+
+
+@app.get('/video')
+async def love_song():
+    data = {
+        '신라 스폰지밥' : 'https://youtu.be/yz3INXooClk',
+        '달사 노래 목 쉬었을때': 'https://photos.app.goo.gl/Vp9i7HuBhJCH5Tms6',
+        '달사 일렉 기타(노래 못부름 ㅠㅠ) paris in the rain': 'https://photos.app.goo.gl/dqBCbvuKxAEVhgQr7',
+    }
+    return data
 
 
 if __name__ == '__main__':
