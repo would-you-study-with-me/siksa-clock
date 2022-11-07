@@ -1,5 +1,6 @@
 import { gql, useQuery } from '@apollo/client';
-import { RestaurantThumbnailCard } from './Home.model';
+import { RestaurantRawData } from './Home.model';
+import { rawThumbnailDataToThumbnail } from './Home.utils';
 
 const GET_RESTAURANTS_THUMBNAIL_CARDS = gql`
   query getRestaurantsThumbnailCards($address: String!) {
@@ -17,12 +18,12 @@ const GET_RESTAURANTS_THUMBNAIL_CARDS = gql`
 
 export function useRestaurantsThumbnailCard(address: string) {
   const { data, error, loading } = useQuery<
-    RestaurantThumbnailCard[],
+    { restaurants: RestaurantRawData[] },
     { address: string }
   >(GET_RESTAURANTS_THUMBNAIL_CARDS, { variables: { address } });
 
   return {
-    thumbnailCards: data ?? [],
+    thumbnailCards: (data?.restaurants ?? []).map(rawThumbnailDataToThumbnail),
     error,
     loading,
   };

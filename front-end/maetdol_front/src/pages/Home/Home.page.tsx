@@ -1,5 +1,4 @@
 import { ThumbnailCard } from 'components';
-import { Congestion } from 'components/ThumbnailCard/ThumbnailCard.model';
 import { useRestaurantsThumbnailCard } from './Home.hooks';
 import { StyeldCardList, StyledContainer, StyledTitle } from './Home.styles';
 
@@ -14,53 +13,18 @@ export function Home() {
     <StyledContainer>
       <StyledTitle>내 주변 식사</StyledTitle>
       <StyeldCardList>
-        {thumbnailCards.map(v => (
+        {thumbnailCards.map(({ category, congestion, id, name, rate }) => (
           <ThumbnailCard
-            category={v.name}
-            congestion={Congestion.CROWDED}
+            key={id}
+            category={category ?? ''}
+            congestion={congestion}
             meterDistance={172}
-            rating={3}
-            restaurantId="1372-abf334"
+            rating={rate}
+            restaurantId={id}
             thumbnailSrc="https://via.placeholder.com/150"
-            title="달사카세"
+            title={name}
           />
         ))}
-        <ThumbnailCard
-          category="일식"
-          congestion={Congestion.CROWDED}
-          meterDistance={172}
-          rating={3}
-          restaurantId="1372-abf334"
-          thumbnailSrc="https://via.placeholder.com/150"
-          title="달사카세"
-        />
-        <ThumbnailCard
-          category="일식"
-          congestion={Congestion.CROWDED}
-          meterDistance={172}
-          rating={3}
-          restaurantId="1372-abf334"
-          thumbnailSrc="https://via.placeholder.com/150"
-          title="달사카세"
-        />
-        <ThumbnailCard
-          category="일식"
-          congestion={Congestion.CROWDED}
-          meterDistance={172}
-          rating={3}
-          restaurantId="1372-abf334"
-          thumbnailSrc="https://via.placeholder.com/150"
-          title="달사카세"
-        />
-        <ThumbnailCard
-          category="일식"
-          congestion={Congestion.CROWDED}
-          meterDistance={172}
-          rating={3}
-          restaurantId="1372-abf334"
-          thumbnailSrc="https://via.placeholder.com/150"
-          title="달사카세"
-        />
       </StyeldCardList>
     </StyledContainer>
   );
