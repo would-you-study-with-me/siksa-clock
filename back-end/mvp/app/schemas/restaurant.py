@@ -43,3 +43,11 @@ class OutputRestaurant(RestaurantBase, RestaurantTimeStampBase, OpeningTimeBase,
 
     class Config:
         orm_mode = True
+
+
+class InputRestaurants(BaseModel):
+    query: str
+    x: float | None
+    y: float | None
+    skip: int | None = 0
+    limit: int | None= 10

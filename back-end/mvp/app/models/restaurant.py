@@ -24,7 +24,7 @@ class Restaurant(Base):
     restaurant_updated_at = Column(DateTime, default=datetime.now(), onupdate=lambda: datetime.now(),
                         comment='수정날짜')
 
-    opening_time = relationship('OpeningTime', back_populates='restaurant')
+    opening_time = relationship('OpeningTime', back_populates='restaurant', lazy='joined', innerjoin=True)
 
 
 class OpeningTime(Base):
@@ -40,4 +40,9 @@ class OpeningTime(Base):
     opening_time_updated_at = Column(DateTime, default=datetime.now(), onupdate=lambda: datetime.now(),
                         comment='수정날짜')
 
-    restaurant = relationship('Restaurant', back_populates='opening_time')
+    restaurant = relationship('Restaurant', back_populates='opening_time', lazy='joined', innerjoin=True)
+
+    __mapper_args__ = {
+        "eager_defaults": True
+    }
+

@@ -56,3 +56,4 @@ class RestaurantService:
             self.congestion_classification = '혼잡'
         elif waiting_people >= 10:
             self.congestion_classification = '혼잡'
+

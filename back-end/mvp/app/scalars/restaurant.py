@@ -1,6 +1,6 @@
 import strawberry
 
-from app.schemas.restaurant import OutputRestaurant, InputRestaurant
+from app.schemas.restaurant import OutputRestaurant, InputRestaurant, InputRestaurants
 
 
 @strawberry.experimental.pydantic.type(
@@ -15,8 +15,16 @@ class OutputRestaurant:
 @strawberry.experimental.pydantic.input(
     model=InputRestaurant,
     all_fields=True,
-    description="Restaurant Input Data"
+    description="Restaurant Input Data Type"
 )
 class InputRestaurant:
     pass
 
+
+@strawberry.experimental.pydantic.input(
+    model=InputRestaurants,
+    all_fields=True,
+    description="Restaurants Input Data Type"
+)
+class InputRestaurants:
+    pass
