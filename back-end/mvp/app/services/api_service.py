@@ -33,12 +33,22 @@ class NcloudApi(object):
             'X-NCP-APIGW-API-KEY': self.ncloud_client_secret
         }
 
-    async def geocoding(self, query: str, coordinate: str = None):
+    async def geocoding(
+            self,
+            query: str,
+            coordinate: str = None,
+            filter: str = None,
+            page: int = None,
+            count: int = None
+    ):
         url = 'https://naveropenapi.apigw.ntruss.com/map-geocode/v2/geocode'
 
         payload = {
             'query': query,
-            'coordinate': coordinate
+            'coordinate': coordinate,
+            'filter': filter,
+            'page': page,
+            'count': count,
         }
 
         r = requests.get(url, headers=self.header, params=payload)
@@ -82,14 +92,13 @@ class NcloudApi(object):
 class KakaoApi(object):
     def __init__(self):
         self.kakao_api = get_secret('kakao_api')
-        self.host = 'dapi.kakao.com'
 
         self.headers = {
             'Authorization': 'KakaoAK {REST_API_KEY}'.format(REST_API_KEY=self.kakao_api)
         }
 
     async def coord_to_address(self, x: float, y: float, input_coord: str = 'WGS84'):
-        url = 'https://{host}/v2/local/geo/coord2address.json'.format(host=self.host)
+        url = 'https://dapi.kakao.com/v2/local/geo/coord2address.json'
 
         payload = {
             'x': x,
@@ -111,7 +120,7 @@ class KakaoApi(object):
             input_coord: str = 'WGS84',
             output_coord: str = 'WGS84'
     ) -> Json:
-        url = 'https://{host}/v2/local/geo/coord2regioncode.json'.format(host=self.host)
+        url = 'https://dapi.kakao.com/v2/local/geo/coord2regioncode.json'
 
         payload = {
             'x': x,
@@ -126,8 +135,8 @@ class KakaoApi(object):
         logging.info('status code : {}'.format(r.status_code))
 
         return r
-
     def trans_coord(
+
             self,
             x: float,
             y: float,
