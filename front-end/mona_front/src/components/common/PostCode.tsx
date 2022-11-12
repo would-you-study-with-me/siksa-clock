@@ -1,10 +1,22 @@
-import { useCallback } from 'react';
+import { useCallback, useMemo } from 'react';
 import DaumPostcodeEmbed, { Address } from 'react-daum-postcode';
 import { useNavigate } from 'react-router-dom';
 
+export interface AddressData {
+  address: string;
+  sigungu: string;
+  roadname: string;
+}
+
 export const Postcode = (props: any) => {
-  let address = '';
-  let bcode = ''; // 법정동코드
+  const addressData: AddressData = useMemo(
+    () => ({
+      address: '',
+      sigungu: '',
+      roadname: '',
+    }),
+    [],
+  );
   const navigate = useNavigate();
   const handleComplete = (data: Address) => {
     let fullAddress = data.address;
@@ -20,18 +32,16 @@ export const Postcode = (props: any) => {
       }
       fullAddress += extraAddress !== '' ? ` (${extraAddress})` : '';
     }
-    bcode = data.bcode;
-    address = fullAddress;
+    addressData.address = fullAddress;
+    addressData.sigungu = data.sigungu;
+    addressData.roadname = data.roadname;
   };
 
   const goHome = useCallback(() => {
     navigate('/', {
-      state: {
-        address,
-        bcode,
-      },
+      state: { addressData },
     });
-  }, [address, bcode, navigate]);
+  }, [navigate, addressData]);
 
   return (
     <div>

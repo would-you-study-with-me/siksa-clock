@@ -1,4 +1,8 @@
-export type Congestion = 'crowded' | 'normal' | 'smooth';
+export enum Congestion {
+  'CROWDED' = '혼잡',
+  'NORMAL' = '보통',
+  'SMOOTH' = '원활',
+}
 
 export interface RestaurantListInfo {
   restaurantId: string;

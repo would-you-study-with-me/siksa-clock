@@ -5,10 +5,11 @@ import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { RestaurantListInfo } from '../../../models/restaurant.model';
 import CardItem from '../../../components/card/CardItem';
+import { AddressData } from '../../../components/common/PostCode';
 
-const GET_RESTAURANT = gql`
-  query Query {
-    mockRestaurants {
+const GET_RESTAURANTS = gql`
+  query Restaurants($roadName: String!) {
+    restaurants(inputData: { query: $roadName, limit: 10 }) {
       restaurantName
       restaurantId
       restaurantDescription
@@ -35,11 +36,15 @@ const CardItemContainer = styled.div`
   }
 `;
 const CardList = () => {
-  const { loading, error, data } = useQuery(GET_RESTAURANT);
-  const location: { address: string } = useLocation().state as {
-    address: string;
-    bcode: string;
+  const { addressData: location } = useLocation().state as {
+    addressData: AddressData;
   };
+
+  const { loading, error, data } = useQuery(GET_RESTAURANTS, {
+    variables: {
+      roadName: location ? location.roadname : '강남대로',
+    },
+  });
   const [cordinate, setCordinate] = useState<{ x: number; y: number }>({
     x: NaN,
     y: NaN,
@@ -70,7 +75,7 @@ const CardList = () => {
   });
 
   if (loading) return <div>로딩</div>;
-  const cards = data.mockRestaurants.map((item: RestaurantListInfo) => (
+  const cards = data.restaurants.map((item: RestaurantListInfo) => (
     <CardItemContainer key={`${item.restaurantId}-임시키`}>
       <CardItem
         rate={item.restaurantRate}
@@ -84,7 +89,8 @@ const CardList = () => {
   return (
     <Container>
       <Title variant="h2">내 주변 식사</Title>
-      {cards}
+      {cards.length > 0 && cards}
+      {cards.length === 0 && <p>결과가 없어요!</p>}
     </Container>
   );
 };
