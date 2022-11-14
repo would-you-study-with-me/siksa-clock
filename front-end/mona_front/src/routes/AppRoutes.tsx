@@ -1,8 +1,8 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import App from '../App';
 import Header from '../components/common/Header';
 import Home from '../pages/Home';
 import Detail from '../pages/Detail';
+import { Postcode } from '../components/common/PostCode';
 
 const AppRoutes = () => {
   return (
@@ -10,6 +10,7 @@ const AppRoutes = () => {
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/address" element={<Postcode />} />
         <Route path="/detail/:id" element={<Detail />} />
       </Routes>
     </BrowserRouter>

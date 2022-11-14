@@ -1,10 +1,11 @@
 import styled from '@emotion/styled';
 import { Typography } from '@mui/material';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useCallback } from 'react';
 import PinIcon from '../../assets/icons/PinIcon';
 import Colors from '../../assets/styles/Colors';
 import BackArrowIcon from '../../assets/icons/BackArrowIcon';
+import { AddressData } from './PostCode';
 
 const HeaderContainer = styled.div`
   display: flex;
@@ -18,6 +19,11 @@ const AddressTypo = styled(Typography)`
 `;
 const Header = () => {
   const location = useLocation();
+  const { addressData } = location.state
+    ? (location.state as {
+        addressData: AddressData;
+      })
+    : { addressData: { address: '' } };
   const navigate = useNavigate();
 
   const onClickBack = useCallback(() => {
@@ -27,8 +33,10 @@ const Header = () => {
   if (location.pathname === '/') {
     return (
       <HeaderContainer>
-        <PinIcon color="primary" fontSize="medium" />
-        <AddressTypo variant="body1">주소1</AddressTypo>
+        <Link to="/address">
+          <PinIcon color="primary" fontSize="medium" />
+        </Link>
+        <AddressTypo variant="body1">{addressData.address}</AddressTypo>
       </HeaderContainer>
     );
   }
