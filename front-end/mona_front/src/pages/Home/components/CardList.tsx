@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import { Typography } from '@mui/material';
 import { useQuery, gql } from '@apollo/client';
 import { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 import { RestaurantListInfo } from '../../../models/restaurant.model';
 import CardItem from '../../../components/card/CardItem';
 
@@ -81,14 +81,16 @@ const CardList = () => {
 
   if (loading) return <div>로딩</div>;
   const cards = data.restaurants.map((item: RestaurantListInfo) => (
-    <CardItemContainer key={`${item.restaurantId}-임시키`}>
-      <CardItem
-        rate={item.restaurantRate}
-        congestion={item.restaurantCongestion}
-        title={item.restaurantName}
-        distance={item.distance}
-        category={item.restaurantCategory}
-      />
+    <CardItemContainer key={`${item.restaurantId}-${item.restaurantName}`}>
+      <Link to={`/detail/${item.restaurantId}`}>
+        <CardItem
+          rate={item.restaurantRate}
+          congestion={item.restaurantCongestion}
+          title={item.restaurantName}
+          distance={item.distance}
+          category={item.restaurantCategory}
+        />
+      </Link>
     </CardItemContainer>
   ));
   return (
