@@ -45,7 +45,7 @@ const CardList = () => {
       roadName: location ? location.roadname : '강남대로',
     },
   });
-  const [cordinate, setCordinate] = useState<{ x: number; y: number }>({
+  const [coordinate, setCoordinate] = useState<{ x: number; y: number }>({
     x: NaN,
     y: NaN,
   });
@@ -56,7 +56,7 @@ const CardList = () => {
       navigator.geolocation.getCurrentPosition(
         (res: GeolocationPosition) => {
           // y위도(latitude) x경도(longitude)
-          setCordinate({
+          setCoordinate({
             x: res.coords.longitude,
             y: res.coords.latitude,
           });
@@ -70,7 +70,7 @@ const CardList = () => {
 
   useEffect(() => {
     if (!loading) {
-      console.log('cordinate', cordinate);
+      console.log('coordinate', coordinate);
     }
   });
 
