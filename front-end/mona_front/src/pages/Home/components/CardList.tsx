@@ -80,6 +80,7 @@ const CardList = () => {
   });
 
   if (loading) return <div>로딩</div>;
+  if (error) return <div>에러</div>;
   const cards = data.restaurants.map((item: RestaurantListInfo) => (
     <CardItemContainer key={`${item.restaurantId}-${item.restaurantName}`}>
       <Link to={`/detail/${item.restaurantId}`}>

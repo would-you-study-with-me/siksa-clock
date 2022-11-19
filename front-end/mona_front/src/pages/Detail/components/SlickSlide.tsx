@@ -1,35 +1,31 @@
-import Slider from 'react-slick';
+import styled from '@emotion/styled';
+import Slider, { Settings } from 'react-slick';
 
-const SimpleSlider = () => {
-  const settings = {
+interface Props {
+  imageUrls: string[];
+  settings?: Settings;
+}
+
+const SlideImage = styled.img`
+  width: 100%;
+  object-fit: contain;
+`;
+
+const SlickSlide = ({ imageUrls, ...rest }: Props) => {
+  const { settings } = rest;
+  const defaultSettings: Settings = {
     dots: true,
     infinite: true,
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
   };
-  return (
-    <Slider {...settings}>
-      <div>
-        <h3>1</h3>
-      </div>
-      <div>
-        <h3>2</h3>
-      </div>
-      <div>
-        <h3>3</h3>
-      </div>
-      <div>
-        <h3>4</h3>
-      </div>
-      <div>
-        <h3>5</h3>
-      </div>
-      <div>
-        <h3>6</h3>
-      </div>
-    </Slider>
-  );
+  const slides = imageUrls.map((url, index) => (
+    <div key={url}>
+      <SlideImage src={url} alt={`slide-${index}`} />
+    </div>
+  ));
+  return <Slider {...(settings || defaultSettings)}>{slides}</Slider>;
 };
 
-export default SimpleSlider;
+export default SlickSlide;
