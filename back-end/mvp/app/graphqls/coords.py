@@ -4,7 +4,7 @@ from app.resolvers.choord import geocoding, reverse_geocoding
 from app.scalars.coords import InputGeocoding, OutputGeocoding, OutputReverseGeocoding, InputReverseGeocoding
 
 
-@strawberry.type
+@strawberry.type(description='위경도를 사용한 모든 Ncloud API 모은 Query')
 class Query:
     @strawberry.field
     async def geocoding(self, input_geocoding: InputGeocoding) -> OutputGeocoding:

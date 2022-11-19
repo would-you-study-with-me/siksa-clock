@@ -6,7 +6,7 @@ from strawberry.scalars import JSON
 from app.schemas.coords import InputGeocoding, OutputGeocoding, InputReverseGeocoding, OutputReverseGeocoding
 
 
-@strawberry.experimental.pydantic.input(model=InputGeocoding, all_fields=True)
+@strawberry.experimental.pydantic.input(model=InputGeocoding, all_fields=True, description='Geocoding Input 데이터타입')
 class InputGeocoding:
     pass
 
@@ -28,3 +28,4 @@ class InputReverseGeocoding:
 class OutputReverseGeocoding:
     status: Optional[JSON]
     results: Optional[list[JSON]]
+

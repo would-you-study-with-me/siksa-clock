@@ -7,6 +7,9 @@ from strawberry.scalars import JSON
 class InputGeocoding(BaseModel):
     query: str
     coordinate: Optional[str]
+    filter: Optional[str]
+    page: Optional[int]
+    count: Optional[int]
 
 
 class OutputGeocoding(BaseModel):
@@ -28,3 +31,15 @@ class InputReverseGeocoding(BaseModel):
 class OutputReverseGeocoding(BaseModel):
     status: Optional[dict]
     results: Optional[List[dict]]
+
+
+class InputTransCoord(BaseModel):
+    x: float
+    y: float
+    input_coord: str = 'TM'
+    output_coord: str = 'WGS84'
+
+
+class OutputTransCoord(BaseModel):
+    meta: dict
+    documents: dict
