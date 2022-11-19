@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { Paper, Typography } from '@mui/material';
-import { RestaurantListInfo } from '../../models/restaurant.model';
+import { Congestion, RestaurantListInfo } from '../../models/restaurant.model';
 import StarRate from '../common/StarRate';
 import MoodBadIcon from '../../assets/icons/MoodBadIcon';
 import MoodNormalIcon from '../../assets/icons/MoodNormalIcon';
@@ -62,11 +62,11 @@ const CardItem = ({
   const { imgsrc = 'https://via.placeholder.com/600' } = props;
   const makeCongestionIcon = () => {
     switch (congestion) {
-      case 'crowded':
+      case Congestion.CROWDED:
         return <MoodBadIcon fontSize="small" />;
-      case 'normal':
+      case Congestion.NORMAL:
         return <MoodNormalIcon fontSize="small" />;
-      case 'smooth':
+      case Congestion.SMOOTH:
         return <MoodGoodIcon fontSize="small" />;
       default:
         return <MoodBadIcon fontSize="small" />;

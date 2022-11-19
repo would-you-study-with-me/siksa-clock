@@ -1,11 +1,11 @@
 [tool.poetry]
 name = "restaurant-congestion"
-version = "0.1.0"
+version = "0.1.1"
 description = "restaurant congestion algorithm"
 authors = ["Hyeonproject <axzswq@gmail.com>"]
 
 [tool.poetry.dependencies]
-python = "3.9"
+python = "^3.10"
 pandas = "^1.4.2"
 numpy = "^1.22.4"
 matplotlib = "^3.5.2"
@@ -17,7 +17,7 @@ requests = "^2.28.0"
 requests-toolbelt = "^0.9.1"
 boundary = "^0.3.4"
 SQLAlchemy = "^1.4.39"
-psycopg2 = "^2.9.3"
+mysqlclient = "^2.1.1"
 
 [tool.poetry.dev-dependencies]
 
