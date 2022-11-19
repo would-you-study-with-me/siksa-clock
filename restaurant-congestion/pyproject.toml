@@ -18,6 +18,8 @@ requests-toolbelt = "^0.9.1"
 boundary = "^0.3.4"
 SQLAlchemy = "^1.4.39"
 mysqlclient = "^2.1.1"
+geopandas = "^0.12.1"
+pyproj = "^3.4.0"
 
 [tool.poetry.dev-dependencies]
 
