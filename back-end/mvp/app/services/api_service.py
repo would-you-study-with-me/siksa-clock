@@ -23,6 +23,32 @@ class NaverApi(object):
         }
 
 
+    async def image_search(
+            self,
+            query: str,
+            display: int = None,
+            start: int = None,
+            sort: str = None,
+            filter: str = None
+    ):
+        url = "https://openapi.naver.com/v1/search/image"
+
+        payload = {
+            "query": query,
+            "display": display,
+            "start": start,
+            "sort": sort,
+            "filter": filter
+        }
+
+        r = requests.get(url, params=payload, headers=self.headers)
+
+        logging.info('naver api image search status code : {}'.format(r.status_code))
+        logging.info('naver api image search json : {}'.format(r.json()))
+
+        return r
+
+
 class NcloudApi(object):
     def __init__(self):
         self.ncloud_client_id = get_secret('ncloud_client_id')
