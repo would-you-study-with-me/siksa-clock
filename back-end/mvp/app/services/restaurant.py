@@ -17,15 +17,15 @@ class RestaurantService:
         eat_hour = int(strftime('%I', localtime(time())))
         eat_minute = strftime('%M', localtime(time()))
 
-        logging.info('{} : {}'.format(eat_hour, eat_minute))
+        logging.info('혼잡도 계산 시간 = {}:{}'.format(eat_hour, eat_minute))
 
-        if 11 < eat_hour < 13:
-            logging.info('점심')
+        if 10 < eat_hour < 14:
+            logging.info('점심시간')
             self.waiting_people = random.randrange(
                 remaining_seats - 15, remaining_seats + 15
             )
-        elif 17 < eat_hour < 19:
-            logging.info('저녁')
+        elif 16 < eat_hour < 20:
+            logging.info('저녁시간')
             self.waiting_people = random.randrange(
                 remaining_seats - 15, remaining_seats + 15
             )

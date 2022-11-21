@@ -1,8 +1,7 @@
 import logging
 from typing import List
-from uuid import UUID
 
-from sqlalchemy import delete, select, update
+from sqlalchemy import delete, select, update, func
 
 from app.config.database import get_session
 from app.models.restaurant import Restaurant, OpeningTime
@@ -12,15 +11,12 @@ from app.services.restaurant import RestaurantService
 logging.basicConfig(level=logging.INFO)
 
 async def get_restaurant(restaurant_input_data: InputRestaurant) -> OutputRestaurant:
+    sql = select(Restaurant, OpeningTime).join(OpeningTime, Restaurant.restaurant_id == OpeningTime.restaurant_id) \
+        .where(Restaurant.restaurant_id == restaurant_input_data.restaurant_id)
+
     async with get_session() as s:
-        sql = select(Restaurant, OpeningTime).join(OpeningTime, Restaurant.restaurant_id == OpeningTime.restaurant_id)\
-            .where(Restaurant.restaurant_id == restaurant_input_data.restaurant_id)
-        restaurant_data = (await s.execute(sql)).scalars().unique().first()
+            restaurant_data = (await s.execute(sql)).scalars().unique().first()
 
-
-    logging.info("input data : {}".format(restaurant_input_data))
-    logging.info("db_restaurant : {}".format(restaurant_data.restaurant_id))
-    logging.info("opening time opening_time : {}".format(restaurant_data.restaurant_opening_time_days))
 
     restaurant_model_service = RestaurantService()
     restaurant_model_service.dhmm_model(remaining_seats=restaurant_data.restaurant_count_seats)
@@ -42,12 +38,12 @@ async def get_restaurant(restaurant_input_data: InputRestaurant) -> OutputRestau
         restaurant_contact=restaurant_data.restaurant_contact,
         restaurant_created_at=restaurant_data.restaurant_created_at,
         restaurant_updated_at=restaurant_data.restaurant_updated_at,
-        restaurant_opening_time_days=restaurant_data.restaurant_opening_time_days,
-        restaurant_opening_time=restaurant_data.restaurant_opening_time,
-        restaurant_break_time_days=restaurant_data.restaurant_break_time_days,
-        restaurant_break_time=restaurant_data.restaurant_break_time,
-        opening_time_created_at=restaurant_data.opening_time_created_at,
-        opening_time_updated_at=restaurant_data.opening_time_updated_at,
+        restaurant_opening_time_days=restaurant_data.opening_time[0].restaurant_opening_time_days,
+        restaurant_opening_time=restaurant_data.opening_time[0].restaurant_opening_time,
+        restaurant_break_time_days=restaurant_data.opening_time[0].restaurant_break_time_days,
+        restaurant_break_time=restaurant_data.opening_time[0].restaurant_break_time,
+        opening_time_created_at=restaurant_data.opening_time[0].opening_time_created_at,
+        opening_time_updated_at=restaurant_data.opening_time[0].opening_time_updated_at,
         restaurant_congestion=restaurant_model_service.congestion_classification,
         restaurant_waiting_people=restaurant_model_service.waiting_people
     )
@@ -57,18 +53,25 @@ async def get_restaurant(restaurant_input_data: InputRestaurant) -> OutputRestau
 
 async def get_restaurants(restaurants_input_data: InputRestaurants) -> List[OutputRestaurant]:
 
-    # x, y 값이 들어오는 경우 -> x, y값 계산하는 Method 가져오기
+    # x, y 값이 없는 경우로
+    if (restaurants_input_data.x is not None) and (restaurants_input_data.y is not None):
+        sql = select(Restaurant, OpeningTime)\
+            .join(OpeningTime, Restaurant.restaurant_id == OpeningTime.restaurant_id)\
+            .where(Restaurant.restaurant_address.like('%%{}%%'.format(restaurants_input_data.query)))\
+            .order_by(func.st_distance_sphere(func.point(restaurants_input_data.x, restaurants_input_data.y),
+                                             func.point(Restaurant.restaurant_x, Restaurant.restaurant_y)))\
+            .limit(restaurants_input_data.limit).offset(restaurants_input_data.skip)
+    else:
+        sql = select(Restaurant, OpeningTime).join(OpeningTime, Restaurant.restaurant_id == OpeningTime.restaurant_id) \
+            .where(Restaurant.restaurant_address.like('%%{}%%'.format(restaurants_input_data.query))) \
+            .limit(restaurants_input_data.limit).offset(restaurants_input_data.skip)
+
+    logging.info('Restaurants SQL : {}'.format(sql))
 
     async with get_session() as s:
-        sql = select(Restaurant, OpeningTime).join(OpeningTime, Restaurant.restaurant_id == OpeningTime.restaurant_id)\
-        .where(Restaurant.restaurant_address.like('%%{}%%'.format(restaurants_input_data.query)))\
-        .where()\
-        .limit(restaurants_input_data.limit).offset(restaurants_input_data.skip)
         restaurant_db_datas = (await s.execute(sql)).scalars().unique().all()
 
-
-    logging.info('restaurant_db_datas : {}'.format(restaurant_db_datas))
-
+    # 레스토랑 DHMM 모델 작동
     restaurant_model_service = RestaurantService()
 
     output_restaurant_list = []
@@ -95,7 +98,7 @@ async def get_restaurants(restaurants_input_data: InputRestaurants) -> List[Outp
             opening_time_created_at=restaurant.opening_time[0].opening_time_created_at,
             opening_time_updated_at=restaurant.opening_time[0].opening_time_updated_at,
             restaurant_congestion=restaurant_model_service.congestion_classification,
-            restaurant_waiting_people=restaurant_model_service.waiting_people
+            restaurant_waiting_people=restaurant_model_service.waiting_people,
         )
         output_restaurant_list.append(output_restaurant_data)
 

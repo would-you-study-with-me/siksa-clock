@@ -1,4 +1,4 @@
-from typing import List, Union, Optional
+from typing import Optional
 
 import strawberry
 from strawberry.scalars import JSON

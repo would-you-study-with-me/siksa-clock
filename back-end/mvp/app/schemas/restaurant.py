@@ -1,7 +1,7 @@
 from datetime import datetime
 from uuid import UUID
 
-from pydantic import BaseModel
+from pydantic import BaseModel, condecimal
 
 
 class RestaurantBase(BaseModel):
@@ -40,6 +40,7 @@ class OutputRestaurant(RestaurantBase, RestaurantTimeStampBase, OpeningTimeBase,
     restaurant_id: UUID
     restaurant_congestion: str
     restaurant_waiting_people: int
+    restaurant_distance: float | None
 
     class Config:
         orm_mode = True
