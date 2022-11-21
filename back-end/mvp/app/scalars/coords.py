@@ -28,4 +28,3 @@ class InputReverseGeocoding:
 class OutputReverseGeocoding:
     status: Optional[JSON]
     results: Optional[list[JSON]]
-
