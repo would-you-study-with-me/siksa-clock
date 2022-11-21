@@ -46,6 +46,7 @@ async def love_song():
         '신라 스폰지밥' : 'https://youtu.be/yz3INXooClk',
         '달사 노래 목 쉬었을때': 'https://photos.app.goo.gl/Vp9i7HuBhJCH5Tms6',
         '달사 일렉 기타(노래 못부름 ㅠㅠ) paris in the rain': 'https://photos.app.goo.gl/dqBCbvuKxAEVhgQr7',
+        '요즘 듣는 노래': 'https://youtu.be/HKb-mIky31o'
     }
     return data
 
