@@ -2,10 +2,14 @@ import styled from '@emotion/styled';
 import { Typography } from '@mui/material';
 import { useQuery, gql } from '@apollo/client';
 import { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 import { RestaurantListInfo } from '../../../models/restaurant.model';
 import CardItem from '../../../components/card/CardItem';
-import { AddressData } from '../../../components/common/PostCode';
+
+import {
+  AddressData,
+  DEFAULT_ADDRESS_DATA,
+} from '../../../models/address.model';
 
 const GET_RESTAURANTS = gql`
   query Restaurants($roadName: String!) {
@@ -35,14 +39,15 @@ const CardItemContainer = styled.div`
     padding-bottom: 0;
   }
 `;
-const CardList = () => {
-  const { addressData: location } = useLocation().state as {
-    addressData: AddressData;
-  };
 
+const CardList = () => {
+  const location = useLocation();
+  const addressData = location.state
+    ? (location.state as AddressData)
+    : DEFAULT_ADDRESS_DATA;
   const { loading, error, data } = useQuery(GET_RESTAURANTS, {
     variables: {
-      roadName: location ? location.roadname : '강남대로',
+      roadName: addressData.roadname,
     },
   });
   const [coordinate, setCoordinate] = useState<{ x: number; y: number }>({
@@ -75,15 +80,18 @@ const CardList = () => {
   });
 
   if (loading) return <div>로딩</div>;
+  if (error) return <div>에러</div>;
   const cards = data.restaurants.map((item: RestaurantListInfo) => (
-    <CardItemContainer key={`${item.restaurantId}-임시키`}>
-      <CardItem
-        rate={item.restaurantRate}
-        congestion={item.restaurantCongestion}
-        title={item.restaurantName}
-        distance={item.distance}
-        category={item.restaurantCategory}
-      />
+    <CardItemContainer key={`${item.restaurantId}-${item.restaurantName}`}>
+      <Link to={`/detail/${item.restaurantId}`}>
+        <CardItem
+          rate={item.restaurantRate}
+          congestion={item.restaurantCongestion}
+          title={item.restaurantName}
+          distance={item.distance}
+          category={item.restaurantCategory}
+        />
+      </Link>
     </CardItemContainer>
   ));
   return (

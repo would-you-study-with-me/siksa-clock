@@ -5,7 +5,7 @@ import { useCallback } from 'react';
 import PinIcon from '../../assets/icons/PinIcon';
 import Colors from '../../assets/styles/Colors';
 import BackArrowIcon from '../../assets/icons/BackArrowIcon';
-import { AddressData } from './PostCode';
+import { AddressData, DEFAULT_ADDRESS_DATA } from '../../models/address.model';
 
 const HeaderContainer = styled.div`
   display: flex;
@@ -19,11 +19,9 @@ const AddressTypo = styled(Typography)`
 `;
 const Header = () => {
   const location = useLocation();
-  const { addressData } = location.state
-    ? (location.state as {
-        addressData: AddressData;
-      })
-    : { addressData: { address: '' } };
+  const addressData = location.state
+    ? (location.state as AddressData)
+    : DEFAULT_ADDRESS_DATA;
   const navigate = useNavigate();
 
   const onClickBack = useCallback(() => {
