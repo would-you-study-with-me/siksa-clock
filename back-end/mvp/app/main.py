@@ -37,7 +37,7 @@ app.add_middleware(
 
 @app.get('/')
 async def welcome():
-    return {'detail': 'I love you baby!!'}
+    return {'Can`t take my off you': 'I love you baby!!'}
 
 
 @app.get('/video')
