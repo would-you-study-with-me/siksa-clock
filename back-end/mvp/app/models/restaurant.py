@@ -1,7 +1,8 @@
 import uuid
 from datetime import datetime
 
-from sqlalchemy import Column, String, Integer, ForeignKey, DateTime, Float
+from sqlalchemy import Column, String, Integer, ForeignKey, DateTime
+from sqlalchemy.dialects.mysql import DOUBLE
 from sqlalchemy.orm import relationship
 
 from app.config.database import Base
@@ -15,8 +16,8 @@ class Restaurant(Base):
     restaurant_rate = Column(Integer, comment='식당평점 0~5')
     restaurant_category = Column(String(30), nullable=True, comment='식당 카테고리')
     restaurant_count_seats = Column(Integer, default=39, comment='식당 자리수')
-    restaurant_x = Column(Float, nullable=True, comment='X좌표')
-    restaurant_y = Column(Float, nullable=True, comment='Y좌표')
+    restaurant_x = Column(DOUBLE(), nullable=True, comment='X좌표')
+    restaurant_y = Column(DOUBLE(), nullable=True, comment='Y좌표')
     restaurant_address = Column(String(150), nullable=True, comment='식당 주소')
     restaurant_description = Column(String(100), nullable=True, comment='식당 설명')
     restaurant_contact = Column(Integer, nullable=True, comment='식당 전화번호')
@@ -24,7 +25,7 @@ class Restaurant(Base):
     restaurant_updated_at = Column(DateTime, default=datetime.now(), onupdate=lambda: datetime.now(),
                         comment='수정날짜')
 
-    opening_time = relationship('OpeningTime', back_populates='restaurant')
+    opening_time = relationship('OpeningTime', back_populates='restaurant', lazy='joined', innerjoin=True)
 
 
 class OpeningTime(Base):
@@ -40,4 +41,9 @@ class OpeningTime(Base):
     opening_time_updated_at = Column(DateTime, default=datetime.now(), onupdate=lambda: datetime.now(),
                         comment='수정날짜')
 
-    restaurant = relationship('Restaurant', back_populates='opening_time')
+    restaurant = relationship('Restaurant', back_populates='opening_time', lazy='joined', innerjoin=True)
+
+    __mapper_args__ = {
+        "eager_defaults": True
+    }
+

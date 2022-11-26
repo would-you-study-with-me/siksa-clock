@@ -1,8 +1,7 @@
 from datetime import datetime
 from uuid import UUID
 
-import strawberry.experimental.pydantic
-from pydantic import BaseModel
+from pydantic import BaseModel, condecimal
 
 
 class RestaurantBase(BaseModel):
@@ -23,15 +22,6 @@ class OpeningTimeBase(BaseModel):
     restaurant_break_time_days: str | None
     restaurant_break_time: str | None
 
-
-class RestaurantInput(RestaurantBase):
-    pass
-
-
-class OpeningTimeInput(OpeningTimeBase):
-    pass
-
-
 class RestaurantTimeStampBase(BaseModel):
     restaurant_created_at: datetime
     restaurant_updated_at: datetime
@@ -42,47 +32,23 @@ class OpeningTimeStampBase(BaseModel):
     opening_time_updated_at: datetime
 
 
-class RestaurantOutput(RestaurantBase, RestaurantTimeStampBase):
+class InputRestaurant(BaseModel):
     restaurant_id: UUID
 
-    class Config:
-        orm_mode = True
 
-
-class OpeningTimeOutput(OpeningTimeBase, OpeningTimeStampBase):
-    opening_time_id: UUID
+class OutputRestaurant(RestaurantBase, RestaurantTimeStampBase, OpeningTimeBase, OpeningTimeStampBase):
     restaurant_id: UUID
-
-    class Config:
-        orm_mode = True
-
-
-class RestaurantOpeningTimeOutput(RestaurantBase, RestaurantTimeStampBase, OpeningTimeBase, OpeningTimeStampBase):
-    restaurant_id: UUID
-    opening_time_id: UUID
     restaurant_congestion: str
     restaurant_waiting_people: int
-
-
-class RestaurantAllData(RestaurantBase, RestaurantTimeStampBase):
-    restaurant_id: UUID
+    restaurant_distance: float | None
 
     class Config:
         orm_mode = True
 
 
-class OpeningTimeAllData(OpeningTimeBase, OpeningTimeStampBase):
-    opening_time_id: UUID
-    restaurants_id: UUID
-
-    class Config:
-        orm_mode = True
-
-
-@strawberry.experimental.pydantic.type(
-    model=RestaurantOpeningTimeOutput,
-    all_fields=True,
-    description="레스토랑에 대한 전체 데이터타입"
-)
-class RestaurantAll:
-    pass
+class InputRestaurants(BaseModel):
+    query: str
+    x: float | None
+    y: float | None
+    skip: int | None = 0
+    limit: int | None= 10
