@@ -1,10 +1,14 @@
-import { Portal } from 'components';
+import { HeaderWithBackButton, Portal } from 'components';
 import { usePostcode } from 'hooks/postcode';
-import { useEffect, useRef } from 'react';
-import { StyledModal } from './DaumPostcode.styles';
+import { useEffect, useState } from 'react';
+import { StyledContainer, StyledModal } from './DaumPostcode.styles';
 
-export function DaumPostcode() {
-  const ref = useRef<HTMLDivElement>(null);
+interface Props {
+  close: () => void;
+}
+
+export function DaumPostcode({ close }: Props) {
+  const [element, setElement] = useState<HTMLDivElement | null>(null);
   // TODO postcode 높이 꽉 채우기
   // TODO postcode 닫는 기능 만들기
   const [, open] = usePostcode(
@@ -13,16 +17,20 @@ export function DaumPostcode() {
       height: '100%',
       oncomplete: console.log,
     },
-    ref.current || undefined,
+    element ?? undefined,
   );
 
   useEffect(() => {
-    open();
+    if (element) open();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open]);
 
   return (
     <Portal>
-      <StyledModal ref={ref} />
+      <StyledContainer>
+        <HeaderWithBackButton callback={close} />
+        <StyledModal ref={setElement} />
+      </StyledContainer>
     </Portal>
   );
 }
