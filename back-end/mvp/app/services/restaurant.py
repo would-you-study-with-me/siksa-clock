@@ -14,7 +14,7 @@ class RestaurantService:
         """
         혼잡도 계산
         """
-        eat_hour = int(strftime('%I', localtime(time())))
+        eat_hour = int(localtime(time()).tm_hour)
         eat_minute = strftime('%M', localtime(time()))
 
         logging.info('혼잡도 계산 시간 = {}:{}'.format(eat_hour, eat_minute))
