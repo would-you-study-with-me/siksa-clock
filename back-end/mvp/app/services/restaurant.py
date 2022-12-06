@@ -1,6 +1,14 @@
 import logging
 import random
 from time import strftime, localtime, time
+from uuid import UUID
+
+from pydantic import Json
+from sqlalchemy import update
+
+from app.config.database import get_session
+from app.models.restaurant import Restaurant
+from app.services.api_service import NaverApi
 
 logging.basicConfig(level=logging.INFO)
 
@@ -57,3 +65,56 @@ class RestaurantService:
         elif waiting_people >= 10:
             self.congestion_classification = '혼잡'
 
+
+    async def input_restaurant_image_data(
+            self,
+            restaurant_id: UUID,
+            restaurant_name: str,
+            restaurant_image: str = None
+    ) -> Json:
+        logging.info("음식점 이미지 데이터 확인 및 적재")
+
+        if not restaurant_image:
+            logging.info("{} 음식점 이미지 데이터가 없음!".format(restaurant_name))
+            naver_api = NaverApi()
+            image_data = await naver_api.image_search(query=restaurant_name)
+
+            sql = update(Restaurant)\
+                .where(Restaurant.restaurant_id == restaurant_id)\
+                .values(restaurant_image=image_data.json())
+
+            async with get_session() as s:
+                await s.execute(sql)
+                await s.commit()
+
+            return image_data.json()
+        else:
+            logging.info("{} 음식점 이미지 데이터가 있음!".format(restaurant_name))
+            return restaurant_image
+
+    async def input_restuarant_menu_data(
+            self,
+            restaurant_id: UUID,
+            restaurant_name: str,
+            restaurant_menu: str
+    ) -> Json:
+        logging.info("음식점 메뉴판 데이터 확인 및 적재")
+
+        # 데이터 값 있는지 확인
+        if not restaurant_menu:
+            logging.info("{} 음식점 메뉴판 데이터가 없음!".format(restaurant_name))
+            naver_api = NaverApi()
+            menu_data = await naver_api.image_search(query="{}메뉴".format(restaurant_name))
+
+            sql = update(Restaurant) \
+                .where(Restaurant.restaurant_id == restaurant_id) \
+                .values(restaurant_menu=menu_data.json())
+
+            async with get_session() as s:
+                await s.execute(sql)
+                await s.commit()
+
+            return menu_data.json()
+        else:
+            logging.info("{} 음식점 이미지 데이터 있음!".format(restaurant_name))
+            return restaurant_menu

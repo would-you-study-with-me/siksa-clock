@@ -1,7 +1,7 @@
 from datetime import datetime
 from uuid import UUID
 
-from pydantic import BaseModel, condecimal
+from pydantic import BaseModel
 
 
 class RestaurantBase(BaseModel):
@@ -14,6 +14,8 @@ class RestaurantBase(BaseModel):
     restaurant_address: str | None
     restaurant_description: str | None
     restaurant_contact: str | None
+    restaurant_image: dict | None
+    restaurant_menu: dict | None
 
 
 class OpeningTimeBase(BaseModel):

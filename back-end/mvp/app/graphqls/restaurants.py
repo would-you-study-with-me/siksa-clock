@@ -1,8 +1,6 @@
 from typing import List
-from uuid import UUID
 
 import strawberry
-from strawberry.types import Info
 
 from app.resolvers.restaurant import get_restaurant, get_restaurants
 from app.scalars.restaurant import OutputRestaurant, InputRestaurant, InputRestaurants
