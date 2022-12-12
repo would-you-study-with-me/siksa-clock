@@ -5,17 +5,16 @@ import { StyledContainer, StyledModal } from './DaumPostcode.styles';
 
 interface Props {
   close: () => void;
+  onComplete: (res: AddressData) => void;
 }
 
-export function DaumPostcode({ close }: Props) {
+export function DaumPostcode({ close, onComplete }: Props) {
   const [element, setElement] = useState<HTMLDivElement | null>(null);
-  // TODO postcode 높이 꽉 채우기
-  // TODO postcode 닫는 기능 만들기
   const [, open] = usePostcode(
     {
       width: '100%',
       height: '100%',
-      oncomplete: console.log,
+      oncomplete: onComplete,
     },
     element ?? undefined,
   );
