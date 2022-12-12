@@ -1,5 +1,58 @@
+/** 주소 타입. R: 도로명 / J: 지번 */
+type AddressType = 'R' | 'J';
+
+/** Yes / No */
+type YN = 'Y' | 'N';
+
+type AddressData = {
+  zonecode: `${number}`;
+  address: string;
+  addressEnglish: string;
+  /** R: 도로명 / J: 지번 */
+  addressType: AddressType;
+  userSelectedType: AddressType;
+  noSelected: YN;
+  /** K: korean / E: English */
+  useLanguageType: 'K' | 'E';
+  roadAddress: string;
+  roadAddressEnglish: string;
+  jibunAddress: string;
+  jibunAddressEnglish: string;
+  autoRoadAddress: string;
+  autoRoadAddressEnglish: string;
+  autoJibunAddress: string;
+  autoJibunAddressEnglish: string;
+  buildingCode: string;
+  buildingName: string;
+  apartment: YN;
+  sido: string;
+  sidoEnglish: string;
+  sigungu: string;
+  sigunguEnglish: string;
+  sigunguCode: string;
+  roadnameCode: string;
+  bcode: string;
+  roadname: string;
+  roadnameEnglish: string;
+  bname: string;
+  bnameEnglish: string;
+  bname1: string;
+  bname2: string;
+  bname2English: string;
+  hname: string;
+  query: string;
+  /** @deprecated */
+  postcode: string;
+  /** @deprecated */
+  postcode1: string;
+  /** @deprecated */
+  postcode2: string;
+  /** @deprecated */
+  postcodeSeq: string;
+};
+
 interface ConstructorProps {
-  oncomplete?(data): void;
+  oncomplete?(data: AddressData): void;
   onresize?(size: { width: number; height: number }): void;
   onclose?(state: 'FORCE_CLOSE' | 'COMPLETE_CLOSE'): void;
   /**
