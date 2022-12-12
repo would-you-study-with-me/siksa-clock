@@ -24,7 +24,6 @@ export function usePostcode(
 
   const open = useCallback(
     (option?: daum.OpenParameter) => {
-      console.log(embed, postcode);
       if (!embed) {
         postcode?.open(option);
       } else {
