@@ -1,12 +1,28 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
+import {
+  ApolloClient,
+  ApolloLink,
+  ApolloProvider,
+  HttpLink,
+  InMemoryCache,
+} from '@apollo/client';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
-const client = new ApolloClient({
+const restaurauntLink = new HttpLink({
   uri: 'http://web.siksa-clock.kro.kr/restaurant',
+});
+const geocodingLink = new HttpLink({
+  uri: 'http://web.siksa-clock.kro.kr/coords',
+});
+const client = new ApolloClient({
+  link: ApolloLink.split(
+    operation => operation.getContext().clientName === 'restaurant',
+    restaurauntLink, // if above
+    geocodingLink,
+  ),
   cache: new InMemoryCache(),
 });
 const root = ReactDOM.createRoot(
