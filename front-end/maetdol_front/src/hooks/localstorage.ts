@@ -1,23 +1,21 @@
+import { LocalStorageKeys } from 'constants/localstorage-keys.constants';
 import { useCallback, useState } from 'react';
 
-export const LOCAL_STORAGE_KEYS: { [key: string]: string } = {} as const;
-export type LocalstorageKeys =
-  typeof LOCAL_STORAGE_KEYS[keyof typeof LOCAL_STORAGE_KEYS];
-
-function getLocalStorage(key: LocalstorageKeys) {
-  return JSON.parse(localStorage.getItem(key) ?? '');
+function getLocalStorage(key: LocalStorageKeys) {
+  const value = localStorage.getItem(key);
+  return typeof value === 'string' ? JSON.parse(value) : undefined;
 }
 
-function setLocalStorage(key: LocalstorageKeys, value: string) {
+function setLocalStorage(key: LocalStorageKeys, value: string) {
   localStorage.setItem(key, value);
 }
 
-function removeLocalStorage(key: LocalstorageKeys) {
+function removeLocalStorage(key: LocalStorageKeys) {
   localStorage.removeItem(key);
 }
 
 export function useLocalStorageState<T>(
-  key: LocalstorageKeys,
+  key: LocalStorageKeys,
   defaultValue: T,
   stringifier: (val: T) => string = v => JSON.stringify(v),
 ): [T, (val: T) => void, () => void] {
