@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { useLocation, Link, NavLink } from 'react-router-dom';
 import { useQuery, gql } from '@apollo/client';
-import { Link, NavLink } from 'react-router-dom';
 import Typography from '@mui/material/Typography';
 import RestaurantCard from '../components/RestaurantCard';
 import { RestaurantCardInfo } from '../model/restaurant-card.interface';
@@ -8,21 +8,41 @@ import { calculateDistance } from '../utils/util';
 import { Coordinate } from '../model/coordinate.interface';
 import LocationHeader from '../components/LocationHeader';
 
-const GET_RESTAURANTS = gql`
+const GET_RESTAURANTS_QUERY = gql`
   query GetRestaurants {
-    restaurants {
-      restaurantId
-      restaurantName
-      restaurantRate
+    restaurants(inputData: { query: "강남대로" }) {
+      restaurantOpeningTimeDays
+      restaurantOpeningTime
+      restaurantBreakTimeDays
+      restaurantBreakTime
       restaurantCategory
-      restaurantCongestion
+      restaurantCountSeats
       restaurantX
       restaurantY
+      restaurantAddress
+      restaurantDescription
+      restaurantContact
+      restaurantDistance
+      restaurantCongestion
+      restaurantCreatedAt
+      restaurantId
+      restaurantImage
+      restaurantMenu
+      restaurantName
+      restaurantRate
+      restaurantWaitingPeople
     }
   }
 `;
 
 const Main: React.FC = () => {
+  const location = useLocation();
+  const state = location.state as { roadname: string };
+
+  // const [loading, setLoading] = useState(false);
+  // const [error, setError] = useState(null);
+  // const [restaurants, setRestaurants] = useState([]);
+
   const [currentCoords, setCurrentCoords] = useState<Coordinate>({
     latitude: 0,
     longitude: 0,
@@ -43,9 +63,13 @@ const Main: React.FC = () => {
     );
   }, []);
 
+  // const query = GET_RESTAURANTS_QUERY(state ? state.roadname : '강남대로');
+
   const { loading, error, data } = useQuery<{
-    mockRestaurants: RestaurantCardInfo[];
-  }>(GET_RESTAURANTS);
+    restaurants: RestaurantCardInfo[];
+  }>(GET_RESTAURANTS_QUERY, {
+    variables: { query: '강남대로' },
+  });
   if (loading)
     return (
       <div>
@@ -72,7 +96,7 @@ const Main: React.FC = () => {
       </Link>
       <Typography variant="h2">내 주변 식사</Typography>
       {data &&
-        data.mockRestaurants.map(restaurant => (
+        data.restaurants.map(restaurant => (
           <NavLink to={`restaurants/${restaurant.restaurantId}`}>
             <RestaurantCard
               key={restaurant.restaurantId}
