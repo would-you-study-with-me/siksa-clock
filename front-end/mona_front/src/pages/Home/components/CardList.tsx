@@ -10,6 +10,7 @@ import {
   AddressData,
   DEFAULT_ADDRESS_DATA,
 } from '../../../models/address.model';
+import { CoordsResultItem } from '../../../models/coords.model';
 
 const GET_RESTAURANTS = gql`
   query Restaurants($roadName: String!) {
@@ -25,8 +26,10 @@ const GET_RESTAURANTS = gql`
   }
 `;
 const GET_REVERSE_GEOCODING = gql`
-  query GetLocation {
-    reverseGeocoding(inputReverseGeocoding: { x: $x, y: $y })
+  query GetLocation($x: Float!, $y: Float!) {
+    reverseGeocoding(inputReverseGeocoding: { x: $x, y: $y }) {
+      results
+    }
   }
 `;
 
@@ -61,20 +64,15 @@ const CardList = () => {
     x: NaN,
     y: NaN,
   });
-  const {
-    loading: LocationLoading,
-    error: LocationError,
-    data: LocationData,
-    refetch: LocationRefetch,
-    networkStatus: LocationNetWorkStatus,
-  } = useQuery(GET_REVERSE_GEOCODING, {
-    context: { clientName: 'coords' },
-    variables: {
-      x: coordinate.x,
-      y: coordinate.y,
-    },
-    notifyOnNetworkStatusChange: true,
-  });
+  const { refetch: LocationRefetch, networkStatus: LocationNetWorkStatus } =
+    useQuery(GET_REVERSE_GEOCODING, {
+      context: { clientName: 'coords' },
+      variables: {
+        x: coordinate.x,
+        y: coordinate.y,
+      },
+      notifyOnNetworkStatusChange: true,
+    });
 
   useEffect(() => {
     if ('geolocation' in navigator) {
@@ -86,7 +84,11 @@ const CardList = () => {
             x: res.coords.longitude,
             y: res.coords.latitude,
           });
-          LocationRefetch({ x: res.coords.longitude, y: res.coords.latitude });
+          LocationRefetch({ x: 127.048542, y: 37.519995 }).then(res => {
+            const geoLocationData: CoordsResultItem[] =
+              res.data.reverseGeocoding.results;
+            console.log(geoLocationData);
+          });
         },
         err => {
           console.warn(err.message);
@@ -94,13 +96,6 @@ const CardList = () => {
       );
     }
   }, [LocationRefetch]);
-
-  useEffect(() => {
-    if (!loading) {
-      console.log('coordinate', coordinate);
-      console.log(LocationData);
-    }
-  });
 
   if (loading) return <div>로딩</div>;
   if (error) return <div>에러</div>;
