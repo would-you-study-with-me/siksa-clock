@@ -24,12 +24,12 @@ class NaverApi(object):
 
 
     async def image_search(
-            self,
-            query: str,
-            display: int = None,
-            start: int = None,
-            sort: str = None,
-            filter: str = None
+        self,
+        query: str,
+        display: int = None,
+        start: int = None,
+        sort: str = None,
+        filter: str = None
     ):
         url = "https://openapi.naver.com/v1/search/image"
 
@@ -162,7 +162,6 @@ class KakaoApi(object):
 
         return r
     def trans_coord(
-
             self,
             x: float,
             y: float,

@@ -8,7 +8,7 @@ from app.config.database import create_table
 from app.routers.choord import choord_graphql_app
 from app.routers.restaurant import restaurant_graphql_app
 
-app = FastAPI(version='1.3')
+app = FastAPI(version='1.4')
 
 app.include_router(restaurant_graphql_app, prefix='/restaurant')
 app.add_websocket_route('/restaurant', restaurant_graphql_app)

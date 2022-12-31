@@ -1,7 +1,7 @@
 import logging
 from typing import List
 
-from sqlalchemy import delete, select, update, func
+from sqlalchemy import select, func
 
 from app.config.database import get_session
 from app.models.restaurant import Restaurant, OpeningTime
@@ -15,7 +15,7 @@ async def get_restaurant(restaurant_input_data: InputRestaurant) -> OutputRestau
         .where(Restaurant.restaurant_id == restaurant_input_data.restaurant_id)
 
     async with get_session() as s:
-            restaurant_data = (await s.execute(sql)).scalars().unique().first()
+        restaurant_data = (await s.execute(sql)).scalars().unique().first()
 
 
     restaurant_model_service = RestaurantService()
@@ -24,6 +24,17 @@ async def get_restaurant(restaurant_input_data: InputRestaurant) -> OutputRestau
     logging.info("restaurant congestion classification : {}".format(restaurant_model_service.congestion_classification))
     logging.info("restaurant congestion : {}".format(restaurant_model_service.congestion))
     logging.info("restaurant waiting people : {}".format(restaurant_model_service.waiting_people))
+
+    restaurant_image = await restaurant_model_service.input_restaurant_image_data(
+        restaurant_id=restaurant_data.restaurant_id,
+        restaurant_name=restaurant_data.restaurant_name,
+        restaurant_image=restaurant_data.restaurant_image
+    )
+    restaurant_menu = await restaurant_model_service.input_restuarant_menu_data(
+        restaurant_id=restaurant_data.restaurant_id,
+        restaurant_name=restaurant_data.restaurant_name,
+        restaurant_menu=restaurant_data.restaurant_menu
+    )
 
     restaurant_data = OutputRestaurant(
         restaurant_id=restaurant_data.restaurant_id,
@@ -45,7 +56,9 @@ async def get_restaurant(restaurant_input_data: InputRestaurant) -> OutputRestau
         opening_time_created_at=restaurant_data.opening_time[0].opening_time_created_at,
         opening_time_updated_at=restaurant_data.opening_time[0].opening_time_updated_at,
         restaurant_congestion=restaurant_model_service.congestion_classification,
-        restaurant_waiting_people=restaurant_model_service.waiting_people
+        restaurant_waiting_people=restaurant_model_service.waiting_people,
+        restaurant_image=restaurant_image,
+        restaurant_menu=restaurant_menu
     )
 
     return restaurant_data
@@ -78,6 +91,18 @@ async def get_restaurants(restaurants_input_data: InputRestaurants) -> List[Outp
 
     for restaurant in restaurant_db_datas:
         restaurant_model_service.dhmm_model(remaining_seats=restaurant.restaurant_count_seats)
+
+        restaurant_image = await restaurant_model_service.input_restaurant_image_data(
+            restaurant_id=restaurant.restaurant_id,
+            restaurant_name=restaurant.restaurant_name,
+            restaurant_image=restaurant.restaurant_image
+        )
+        restaurant_menu = await restaurant_model_service.input_restuarant_menu_data(
+            restaurant_id=restaurant.restaurant_id,
+            restaurant_name=restaurant.restaurant_name,
+            restaurant_menu=restaurant.restaurant_menu
+        )
+
         output_restaurant_data = OutputRestaurant(
             restaurant_id=restaurant.restaurant_id,
             restaurant_name=restaurant.restaurant_name,
@@ -99,6 +124,8 @@ async def get_restaurants(restaurants_input_data: InputRestaurants) -> List[Outp
             opening_time_updated_at=restaurant.opening_time[0].opening_time_updated_at,
             restaurant_congestion=restaurant_model_service.congestion_classification,
             restaurant_waiting_people=restaurant_model_service.waiting_people,
+            restaurant_image=restaurant_image,
+            restaurant_menu=restaurant_menu
         )
         output_restaurant_list.append(output_restaurant_data)
 
