@@ -1,12 +1,7 @@
 import { useCallback, useMemo } from 'react';
 import DaumPostcodeEmbed, { Address } from 'react-daum-postcode';
 import { useNavigate } from 'react-router-dom';
-
-export interface AddressData {
-  address: string;
-  sigungu: string;
-  roadname: string;
-}
+import { AddressData } from '../../models/address.model';
 
 export const Postcode = (props: any) => {
   const addressData: AddressData = useMemo(
@@ -39,7 +34,7 @@ export const Postcode = (props: any) => {
 
   const goHome = useCallback(() => {
     navigate('/', {
-      state: { addressData },
+      state: { ...addressData },
     });
   }, [navigate, addressData]);
 

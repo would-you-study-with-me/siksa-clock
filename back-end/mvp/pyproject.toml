@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "mvp"
-version = "0.1.1"
+version = "0.1.2"
 description = "siksa_clock graphql mvp"
 authors = ["Hyeonproject <axzswq@gmail.com>"]
 readme = "README.md"
@@ -8,7 +8,7 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = "^3.10"
 fastapi = "^0.78.0"
-uvicorn = {extras = ["standard"], version = "^0.18.2"}
+uvicorn = {extras = ["standard"], version = "^0.20.0"}
 python-multipart = "^0.0.5"
 python-jose = {extras = ["cryptography"], version = "^3.3.0"}
 passlib = {extras = ["bcrypt"], version = "^1.7.4"}

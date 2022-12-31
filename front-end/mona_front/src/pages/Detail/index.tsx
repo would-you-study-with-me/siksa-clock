@@ -1,3 +1,3 @@
-import CardList from '../Home/components/CardList';
+import RestaurauntInfo from './components/RestaurauntInfo';
 
-export default CardList;
+export default RestaurauntInfo;
