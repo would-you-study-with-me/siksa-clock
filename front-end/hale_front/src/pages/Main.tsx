@@ -1,39 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, Link, NavLink } from 'react-router-dom';
-import { useQuery, gql } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 import Typography from '@mui/material/Typography';
 import RestaurantCard from '../components/RestaurantCard';
 import { RestaurantCardInfo } from '../model/restaurant-card.interface';
 import { calculateDistance } from '../utils/util';
 import { Coordinate } from '../model/coordinate.interface';
 import LocationHeader from '../components/LocationHeader';
-
-const GET_RESTAURANTS_QUERY = gql`
-  query GetRestaurants {
-    restaurants(inputData: { query: "강남대로" }) {
-      restaurantOpeningTimeDays
-      restaurantOpeningTime
-      restaurantBreakTimeDays
-      restaurantBreakTime
-      restaurantCategory
-      restaurantCountSeats
-      restaurantX
-      restaurantY
-      restaurantAddress
-      restaurantDescription
-      restaurantContact
-      restaurantDistance
-      restaurantCongestion
-      restaurantCreatedAt
-      restaurantId
-      restaurantImage
-      restaurantMenu
-      restaurantName
-      restaurantRate
-      restaurantWaitingPeople
-    }
-  }
-`;
+import { GET_RESTAURANTS_QUERY } from '../queries/restaurants.query';
 
 const Main: React.FC = () => {
   const location = useLocation();
@@ -51,7 +25,6 @@ const Main: React.FC = () => {
   useEffect(() => {
     navigator.geolocation?.getCurrentPosition(
       (position: GeolocationPosition) => {
-        console.dir(position.coords);
         setCurrentCoords({
           latitude: position.coords.latitude,
           longitude: position.coords.longitude,

@@ -5,7 +5,6 @@ const PostCode = () => {
   const navigate = useNavigate();
 
   const handleComplete = (data: Address) => {
-    console.log(data.roadname);
     navigate('/', { state: { roadname: data.roadname } });
   };
 
