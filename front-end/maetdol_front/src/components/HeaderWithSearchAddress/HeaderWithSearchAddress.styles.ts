@@ -6,5 +6,8 @@ export const StyledHeader = styled.header`
 `;
 
 export const StyledButton = styled.button`
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
   cursor: pointer;
 `;

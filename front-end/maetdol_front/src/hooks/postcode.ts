@@ -1,30 +1,36 @@
 import { getPostcode } from 'api/daum';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 export function usePostcode(
   initialOption: daum.ConstructorProp,
+  embed?: HTMLElement,
 ): [daum.Postcode | undefined, () => void] {
   const [postcode, setPostcode] = useState<daum.Postcode>();
 
-  const [previousOptions, setPreviousOptions] =
-    useState<daum.ConstructorProp>();
+  const previousOptionRef = useRef<daum.ConstructorProp>();
 
   useEffect(() => {
     const hasSameKeyLength =
       Object.values(initialOption).length ===
-      Object.values(previousOptions || {}).length;
+      Object.values(previousOptionRef.current || {}).length;
 
-    if (previousOptions && hasSameKeyLength) return;
-    setPreviousOptions(initialOption);
+    if (previousOptionRef.current && hasSameKeyLength) return;
+    previousOptionRef.current = initialOption;
 
     getPostcode(initialOption).then(setPostcode);
-  }, [initialOption, previousOptions]);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [initialOption]);
 
   const open = useCallback(
     (option?: daum.OpenParameter) => {
-      postcode?.open(option);
+      if (!embed) {
+        postcode?.open(option);
+      } else {
+        postcode?.embed(embed, option);
+      }
     },
-    [postcode],
+    [postcode, embed],
   );
 
   return [postcode, open];
