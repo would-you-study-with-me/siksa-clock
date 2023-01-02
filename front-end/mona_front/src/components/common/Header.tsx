@@ -8,6 +8,9 @@ import BackArrowIcon from '../../assets/icons/BackArrowIcon';
 import { AddressData, DEFAULT_ADDRESS_DATA } from '../../models/address.model';
 
 const HeaderContainer = styled.div`
+  position: sticky;
+  top: 0;
+  background-color: ${Colors.white};
   display: flex;
   align-items: center;
   padding: 16px;
