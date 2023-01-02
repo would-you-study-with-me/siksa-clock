@@ -11,5 +11,6 @@ export const StyledContainer = styled.div`
   top: 0;
   right: 0;
   bottom: 0;
-  background: lightblue;
+  z-index: 100;
+  background-color: white;
 `;
