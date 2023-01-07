@@ -1,7 +1,7 @@
 import { useQuery, gql } from '@apollo/client';
 import styled from '@emotion/styled';
 import { Typography } from '@mui/material';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import CongestionComponent from '../../../components/common/Congestion';
 import StarRate from '../../../components/common/StarRate';
@@ -24,6 +24,8 @@ const GET_RESTAURANTS_DETAIL = gql`
       restaurantName
       restaurantOpeningTime
       restaurantOpeningTimeDays
+      restaurantImage
+      restaurantMenu
       restaurantRate
       restaurantX
       restaurantY
@@ -64,20 +66,29 @@ const RestaurauntInfo = () => {
   const [detailInfo, setDetailInfo] = useState<RestaurantDetailInfo>();
   const { id } = useParams();
   const { loading, error, data } = useQuery(GET_RESTAURANTS_DETAIL, {
+    context: { clientName: 'restaurant' },
     variables: {
       id,
     },
     onCompleted: data => {
-      console.log('on complete', data);
       setDetailInfo(data.restaurant);
     },
   });
   if (loading) return <div>로딩</div>;
+  const imageDataURL = detailInfo?.restaurantImage.items.map(img => {
+    const imgTitleSplit = img.title.split(' ');
+    // TODO: title에 엉뚱한거 걸러내는 작업하기
+    return img.link;
+  });
+  // TODO: 메뉴판 이미지 슬라이드 출력하기
+  const menuImageDataURL = detailInfo?.restaurantMenu.items.map(
+    img => img.link,
+  );
 
   return (
     <div>
       <SlideContainer>
-        <SlickSlide imageUrls={mockImageUrls} />
+        <SlickSlide imageUrls={imageDataURL || mockImageUrls} />
       </SlideContainer>
       <InfoContainer>
         <CategoryTypo>
@@ -85,16 +96,18 @@ const RestaurauntInfo = () => {
         </CategoryTypo>
         <TitleTypo variant="h2">{detailInfo?.restaurantName}</TitleTypo>
         <RateAndCongestionContainer>
-          <StarRate rate={detailInfo?.restaurantRate ?? 0} />
+          <StarRate rate={detailInfo?.restaurantRate || 0} />
           <StyledCongestion
-            congestion={detailInfo?.restaurantCongestion ?? Congestion.SMOOTH}
+            congestion={detailInfo?.restaurantCongestion || Congestion.NORMAL}
           />
         </RateAndCongestionContainer>
         <DescriptionTypo>
           {detailInfo?.restaurantDescription ?? '식당설명'}
         </DescriptionTypo>
       </InfoContainer>
-      <div>메뉴 슬라이드</div>
+      <SlideContainer>
+        <SlickSlide imageUrls={menuImageDataURL || mockImageUrls} />
+      </SlideContainer>
       <div>지도 영역</div>
     </div>
   );

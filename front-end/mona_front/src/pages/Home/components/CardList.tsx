@@ -75,6 +75,9 @@ const CardList = () => {
     variables: {
       roadName: addressData.roadname,
     },
+    onCompleted: data => {
+      setRestaurantList(data.restaurants);
+    },
   });
 
   const { refetch: LocationRefetch, networkStatus: LocationNetWorkStatus } =
@@ -101,6 +104,7 @@ const CardList = () => {
             const locationDataWithLand = findLand(geoLocationData);
             const dongName = locationDataWithLand?.region?.area3?.name;
             if (dongName) {
+              // refetch 할 때 loading표시하기
               refetch({
                 roadName: dongName,
               }).then(res => {
@@ -115,11 +119,6 @@ const CardList = () => {
       );
     }
   }, [LocationRefetch, refetch]);
-  useEffect(() => {
-    if (data) {
-      setRestaurantList(data.restaurants);
-    }
-  }, [data]);
 
   if (loading) return <div>로딩</div>;
   if (error) return <div>에러</div>;
