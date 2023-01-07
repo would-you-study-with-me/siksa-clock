@@ -13,10 +13,6 @@ const Main: React.FC = () => {
   const location = useLocation();
   const state = location.state as { roadname: string };
 
-  // const [loading, setLoading] = useState(false);
-  // const [error, setError] = useState(null);
-  // const [restaurants, setRestaurants] = useState([]);
-
   const [currentCoords, setCurrentCoords] = useState<Coordinate>({
     latitude: 0,
     longitude: 0,
@@ -36,12 +32,10 @@ const Main: React.FC = () => {
     );
   }, []);
 
-  // const query = GET_RESTAURANTS_QUERY(state ? state.roadname : '강남대로');
-
   const { loading, error, data } = useQuery<{
     restaurants: RestaurantCardInfo[];
   }>(GET_RESTAURANTS_QUERY, {
-    variables: { query: '강남대로' },
+    variables: { query: state ? state.roadname : '강남대로' },
   });
   if (loading)
     return (
@@ -70,7 +64,10 @@ const Main: React.FC = () => {
       <Typography variant="h2">내 주변 식사</Typography>
       {data &&
         data.restaurants.map(restaurant => (
-          <NavLink to={`restaurants/${restaurant.restaurantId}`}>
+          <NavLink
+            to={`restaurants/${restaurant.restaurantId}`}
+            key={restaurant.restaurantId}
+          >
             <RestaurantCard
               key={restaurant.restaurantId}
               name={restaurant.restaurantName}
