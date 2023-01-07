@@ -15,8 +15,22 @@ type Land = {
   type: string;
 };
 
+type Coords = {
+  crs: string;
+  x: number;
+  y: number;
+};
+
+type Region = {
+  area1?: { name: string; coords: Coords; alias?: string };
+  area2?: { name: string; coords: Coords; alias?: string };
+  area3?: { name: string; coords: Coords; alias?: string };
+  area4?: { name: string; coords: Coords; alias?: string };
+};
+
 export interface CoordsResultItem {
   name: string;
   code: CodeItem;
   land?: Land;
+  region?: Region;
 }
