@@ -2,7 +2,7 @@ import os, json
 
 from fastapi import HTTPException
 
-secret_json_file = os.path.join('./', 'secret.json')
+secret_json_file = os.path.join('secret.json')
 
 
 with open(secret_json_file, 'r') as secret_json:
