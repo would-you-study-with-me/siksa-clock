@@ -5,10 +5,7 @@ interface Props {
   bottom: `${number}px` | `${number}rem` | `${number}.${number}rem`;
 }
 
-export default function ScrollObserver({
-  onIntersect,
-  bottom = '0.1rem',
-}: Props) {
+export function ScrollObserver({ onIntersect, bottom = '0.1rem' }: Props) {
   const [element, setElement] = useState<HTMLSpanElement | null>(null);
 
   const callbackRef = useRef<Props['onIntersect']>(onIntersect);

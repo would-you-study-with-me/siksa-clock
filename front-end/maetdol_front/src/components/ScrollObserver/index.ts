@@ -1,1 +1,1 @@
-export { default } from './ScrollObserver.component';
+export * from './ScrollObserver.component';
