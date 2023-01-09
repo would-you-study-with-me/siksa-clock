@@ -7,6 +7,7 @@ export function rawThumbnailDataToThumbnail({
   restaurantId,
   restaurantName,
   restaurantRate,
+  restaurantImage,
 }: RestaurantRawData): RestaurantThumbnailCard {
   return {
     category: restaurantCategory,
@@ -14,5 +15,6 @@ export function rawThumbnailDataToThumbnail({
     id: restaurantId,
     name: restaurantName,
     rate: restaurantRate,
+    thumbnail: restaurantImage.items[0]?.thumbnail,
   };
 }

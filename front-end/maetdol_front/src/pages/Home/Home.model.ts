@@ -1,5 +1,21 @@
 import { Congestion } from 'components/ThumbnailCard/ThumbnailCard.model';
 
+type ImageDetail = {
+  title: string;
+  link: string;
+  thumbnail: string;
+  sizeheight: `${number}`;
+  sizewidth: `${number}`;
+};
+
+type RestaurantImage = {
+  lastBuildDate: string;
+  total: number;
+  start: number;
+  display: number;
+  items: ImageDetail[];
+};
+
 export type RestaurantRawData = {
   openingTimeCreatedAt: string;
   openingTimeUpdatedAt: string;
@@ -21,6 +37,7 @@ export type RestaurantRawData = {
   restaurantAddress: string | null;
   restaurantDescription: string | null;
   restaurantContact: string | null;
+  restaurantImage: RestaurantImage;
 };
 
 export type RestaurantThumbnailCard = {
@@ -29,4 +46,5 @@ export type RestaurantThumbnailCard = {
   congestion: Congestion;
   rate: number;
   name: string;
+  thumbnail: string;
 };

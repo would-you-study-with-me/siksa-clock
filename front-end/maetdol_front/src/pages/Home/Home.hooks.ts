@@ -15,8 +15,8 @@ const GET_RESTAURANTS_THUMBNAIL_CARDS = gql`
       restaurantCongestion
       restaurantRate
       restaurantName
+      restaurantImage
       # distance ?
-      # thumbnail ?
     }
   }
 `;

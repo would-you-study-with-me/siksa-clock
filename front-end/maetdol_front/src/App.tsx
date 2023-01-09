@@ -1,6 +1,6 @@
 import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
 import { Global, ThemeProvider } from '@emotion/react';
-import { HeaderWithBackButton } from 'components';
+import HeaderWithSearchAddress from 'components/HeaderWithSearchAddress';
 import { Home } from 'pages/Home/Home.page';
 import { BrowserRouter } from 'react-router-dom';
 import globalStyle from 'styles/global';
@@ -18,7 +18,7 @@ function App() {
       <ThemeProvider theme={{ colors, typography }}>
         <Global styles={globalStyle} />
         <BrowserRouter>
-          <HeaderWithBackButton />
+          <HeaderWithSearchAddress />
           <Home />
         </BrowserRouter>
       </ThemeProvider>
