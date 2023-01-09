@@ -43,25 +43,34 @@ const SlideContainer = styled.div`
   height: 30vh;
   overflow: hidden;
 `;
-const CategoryTypo = styled.p`
-  font-size: 0.714rem;
+const CategoryTypo = styled(Typography)`
   font-weight: 400;
 `;
 const TitleTypo = styled(Typography)`
-  padding-bottom: 1rem;
+  padding-bottom: 16px;
 `;
 const DescriptionTypo = styled(Typography)`
-  padding-bottom: 2rem;
+  padding: 24px 0 40px;
 `;
+
 const RateAndCongestionContainer = styled.div`
   display: flex;
   margin-left: auto;
-  padding-bottom: 1.2rem;
+  padding-bottom: 12px;
 `;
 const StyledCongestion = styled(CongestionComponent)`
-  margin-left: 3.2rem;
+  padding-left: 32px;
 `;
-const InfoContainer = styled.div``;
+const InfoContainer = styled.div`
+  padding: 24px 16px;
+`;
+const ContactAndOpeningContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+const MapContainer = styled.div`
+  padding: 24px 0;
+`;
 const RestaurauntInfo = () => {
   const [detailInfo, setDetailInfo] = useState<RestaurantDetailInfo>();
   const { id } = useParams();
@@ -75,11 +84,7 @@ const RestaurauntInfo = () => {
     },
   });
   if (loading) return <div>로딩</div>;
-  const imageDataURL = detailInfo?.restaurantImage.items.map(img => {
-    const imgTitleSplit = img.title.split(' ');
-    // TODO: title에 엉뚱한거 걸러내는 작업하기
-    return img.link;
-  });
+  const imageDataURL = detailInfo?.restaurantImage.items.map(img => img.link);
   // TODO: 메뉴판 이미지 슬라이드 출력하기
   const menuImageDataURL = detailInfo?.restaurantMenu.items.map(
     img => img.link,
@@ -91,7 +96,7 @@ const RestaurauntInfo = () => {
         <SlickSlide imageUrls={imageDataURL || mockImageUrls} />
       </SlideContainer>
       <InfoContainer>
-        <CategoryTypo>
+        <CategoryTypo variant="caption">
           {detailInfo?.restaurantCategory ?? '카테고리'}
         </CategoryTypo>
         <TitleTypo variant="h2">{detailInfo?.restaurantName}</TitleTypo>
@@ -101,14 +106,25 @@ const RestaurauntInfo = () => {
             congestion={detailInfo?.restaurantCongestion || Congestion.NORMAL}
           />
         </RateAndCongestionContainer>
+        <ContactAndOpeningContainer>
+          <Typography variant="body2">
+            {detailInfo?.restaurantContact || '000-0000-0000'}
+          </Typography>
+          <Typography variant="body2">
+            {detailInfo?.restaurantOpeningTime || '영업시간'}
+          </Typography>
+        </ContactAndOpeningContainer>
         <DescriptionTypo>
           {detailInfo?.restaurantDescription ?? '식당설명'}
         </DescriptionTypo>
+        <TitleTypo variant="h2">메뉴</TitleTypo>
+        {menuImageDataURL && menuImageDataURL?.length > 0 && (
+          <SlideContainer>
+            <SlickSlide imageUrls={menuImageDataURL || mockImageUrls} />
+          </SlideContainer>
+        )}
+        <MapContainer>지도 영역</MapContainer>
       </InfoContainer>
-      <SlideContainer>
-        <SlickSlide imageUrls={menuImageDataURL || mockImageUrls} />
-      </SlideContainer>
-      <div>지도 영역</div>
     </div>
   );
 };
