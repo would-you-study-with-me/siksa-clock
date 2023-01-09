@@ -20,7 +20,7 @@ class Query:
         restaurant_data = await get_restaurants(restaurants_input_data=input_data)
         return restaurant_data
 
-    @strawberry.field
+    @strawberry.field(description="ncloud api geocoding api")
     async def geocoding(self, input_geocoding: InputGeocoding) -> OutputGeocoding:
         geocoding_data = await geocoding(input_geocoding_data=input_geocoding)
         output_geocoding_scalar_data = OutputGeocoding(
@@ -31,7 +31,7 @@ class Query:
         )
         return output_geocoding_scalar_data
 
-    @strawberry.field
+    @strawberry.field(description="ncloud api reverse geocoding api")
     async def reverse_geocoding(self, input_reverse_geocoding: InputReverseGeocoding) -> OutputReverseGeocoding:
         reverse_geocoding_data = await reverse_geocoding(input_reverse_gecoding_data=input_reverse_geocoding)
         output_reverse_geocoding_scalar_data = OutputReverseGeocoding(
@@ -40,8 +40,3 @@ class Query:
         )
         return output_reverse_geocoding_scalar_data
 
-# @strawberry.type(description="째깍식사 레스토랑 데이터를 실시간으로 가져오는 Subscriptions")
-# class Subscription:
-#     @strawberry.subscription
-#     async def restaurants(self):
-#         pass
