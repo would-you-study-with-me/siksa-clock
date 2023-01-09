@@ -5,16 +5,12 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.config.database import create_table
-from app.routers.choord import choord_graphql_app
 from app.routers.restaurant import restaurant_graphql_app
 
-app = FastAPI(version='1.4')
+app = FastAPI(version='1.5')
 
 app.include_router(restaurant_graphql_app, prefix='/restaurant')
 app.add_websocket_route('/restaurant', restaurant_graphql_app)
-
-# app.include_router(choord_graphql_app, prefix='/coords')
-# app.add_websocket_route('/coords', choord_graphql_app)
 
 # CORS middleware 규모가 커지면 분리
 origins = [
