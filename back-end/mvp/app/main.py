@@ -13,8 +13,8 @@ app = FastAPI(version='1.4')
 app.include_router(restaurant_graphql_app, prefix='/restaurant')
 app.add_websocket_route('/restaurant', restaurant_graphql_app)
 
-app.include_router(choord_graphql_app, prefix='/coords')
-app.add_websocket_route('/coords', choord_graphql_app)
+# app.include_router(choord_graphql_app, prefix='/coords')
+# app.add_websocket_route('/coords', choord_graphql_app)
 
 # CORS middleware 규모가 커지면 분리
 origins = [

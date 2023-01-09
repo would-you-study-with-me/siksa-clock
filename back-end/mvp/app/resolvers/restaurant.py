@@ -10,6 +10,7 @@ from app.services.restaurant import RestaurantService
 
 logging.basicConfig(level=logging.INFO)
 
+
 async def get_restaurant(restaurant_input_data: InputRestaurant) -> OutputRestaurant:
     sql = select(Restaurant, OpeningTime).join(OpeningTime, Restaurant.restaurant_id == OpeningTime.restaurant_id) \
         .where(Restaurant.restaurant_id == restaurant_input_data.restaurant_id)
