@@ -1,12 +1,11 @@
-import { DaumPostcode } from 'components';
-import Icon, { IconFileNames } from 'components/Icon';
+import { DaumPostcode, Icon, IconFileNames } from 'components';
 import { LocalStorageKeys } from 'constants/localstorage-keys.constants';
-import { useLocalStorageState } from 'hooks/localstorage';
+import { useLocalStorageState } from 'hooks';
 import { useState } from 'react';
 import colors from 'styles/palette';
 import { StyledButton, StyledHeader } from './HeaderWithSearchAddress.styles';
 
-export default function HeaderWithSearchAddress() {
+export function HeaderWithSearchAddress() {
   const [showSearchAddress, setShowSearchAddress] = useState(false);
   const [currentAddress, setCurrentAddress] = useLocalStorageState(
     LocalStorageKeys.CURRENT_ADDRESS,

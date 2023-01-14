@@ -1,5 +1,4 @@
-import Icon from 'components/Icon';
-import StarRate from 'components/StarRate';
+import { Icon, StarRate } from 'components';
 import { Congestion, CongestionIconMap } from './ThumbnailCard.model';
 import {
   StyeldCardInformationWrapper,
@@ -23,7 +22,7 @@ interface Props {
   category: string;
 }
 
-export default function ThumbnailCard({
+export function ThumbnailCard({
   category,
   congestion,
   meterDistance,

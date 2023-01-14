@@ -1,1 +1,1 @@
-export { default as ThumbnailCard } from './ThumbnailCard.component';
+export { ThumbnailCard } from './ThumbnailCard.component';

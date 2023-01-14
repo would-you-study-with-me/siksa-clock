@@ -1,4 +1,4 @@
-import Icon, { IconFileNames } from 'components/Icon';
+import { Icon, IconFileNames } from 'components';
 import { MouseEventHandler, PropsWithChildren } from 'react';
 import colors, { Colors } from 'styles/palette';
 import { StyledButton } from './Button.styles';
@@ -13,7 +13,7 @@ type Props = PropsWithChildren<{
   outline?: boolean;
 }>;
 
-export default function Button({
+export function Button({
   children = undefined,
   onClick = undefined,
   backgroundColor = colors.green,

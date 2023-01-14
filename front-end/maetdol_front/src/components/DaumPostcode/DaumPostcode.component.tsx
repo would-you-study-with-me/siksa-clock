@@ -1,5 +1,5 @@
 import { HeaderWithBackButton, Portal } from 'components';
-import { usePostcode } from 'hooks/postcode';
+import { usePostcode } from 'hooks';
 import { useEffect, useState } from 'react';
 import { StyledContainer, StyledModal } from './DaumPostcode.styles';
 

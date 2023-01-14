@@ -1,1 +1,1 @@
-export { default } from './StarRate.component';
+export { StarRate } from './StarRate.component';

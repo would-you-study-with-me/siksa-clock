@@ -1,1 +1,1 @@
-export * from './DaumPostcode.component';
+export { DaumPostcode } from './DaumPostcode.component';

@@ -1,4 +1,4 @@
-import Icon, { IconFileNames } from 'components/Icon';
+import { Icon, IconFileNames } from 'components';
 import { useNavigate } from 'react-router-dom';
 import { StyledButton, StyledHeader } from './HeaderWithBackButton.styles';
 
@@ -6,7 +6,7 @@ interface Props {
   callback?: () => void;
 }
 
-export default function HeaderWithBackButton({ callback = undefined }: Props) {
+export function HeaderWithBackButton({ callback = undefined }: Props) {
   const navigator = useNavigate();
   const clickHandler = () => {
     if (callback) return callback();

@@ -1,4 +1,4 @@
-import { IconFileNames } from 'components/Icon';
+import { IconFileNames } from 'components';
 
 export enum Congestion {
   CROWDED = 'crowded',

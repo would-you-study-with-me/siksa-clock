@@ -9,7 +9,7 @@ type Props = {
   size?: number;
 };
 
-function Icon({ type, colors = {}, size = 24 }: Props) {
+export function Icon({ type, colors = {}, size = 24 }: Props) {
   const iconElement = useLoadIcon(`${baseIconUrl}/${type}`);
   const ref = useRef<HTMLSpanElement>(null);
 
@@ -18,5 +18,3 @@ function Icon({ type, colors = {}, size = 24 }: Props) {
 
   return <StyledSpan size={size} ref={ref} />;
 }
-
-export default Icon;

@@ -1,1 +1,1 @@
-export { default } from './HeaderWithSearchAddress.component';
+export { HeaderWithSearchAddress } from './HeaderWithSearchAddress.component';
