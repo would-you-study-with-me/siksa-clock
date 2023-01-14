@@ -3,7 +3,7 @@ import { LocalStorageKeys } from 'constants/localstorage-keys.constants';
 import { useLocalStorageState } from 'hooks';
 import { useState } from 'react';
 import colors from 'styles/palette';
-import { StyledButton, StyledHeader } from './HeaderWithSearchAddress.styles';
+import { S } from './HeaderWithSearchAddress.styles';
 
 export function HeaderWithSearchAddress() {
   const [showSearchAddress, setShowSearchAddress] = useState(false);
@@ -13,14 +13,14 @@ export function HeaderWithSearchAddress() {
   );
 
   return (
-    <StyledHeader>
-      <StyledButton type="button" onClick={() => setShowSearchAddress(true)}>
+    <S.Header>
+      <S.Button type="button" onClick={() => setShowSearchAddress(true)}>
         <Icon
           type={IconFileNames.LOCATION_PIN}
           colors={{ black: colors.primaryDark }}
         />
         {currentAddress}
-      </StyledButton>
+      </S.Button>
       {showSearchAddress && (
         <DaumPostcode
           close={() => setShowSearchAddress(false)}
@@ -30,6 +30,6 @@ export function HeaderWithSearchAddress() {
           }}
         />
       )}
-    </StyledHeader>
+    </S.Header>
   );
 }

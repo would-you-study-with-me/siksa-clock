@@ -1,11 +1,11 @@
 import styled from '@emotion/styled';
 
-export const StyledModal = styled.div`
+const Modal = styled.div`
   height: 100%;
   width: 100%;
 `;
 
-export const StyledContainer = styled.div`
+const Container = styled.div`
   position: fixed;
   left: 0;
   top: 0;
@@ -14,3 +14,8 @@ export const StyledContainer = styled.div`
   z-index: 100;
   background-color: white;
 `;
+
+export const S = {
+  Modal,
+  Container,
+};

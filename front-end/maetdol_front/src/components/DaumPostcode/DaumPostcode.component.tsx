@@ -1,7 +1,7 @@
 import { HeaderWithBackButton, Portal } from 'components';
 import { usePostcode } from 'hooks';
 import { useEffect, useState } from 'react';
-import { StyledContainer, StyledModal } from './DaumPostcode.styles';
+import { S } from './DaumPostcode.styles';
 
 interface Props {
   close: () => void;
@@ -26,10 +26,10 @@ export function DaumPostcode({ close, onComplete }: Props) {
 
   return (
     <Portal>
-      <StyledContainer>
+      <S.Container>
         <HeaderWithBackButton callback={close} />
-        <StyledModal ref={setElement} />
-      </StyledContainer>
+        <S.Modal ref={setElement} />
+      </S.Container>
     </Portal>
   );
 }

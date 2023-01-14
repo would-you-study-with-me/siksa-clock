@@ -1,7 +1,7 @@
 import { Icon, IconFileNames } from 'components';
 import { MouseEventHandler, PropsWithChildren } from 'react';
 import colors, { Colors } from 'styles/palette';
-import { StyledButton } from './Button.styles';
+import { S } from './Button.styles';
 
 type Props = PropsWithChildren<{
   onClick?: MouseEventHandler<HTMLButtonElement>;
@@ -28,7 +28,7 @@ export function Button({
   );
 
   return (
-    <StyledButton
+    <S.Button
       onClick={onClick}
       type={submitType ? 'submit' : 'button'}
       backgroundColor={backgroundColor}
@@ -39,6 +39,6 @@ export function Button({
       {iconPosition === 'begin' && RenderedIcon}
       {children}
       {iconPosition === 'end' && RenderedIcon}
-    </StyledButton>
+    </S.Button>
   );
 }
