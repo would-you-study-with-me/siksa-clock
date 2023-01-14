@@ -1,10 +1,8 @@
 import styled from '@emotion/styled';
 import { Paper, Typography } from '@mui/material';
-import { Congestion, RestaurantListInfo } from '../../models/restaurant.model';
+import { RestaurantListInfo } from '../../models/restaurant.model';
 import StarRate from '../common/StarRate';
-import MoodBadIcon from '../../assets/icons/MoodBadIcon';
-import MoodNormalIcon from '../../assets/icons/MoodNormalIcon';
-import MoodGoodIcon from '../../assets/icons/MoodGoodIcon';
+import CongestionComponent from '../common/Congestion';
 
 interface Props extends React.PropsWithChildren {
   title: RestaurantListInfo['restaurantName'];
@@ -45,12 +43,6 @@ const RightContainer = styled.div`
   margin-left: auto;
 `;
 
-const CongestionContainer = styled.div`
-  margin-right: 24px;
-  display: flex;
-  align-items: center;
-`;
-
 const CardItem = ({
   title,
   rate,
@@ -60,18 +52,6 @@ const CardItem = ({
   ...props
 }: Props) => {
   const { imgsrc = 'https://via.placeholder.com/600' } = props;
-  const makeCongestionIcon = () => {
-    switch (congestion) {
-      case Congestion.CROWDED:
-        return <MoodBadIcon fontSize="small" />;
-      case Congestion.NORMAL:
-        return <MoodNormalIcon fontSize="small" />;
-      case Congestion.SMOOTH:
-        return <MoodGoodIcon fontSize="small" />;
-      default:
-        return <MoodBadIcon fontSize="small" />;
-    }
-  };
   return (
     <Container elevation={0}>
       <ImageContainer>
@@ -84,10 +64,7 @@ const CardItem = ({
           <DetailText variant="body1">{category}</DetailText>
         </LeftContainer>
         <RightContainer>
-          <CongestionContainer>
-            <DetailText variant="body1">혼잡도</DetailText>
-            {makeCongestionIcon()}
-          </CongestionContainer>
+          <CongestionComponent congestion={congestion} />
           <DetailText variant="body1">{distance}km</DetailText>
         </RightContainer>
       </DetailContainer>

@@ -43,6 +43,10 @@ export const Postcode = (props: any) => {
       <DaumPostcodeEmbed
         onComplete={handleComplete}
         onClose={goHome}
+        style={{
+          width: '100%',
+          height: 'calc(100vh - 50px)',
+        }}
         {...props}
       />
     </div>

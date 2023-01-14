@@ -12,10 +12,30 @@ export interface RestaurantListInfo {
   distance: number;
   restaurantCategory: string;
 }
+
+export type ImageItem = {
+  title: string;
+  link: string;
+  thumbnail: string;
+  sizeheight: string;
+  sizewidth: string;
+};
+type ImageType = {
+  lastBuildDate: string;
+  total: number;
+  start: number;
+  display: number;
+  items: ImageItem[];
+};
 export interface RestaurantDetailInfo extends RestaurantListInfo {
   phone: number;
   opening_time: string; // ??? datetime형식으로 들어올 수도 있음
-  menu_image: string[];
+  restaurantMenu: ImageType;
   restaurantDescription: string;
   restaurantAddress: string;
+  restaurantImage: ImageType;
+  restaurantOpeningTime: string;
+  restaurantOpeningTimeDays: string;
+  restaurantWaitingPeople: number;
+  restaurantContact: string;
 }

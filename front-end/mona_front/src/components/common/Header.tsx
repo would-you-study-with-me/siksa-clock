@@ -8,6 +8,9 @@ import BackArrowIcon from '../../assets/icons/BackArrowIcon';
 import { AddressData, DEFAULT_ADDRESS_DATA } from '../../models/address.model';
 
 const HeaderContainer = styled.div`
+  position: sticky;
+  top: 0;
+  background-color: ${Colors.pureWhite};
   display: flex;
   align-items: center;
   padding: 16px;
@@ -34,7 +37,9 @@ const Header = () => {
         <Link to="/address">
           <PinIcon color="primary" fontSize="medium" />
         </Link>
-        <AddressTypo variant="body1">{addressData.address}</AddressTypo>
+        <AddressTypo variant="body1">
+          {addressData.address ? addressData.address : '내 주변'}
+        </AddressTypo>
       </HeaderContainer>
     );
   }

@@ -1,15 +1,19 @@
 import styled from '@emotion/styled';
 import { Typography } from '@mui/material';
-import { useQuery, gql } from '@apollo/client';
+import { useQuery, gql, NetworkStatus } from '@apollo/client';
 import { useEffect, useState } from 'react';
 import { useLocation, Link } from 'react-router-dom';
-import { RestaurantListInfo } from '../../../models/restaurant.model';
+import {
+  Congestion,
+  RestaurantListInfo,
+} from '../../../models/restaurant.model';
 import CardItem from '../../../components/card/CardItem';
 
 import {
   AddressData,
   DEFAULT_ADDRESS_DATA,
 } from '../../../models/address.model';
+import { CoordsResultItem } from '../../../models/coords.model';
 
 const GET_RESTAURANTS = gql`
   query Restaurants($roadName: String!) {
@@ -21,6 +25,13 @@ const GET_RESTAURANTS = gql`
       restaurantAddress
       restaurantRate
       restaurantCongestion
+    }
+  }
+`;
+const GET_REVERSE_GEOCODING = gql`
+  query GetLocation($x: Float!, $y: Float!) {
+    reverseGeocoding(inputReverseGeocoding: { x: $x, y: $y }) {
+      results
     }
   }
 `;
@@ -40,30 +51,64 @@ const CardItemContainer = styled.div`
   }
 `;
 
+const findLand = (coordItems: CoordsResultItem[]) => {
+  return coordItems.find(item => item.land);
+};
+
 const CardList = () => {
+  const [restaurantList, setRestaurantList] = useState<RestaurantListInfo[]>([
+    {
+      restaurantName: '',
+      restaurantId: '',
+      restaurantCategory: '',
+      restaurantRate: 3,
+      restaurantCongestion: Congestion.CROWDED,
+      distance: 999,
+    },
+  ]);
   const location = useLocation();
   const addressData = location.state
     ? (location.state as AddressData)
     : DEFAULT_ADDRESS_DATA;
-  const { loading, error, data } = useQuery(GET_RESTAURANTS, {
+  const { loading, error, data, refetch } = useQuery(GET_RESTAURANTS, {
     variables: {
       roadName: addressData.roadname,
     },
+    onCompleted: data => {
+      setRestaurantList(data.restaurants);
+    },
   });
-  const [coordinate, setCoordinate] = useState<{ x: number; y: number }>({
-    x: NaN,
-    y: NaN,
-  });
+
+  const { refetch: LocationRefetch, networkStatus: LocationNetWorkStatus } =
+    useQuery(GET_REVERSE_GEOCODING, {
+      variables: {
+        x: 127.048542,
+        y: 37.519995,
+      },
+      notifyOnNetworkStatusChange: true,
+    });
 
   useEffect(() => {
     if ('geolocation' in navigator) {
       /* geolocation is available */
       navigator.geolocation.getCurrentPosition(
         (res: GeolocationPosition) => {
-          // y위도(latitude) x경도(longitude)
-          setCoordinate({
+          LocationRefetch({
             x: res.coords.longitude,
             y: res.coords.latitude,
+          }).then(res => {
+            const geoLocationData: CoordsResultItem[] =
+              res.data.reverseGeocoding.results;
+            const locationDataWithLand = findLand(geoLocationData);
+            const dongName = locationDataWithLand?.region?.area3?.name;
+            if (dongName) {
+              // refetch 할 때 loading표시하기
+              refetch({
+                roadName: dongName,
+              }).then(res => {
+                setRestaurantList(res.data.restaurants);
+              });
+            }
           });
         },
         err => {
@@ -71,17 +116,13 @@ const CardList = () => {
         },
       );
     }
-  }, []);
-
-  useEffect(() => {
-    if (!loading) {
-      console.log('coordinate', coordinate);
-    }
-  });
+  }, [LocationRefetch, refetch]);
 
   if (loading) return <div>로딩</div>;
   if (error) return <div>에러</div>;
-  const cards = data.restaurants.map((item: RestaurantListInfo) => (
+  if (LocationNetWorkStatus === NetworkStatus.refetch)
+    return <div>refectch</div>;
+  const cards = restaurantList.map((item: RestaurantListInfo) => (
     <CardItemContainer key={`${item.restaurantId}-${item.restaurantName}`}>
       <Link to={`/detail/${item.restaurantId}`}>
         <CardItem
