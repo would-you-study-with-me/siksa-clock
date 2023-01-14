@@ -11,18 +11,8 @@ import {
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
-const restaurauntLink = new HttpLink({
-  uri: 'http://web.siksa-clock.kro.kr/restaurant',
-});
-const geocodingLink = new HttpLink({
-  uri: 'http://web.siksa-clock.kro.kr/coords',
-});
 const client = new ApolloClient({
-  link: ApolloLink.split(
-    operation => operation.getContext().clientName === 'restaurant',
-    restaurauntLink, // if above
-    geocodingLink,
-  ),
+  uri: 'http://web.siksa-clock.kro.kr/restaurant',
   cache: new InMemoryCache(),
 });
 const root = ReactDOM.createRoot(

@@ -71,7 +71,6 @@ const CardList = () => {
     ? (location.state as AddressData)
     : DEFAULT_ADDRESS_DATA;
   const { loading, error, data, refetch } = useQuery(GET_RESTAURANTS, {
-    context: { clientName: 'restaurant' },
     variables: {
       roadName: addressData.roadname,
     },
@@ -82,7 +81,6 @@ const CardList = () => {
 
   const { refetch: LocationRefetch, networkStatus: LocationNetWorkStatus } =
     useQuery(GET_REVERSE_GEOCODING, {
-      context: { clientName: 'coords' },
       variables: {
         x: 127.048542,
         y: 37.519995,
