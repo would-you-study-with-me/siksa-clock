@@ -7,3 +7,4 @@ export * from './Portal';
 export * from './ScrollObserver';
 export * from './StarRate';
 export * from './ThumbnailCard';
+export * from './HeaderWithSearchAddress';

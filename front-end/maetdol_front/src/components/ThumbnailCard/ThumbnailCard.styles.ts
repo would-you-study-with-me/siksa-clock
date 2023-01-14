@@ -68,5 +68,5 @@ export const S = {
   CardCategory,
   RightContents,
   Congestion,
-  Disatnce
-}
+  Disatnce,
+};

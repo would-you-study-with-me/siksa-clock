@@ -1,6 +1,6 @@
 import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
 import { Global, ThemeProvider } from '@emotion/react';
-import HeaderWithSearchAddress from 'components/HeaderWithSearchAddress';
+import { HeaderWithSearchAddress } from 'components';
 import { Home } from 'pages/Home/Home.page';
 import { BrowserRouter } from 'react-router-dom';
 import globalStyle from 'styles/global';

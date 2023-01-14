@@ -30,4 +30,4 @@ const Button = styled.button<{
 
 export const S = {
   Button,
-}
+};
