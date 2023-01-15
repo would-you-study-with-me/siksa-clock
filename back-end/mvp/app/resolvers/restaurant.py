@@ -68,7 +68,7 @@ async def get_restaurants(restaurants_input_data: InputRestaurants) -> List[Outp
 
     # x, y 값이 없는 경우로
     if (restaurants_input_data.x is not None) and (restaurants_input_data.y is not None):
-        sql = select(Restaurant, OpeningTime)\
+        sql = select(Restaurant)\
             .join(OpeningTime, Restaurant.restaurant_id == OpeningTime.restaurant_id)\
             .where(Restaurant.restaurant_address.like('%%{}%%'.format(restaurants_input_data.query)))\
             .order_by(func.st_distance_sphere(func.point(restaurants_input_data.x, restaurants_input_data.y),
