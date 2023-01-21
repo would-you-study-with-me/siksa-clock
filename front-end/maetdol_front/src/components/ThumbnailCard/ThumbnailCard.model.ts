@@ -1,9 +1,9 @@
 import { IconFileNames } from 'components/Icon';
 
 export enum Congestion {
-  CROWDED = 'crowded',
-  NORMAL = 'normal',
-  SMOOTH = 'smooth',
+  CROWDED = '혼잡',
+  NORMAL = '보통',
+  SMOOTH = '원활',
 }
 
 export const CongestionIconMap = {
