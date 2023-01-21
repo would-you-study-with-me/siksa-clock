@@ -1,9 +1,10 @@
-export { default as Button } from './Button';
+export * from './Button';
 export * from './DaumPostcode';
-export { default as HeaderWithBackButton } from './HeaderWithBackButton';
-export { default as Icon } from './Icon';
+export * from './HeaderWithBackButton';
+export * from './Icon';
 export * from './Loading';
 export * from './Portal';
 export * from './ScrollObserver';
-export { default as StarRate } from './StarRate';
+export * from './StarRate';
 export * from './ThumbnailCard';
+export * from './HeaderWithSearchAddress';

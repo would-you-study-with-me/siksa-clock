@@ -1,4 +1,4 @@
-import Icon, { IconFileNames } from 'components/Icon';
+import { Icon, IconFileNames } from 'components';
 import colors from 'styles/palette';
 import { repeat } from 'utils';
 
@@ -6,7 +6,7 @@ type Props = {
   rating: number;
 };
 
-export default function StarRate({ rating }: Props) {
+export function StarRate({ rating }: Props) {
   if (rating < 0 || rating > 5) {
     throw Error(`Rating must in range 0 ~ 5 but received ${rating}`);
   }

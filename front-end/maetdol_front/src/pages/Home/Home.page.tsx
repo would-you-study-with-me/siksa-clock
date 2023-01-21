@@ -1,6 +1,6 @@
 import { Loading, ScrollObserver, ThumbnailCard } from 'components';
 import { useRestaurantsThumbnailCard } from './Home.hooks';
-import { StyeldCardList, StyledContainer, StyledTitle } from './Home.styles';
+import { S } from './Home.styles';
 
 export function Home() {
   // TODO 에러 처리
@@ -8,9 +8,9 @@ export function Home() {
     useRestaurantsThumbnailCard('장전동');
 
   return (
-    <StyledContainer>
-      <StyledTitle>내 주변 식사</StyledTitle>
-      <StyeldCardList>
+    <S.Container>
+      <S.Title>내 주변 식사</S.Title>
+      <S.CardList>
         {thumbnailCards.map(
           ({ category, congestion, id, name, rate, thumbnail }) => (
             <ThumbnailCard
@@ -25,10 +25,10 @@ export function Home() {
             />
           ),
         )}
-      </StyeldCardList>
+      </S.CardList>
 
       <ScrollObserver bottom="-480px" onIntersect={loadMore} />
       <Loading hide={!loading} />
-    </StyledContainer>
+    </S.Container>
   );
 }
