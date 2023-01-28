@@ -23,10 +23,26 @@ const Main: React.FC = () => {
     setAddressBySearch(addressData);
   }, [location.state, addressBySearch]);
 
-  const { refetch } = useQuery(GET_REVERSE_GEOCODING_QUERY, {
+  const { refetch: refetchReverseGeocoding } = useQuery(
+    GET_REVERSE_GEOCODING_QUERY,
+    {
+      variables: {
+        x: 127.048542,
+        y: 37.519995,
+      },
+    },
+  );
+
+  const {
+    loading,
+    error,
+    data,
+    refetch: refetchRestaurant,
+  } = useQuery<{
+    restaurants: RestaurantCardInfo[];
+  }>(GET_RESTAURANTS_QUERY, {
     variables: {
-      x: 127.048542,
-      y: 37.519995,
+      query: addressBySearch ? addressBySearch.roadname : '강남대로',
     },
   });
 
@@ -34,28 +50,23 @@ const Main: React.FC = () => {
     if (addressBySearch?.roadname) return;
     navigator.geolocation?.getCurrentPosition(
       (position: GeolocationPosition) => {
-        refetch({
+        refetchReverseGeocoding({
           x: position.coords.longitude,
           y: position.coords.latitude,
         }).then(result => {
           const dongName =
             result?.data?.reverseGeocoding?.results[0]?.region?.area3.name;
-          // 여기서 레스토랑 refetch
+          refetchRestaurant({
+            query: dongName,
+          });
         });
       },
       error => {
         console.error(error);
       },
     );
-  }, [addressBySearch, refetch]);
+  }, [addressBySearch, refetchReverseGeocoding, refetchRestaurant]);
 
-  const { loading, error, data } = useQuery<{
-    restaurants: RestaurantCardInfo[];
-  }>(GET_RESTAURANTS_QUERY, {
-    variables: {
-      query: addressBySearch ? addressBySearch.roadname : '강남대로',
-    },
-  });
   if (loading)
     return (
       <div>
