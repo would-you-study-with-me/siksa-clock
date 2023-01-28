@@ -8,6 +8,20 @@ const Title = styled.h2`
 
 const Card = styled.li`
   margin-bottom: 2.4rem;
+  transform-origin: top;
+  animation: .2s ease load;
+
+  @keyframes load {
+    0% {
+      opacity: 0;
+      transform: scale(0.8);
+    }
+
+    100% {
+      opacity: 1;
+      transform; scale(1);
+    }
+  }
 `;
 
 const Link = styled(RouterLink)`
@@ -20,7 +34,7 @@ const CardImage = styled.img`
   height: 12rem;
   object-fit: cover;
   object-position: center;
-  background: oragne;
+  background: ${p => p.theme.colors.white};
   border-radius: 8px;
 `;
 
