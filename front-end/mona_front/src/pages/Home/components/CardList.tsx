@@ -1,12 +1,9 @@
 import styled from '@emotion/styled';
 import { Typography } from '@mui/material';
 import { useQuery, gql, NetworkStatus } from '@apollo/client';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { useLocation, Link } from 'react-router-dom';
-import {
-  Congestion,
-  RestaurantListInfo,
-} from '../../../models/restaurant.model';
+import { RestaurantListInfo } from '../../../models/restaurant.model';
 import CardItem from '../../../components/card/CardItem';
 
 import {
@@ -14,10 +11,14 @@ import {
   DEFAULT_ADDRESS_DATA,
 } from '../../../models/address.model';
 import { CoordsResultItem } from '../../../models/coords.model';
+import Loader from '../../../components/common/Loader';
+import ScrollObserverContainer from '../../../components/common/ScrollObserverContainer';
 
 const GET_RESTAURANTS = gql`
-  query Restaurants($roadName: String!) {
-    restaurants(inputData: { query: $roadName, limit: 10 }) {
+  query Restaurants($roadName: String!, $limit: Int!, $skipNumber: Int!) {
+    restaurants(
+      inputData: { query: $roadName, limit: $limit, skip: $skipNumber }
+    ) {
       restaurantName
       restaurantId
       restaurantDescription
@@ -56,16 +57,10 @@ const findLand = (coordItems: CoordsResultItem[]) => {
 };
 
 const CardList = () => {
-  const [restaurantList, setRestaurantList] = useState<RestaurantListInfo[]>([
-    {
-      restaurantName: '',
-      restaurantId: '',
-      restaurantCategory: '',
-      restaurantRate: 3,
-      restaurantCongestion: Congestion.CROWDED,
-      distance: 999,
-    },
-  ]);
+  const [restaurantList, setRestaurantList] = useState<RestaurantListInfo[]>(
+    [],
+  );
+  const [userLocation, setUserLocation] = useState<string>('');
   const location = useLocation();
   const addressData = location.state
     ? (location.state as AddressData)
@@ -73,6 +68,8 @@ const CardList = () => {
   const { loading, error, data, refetch } = useQuery(GET_RESTAURANTS, {
     variables: {
       roadName: addressData.roadname,
+      skipNumber: 0,
+      limit: 10,
     },
     onCompleted: data => {
       setRestaurantList(data.restaurants);
@@ -102,7 +99,7 @@ const CardList = () => {
             const locationDataWithLand = findLand(geoLocationData);
             const dongName = locationDataWithLand?.region?.area3?.name;
             if (dongName) {
-              // refetch 할 때 loading표시하기
+              setUserLocation(dongName);
               refetch({
                 roadName: dongName,
               }).then(res => {
@@ -115,10 +112,20 @@ const CardList = () => {
           console.warn(err.message);
         },
       );
+    } else {
+      setUserLocation(addressData.roadname);
     }
-  }, [LocationRefetch, refetch]);
+  }, [LocationRefetch, refetch, addressData.roadname]);
 
-  if (loading) return <div>로딩</div>;
+  const loadMore = useCallback(async () => {
+    const fetchData = await refetch({
+      roadName: userLocation,
+      skipNumber: restaurantList.length,
+    });
+    setRestaurantList([...restaurantList, ...fetchData.data.restaurants]);
+  }, [refetch, restaurantList, userLocation]);
+
+  if (loading) return <Loader />;
   if (error) return <div>에러</div>;
   if (LocationNetWorkStatus === NetworkStatus.refetch)
     return <div>refectch</div>;
@@ -139,6 +146,11 @@ const CardList = () => {
     <Container>
       <Title variant="h2">내 주변 식사</Title>
       {cards.length > 0 && cards}
+      {restaurantList.length > 0 && (
+        <ScrollObserverContainer onIntersect={loadMore}>
+          <Loader />
+        </ScrollObserverContainer>
+      )}
       {cards.length === 0 && <p>결과가 없어요!</p>}
     </Container>
   );

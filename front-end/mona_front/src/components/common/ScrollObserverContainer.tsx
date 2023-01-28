@@ -12,7 +12,7 @@ const ScrollObserverContainer = ({ onIntersect, children }: Props) => {
         if (isIntersecting) onIntersect();
       },
       {
-        threshold: 1,
+        threshold: 0.7, // 1일 경우 contents box 크기만큼 영역 계산
       },
     );
     observer.observe(element.current);
