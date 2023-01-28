@@ -6,6 +6,7 @@ import { BrowserRouter } from 'react-router-dom';
 import globalStyle from 'styles/global';
 import colors from 'styles/palette';
 import typography from 'styles/typography';
+import { GlobalContextProvider } from './global-context';
 
 const client = new ApolloClient({
   uri: 'http://web.siksa-clock.kro.kr/restaurant',
@@ -16,11 +17,13 @@ function App() {
   return (
     <ApolloProvider client={client}>
       <ThemeProvider theme={{ colors, typography }}>
-        <Global styles={globalStyle} />
-        <BrowserRouter>
-          <HeaderWithSearchAddress />
-          <Home />
-        </BrowserRouter>
+        <GlobalContextProvider>
+          <Global styles={globalStyle} />
+          <BrowserRouter>
+            <HeaderWithSearchAddress />
+            <Home />
+          </BrowserRouter>
+        </GlobalContextProvider>
       </ThemeProvider>
     </ApolloProvider>
   );
