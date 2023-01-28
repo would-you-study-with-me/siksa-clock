@@ -1,7 +1,8 @@
 import { DaumPostcode, Icon, IconFileNames } from 'components';
 import { LocalStorageKeys } from 'constants/localstorage-keys.constants';
+import { globalContext } from 'global-context';
 import { useLocalStorageState } from 'hooks';
-import { useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import colors from 'styles/palette';
 import { S } from './HeaderWithSearchAddress.styles';
 
@@ -11,6 +12,11 @@ export function HeaderWithSearchAddress() {
     LocalStorageKeys.CURRENT_ADDRESS,
     '서울시 강남구',
   );
+
+  const { setAddress } = useContext(globalContext);
+  useEffect(() => {
+    setAddress(currentAddress);
+  }, [currentAddress]);
 
   return (
     <S.Header>

@@ -1,11 +1,15 @@
 import { Loading, ScrollObserver, ThumbnailCard } from 'components';
+import { useContext } from 'react';
 import { useRestaurantsThumbnailCard } from './Home.hooks';
 import { S } from './Home.styles';
+import { globalContext } from '../../global-context';
 
 export function Home() {
+  const { address } = useContext(globalContext);
+
   // TODO 에러 처리
   const { loading, error, thumbnailCards, loadMore } =
-    useRestaurantsThumbnailCard('장전동');
+    useRestaurantsThumbnailCard(address);
 
   return (
     <S.Container>
