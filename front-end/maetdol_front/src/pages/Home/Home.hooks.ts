@@ -30,6 +30,7 @@ export function useRestaurantsThumbnailCard(address: string) {
     { address: string; skip: number }
   >(GET_RESTAURANTS_THUMBNAIL_CARDS, {
     variables: { address, skip: offset },
+    skip: address.length === 0,
   });
 
   useEffect(() => {
