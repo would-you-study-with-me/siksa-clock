@@ -139,7 +139,7 @@ const CardList = () => {
           title={item.restaurantName}
           distance={item.distance}
           category={item.restaurantCategory}
-          imgsrc={item.restaurantImage.items[0].link}
+          imgList={item.restaurantImage.items}
         />
       </Link>
     </CardItemContainer>
@@ -147,7 +147,7 @@ const CardList = () => {
   return (
     <Container>
       <Title variant="h2">내 주변 식사</Title>
-      {cards.length > 0 && cards}
+      {restaurantList.length > 0 && cards}
       {restaurantList.length > 0 && (
         <ScrollObserverContainer onIntersect={loadMore}>
           <Loader />
