@@ -16,6 +16,7 @@ export function HeaderWithSearchAddress() {
   const { setAddress } = useContext(globalContext);
   useEffect(() => {
     setAddress(currentAddress);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentAddress]);
 
   return (
