@@ -15,3 +15,9 @@ code {
 a{
   text-decoration: none;
 }
+
+.main__container{
+  max-width: 480px;
+  margin: 0 auto;
+  box-shadow: 0px 4px 12px 1px #b7b7b799;
+}
