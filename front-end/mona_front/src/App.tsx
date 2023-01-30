@@ -6,7 +6,9 @@ import AppRoutes from './routes/AppRoutes';
 const App = () => {
   return (
     <ThemeProvider theme={customTheme}>
-      <AppRoutes />
+      <div className="main__container">
+        <AppRoutes />
+      </div>
     </ThemeProvider>
   );
 };

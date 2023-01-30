@@ -14,7 +14,7 @@ const HeaderContainer = styled.div`
   display: flex;
   align-items: center;
   padding: 16px;
-  border: 1px solid ${Colors.gray};
+  border-bottom: 1px solid ${Colors.gray};
 `;
 
 const AddressTypo = styled(Typography)`

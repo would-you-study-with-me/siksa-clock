@@ -4,6 +4,20 @@ export enum Congestion {
   'SMOOTH' = '원활',
 }
 
+export interface RestaurantImageItem {
+  title: string;
+  link: string;
+  thumbnail: string;
+  sizeheight: string;
+  sizewidth: string;
+}
+export interface RestaurauntImage {
+  lastBuildDate: string;
+  total: number;
+  start: number;
+  display: number;
+  items: RestaurantImageItem[];
+}
 export interface RestaurantListInfo {
   restaurantId: string;
   restaurantName: string;
@@ -11,6 +25,7 @@ export interface RestaurantListInfo {
   restaurantCongestion: Congestion;
   distance: number;
   restaurantCategory: string;
+  restaurantImage: RestaurauntImage;
 }
 
 export type ImageItem = {
