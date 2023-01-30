@@ -57,10 +57,7 @@ const CardItem = ({
   ...props
 }: Props) => {
   const { imgList } = props;
-  const firstImage =
-    imgList && imgList?.length > 0
-      ? imgList[0].link
-      : 'https://via.placeholder.com/600';
+  const firstImage = imgList?.[0]?.link ?? 'https://via.placeholder.com/600';
   return (
     <Container elevation={0}>
       <ImageContainer>

@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { Typography } from '@mui/material';
 import { useQuery, gql, NetworkStatus } from '@apollo/client';
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState, useCallback, Fragment } from 'react';
 import { useLocation, Link } from 'react-router-dom';
 import { RestaurantListInfo } from '../../../models/restaurant.model';
 import CardItem from '../../../components/card/CardItem';
@@ -77,7 +77,7 @@ const CardList = () => {
     },
   });
 
-  const { refetch: LocationRefetch, networkStatus: LocationNetWorkStatus } =
+  const { refetch: locationRefetch, networkStatus: locationNetWorkStatus } =
     useQuery(GET_REVERSE_GEOCODING, {
       variables: {
         x: 127.048542,
@@ -91,7 +91,7 @@ const CardList = () => {
       /* geolocation is available */
       navigator.geolocation.getCurrentPosition(
         (res: GeolocationPosition) => {
-          LocationRefetch({
+          locationRefetch({
             x: res.coords.longitude,
             y: res.coords.latitude,
           }).then(res => {
@@ -116,7 +116,7 @@ const CardList = () => {
     } else {
       setUserLocation(addressData.roadname);
     }
-  }, [LocationRefetch, refetch, addressData.roadname]);
+  }, [locationRefetch, refetch, addressData.roadname]);
 
   const loadMore = useCallback(async () => {
     const fetchData = await refetch({
@@ -128,7 +128,7 @@ const CardList = () => {
 
   if (loading) return <Loader />;
   if (error) return <div>에러</div>;
-  if (LocationNetWorkStatus === NetworkStatus.refetch)
+  if (locationNetWorkStatus === NetworkStatus.refetch)
     return <div>refectch</div>;
   const cards = restaurantList.map((item: RestaurantListInfo) => (
     <CardItemContainer key={`${item.restaurantId}-${item.restaurantName}`}>
@@ -147,13 +147,15 @@ const CardList = () => {
   return (
     <Container>
       <Title variant="h2">내 주변 식사</Title>
-      {restaurantList.length > 0 && cards}
       {restaurantList.length > 0 && (
-        <ScrollObserverContainer onIntersect={loadMore}>
-          <Loader />
-        </ScrollObserverContainer>
+        <>
+          {cards}
+          <ScrollObserverContainer onIntersect={loadMore}>
+            <Loader />
+          </ScrollObserverContainer>
+        </>
       )}
-      {cards.length === 0 && <p>결과가 없어요!</p>}
+      {restaurantList.length === 0 && <p>결과가 없어요!</p>}
     </Container>
   );
 };
