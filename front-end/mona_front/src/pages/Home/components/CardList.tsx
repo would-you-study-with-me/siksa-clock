@@ -26,6 +26,7 @@ const GET_RESTAURANTS = gql`
       restaurantAddress
       restaurantRate
       restaurantCongestion
+      restaurantImage
     }
   }
 `;
@@ -138,6 +139,7 @@ const CardList = () => {
           title={item.restaurantName}
           distance={item.distance}
           category={item.restaurantCategory}
+          imgsrc={item.restaurantImage.items[0].link}
         />
       </Link>
     </CardItemContainer>
