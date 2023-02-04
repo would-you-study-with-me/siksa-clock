@@ -1,0 +1,18 @@
+name: Build all project and delpoy
+on:
+  push:
+    branches: [dev]
+    
+
+jobs:
+  Demo-Action:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - uses: Awesome-Tomato/actions/get-build-target-fullpaths@v1
+        id: mvpPaths
+        with:
+          workspace: ${{ github.workspace }}/front-end
