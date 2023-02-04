@@ -5,7 +5,7 @@ on:
     
 
 jobs:
-  build-FE-from-dev:
+  Build-FE-from-dev:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -29,6 +29,7 @@ jobs:
           fullpaths: ${{ steps.paths.outputs.projectPaths }}
 
   Commit-and-Push:
+    needs: Build-FE-from-dev
     runs-on: ubuntu-latest
     steps:
       - name: Configuring git
