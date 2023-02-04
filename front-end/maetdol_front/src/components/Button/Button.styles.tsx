@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { Colors } from 'styles/palette';
 
-export const StyledButton = styled.button<{
+const Button = styled.button<{
   textColor: Colors;
   backgroundColor: Colors;
   hasIcon: boolean;
@@ -27,3 +27,7 @@ export const StyledButton = styled.button<{
       border: 1px solid ${props.textColor};
    `};
 `;
+
+export const S = {
+  Button,
+};

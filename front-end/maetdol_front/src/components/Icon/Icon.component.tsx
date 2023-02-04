@@ -1,7 +1,7 @@
 import { useRef } from 'react';
 import { useAppendIconTo, useColoringIcon, useLoadIcon } from './Icon.hooks';
 import { baseIconUrl, IconFileNames, ReplaceColorSet } from './Icon.models';
-import { StyledSpan } from './Icon.styles';
+import { S } from './Icon.styles';
 
 type Props = {
   type: IconFileNames;
@@ -9,14 +9,12 @@ type Props = {
   size?: number;
 };
 
-function Icon({ type, colors = {}, size = 24 }: Props) {
+export function Icon({ type, colors = {}, size = 24 }: Props) {
   const iconElement = useLoadIcon(`${baseIconUrl}/${type}`);
   const ref = useRef<HTMLSpanElement>(null);
 
   useColoringIcon(iconElement, colors);
   useAppendIconTo(ref, iconElement);
 
-  return <StyledSpan size={size} ref={ref} />;
+  return <S.Span size={size} ref={ref} />;
 }
-
-export default Icon;

@@ -1,2 +1,2 @@
-export { default } from './Icon.component';
+export { Icon } from './Icon.component';
 export { IconFileNames } from './Icon.models';
