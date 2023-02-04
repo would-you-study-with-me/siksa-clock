@@ -15,7 +15,7 @@ jobs:
       - uses: Awesome-Tomato/actions/get-build-target-fullpaths@v1
         id: paths
         with:
-          workspace: ${{ github.workspace }}/front-end
+          workspace: ${{ github.workspace }}
           
       - uses: Awesome-Tomato/actions/build-by-path@v1
         with:
