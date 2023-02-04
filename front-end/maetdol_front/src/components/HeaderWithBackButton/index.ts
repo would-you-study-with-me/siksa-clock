@@ -1,1 +1,1 @@
-export { default } from './HeaderWithBackButton.component';
+export { HeaderWithBackButton } from './HeaderWithBackButton.component';

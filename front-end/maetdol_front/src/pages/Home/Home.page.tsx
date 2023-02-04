@@ -1,49 +1,38 @@
-import { ThumbnailCard } from 'components';
-import { Congestion } from 'components/ThumbnailCard/ThumbnailCard.model';
-import { StyeldCardList, StyledContainer, StyledTitle } from './Home.styles';
+import { Loading, ScrollObserver, ThumbnailCard } from 'components';
+import { useContext } from 'react';
+import { useRestaurantsThumbnailCard } from './Home.hooks';
+import { S } from './Home.styles';
+import { globalContext } from '../../global-context';
 
 export function Home() {
+  const { address } = useContext(globalContext);
+
+  // TODO 에러 처리
+  const { loading, error, thumbnailCards, loadMore } =
+    useRestaurantsThumbnailCard(address);
+
   return (
-    <StyledContainer>
-      <StyledTitle>내 주변 식사</StyledTitle>
-      <StyeldCardList>
-        <ThumbnailCard
-          category="일식"
-          congestion={Congestion.CROWDED}
-          meterDistance={172}
-          rating={3}
-          restaurantId="1372-abf334"
-          thumbnailSrc="https://via.placeholder.com/150"
-          title="달사카세"
-        />
-        <ThumbnailCard
-          category="일식"
-          congestion={Congestion.CROWDED}
-          meterDistance={172}
-          rating={3}
-          restaurantId="1372-abf334"
-          thumbnailSrc="https://via.placeholder.com/150"
-          title="달사카세"
-        />
-        <ThumbnailCard
-          category="일식"
-          congestion={Congestion.CROWDED}
-          meterDistance={172}
-          rating={3}
-          restaurantId="1372-abf334"
-          thumbnailSrc="https://via.placeholder.com/150"
-          title="달사카세"
-        />
-        <ThumbnailCard
-          category="일식"
-          congestion={Congestion.CROWDED}
-          meterDistance={172}
-          rating={3}
-          restaurantId="1372-abf334"
-          thumbnailSrc="https://via.placeholder.com/150"
-          title="달사카세"
-        />
-      </StyeldCardList>
-    </StyledContainer>
+    <S.Container>
+      <S.Title>내 주변 식사</S.Title>
+      <S.CardList>
+        {thumbnailCards.map(
+          ({ category, congestion, id, name, rate, thumbnail }) => (
+            <ThumbnailCard
+              key={id}
+              category={category ?? ''}
+              congestion={congestion}
+              meterDistance={172}
+              rating={rate}
+              restaurantId={id}
+              thumbnailSrc={thumbnail}
+              title={name}
+            />
+          ),
+        )}
+      </S.CardList>
+
+      <ScrollObserver bottom="-480px" onIntersect={loadMore} />
+      <Loading hide={!loading} />
+    </S.Container>
   );
 }

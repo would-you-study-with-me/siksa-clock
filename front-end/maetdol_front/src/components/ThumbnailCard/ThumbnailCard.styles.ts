@@ -1,59 +1,86 @@
 import styled from '@emotion/styled';
-import { Link } from 'react-router-dom';
+import { Link as RouterLink } from 'react-router-dom';
 
-export const StyledTitle = styled.h2`
+const Title = styled.h2`
   margin: 0 0 1.6rem 0;
   ${props => props.theme.typography.head2};
 `;
 
-export const StyledCard = styled.li`
+const Card = styled.li`
   margin-bottom: 2.4rem;
+  transform-origin: top;
+  animation: .2s ease load;
+
+  @keyframes load {
+    0% {
+      opacity: 0;
+      transform: scale(0.8);
+    }
+
+    100% {
+      opacity: 1;
+      transform; scale(1);
+    }
+  }
 `;
 
-export const StyledLink = styled(Link)`
+const Link = styled(RouterLink)`
   text-decoration: none;
   color: ${props => props.theme.colors.fontBlack};
 `;
 
-export const StyledCardImage = styled.img`
+const CardImage = styled.img`
   width: 100%;
   height: 12rem;
   object-fit: cover;
   object-position: center;
-  background: oragne;
+  background: ${p => p.theme.colors.white};
   border-radius: 8px;
 `;
 
-export const StyledCardTitle = styled.h3`
+const CardTitle = styled.h3`
   ${props => props.theme.typography.title1};
   margin: 1.6rem 0 1.3rem;
 `;
 
-export const StyeldCardInformationWrapper = styled.div`
+const CardInformationWrapper = styled.div`
   display: flex;
   margin: 0;
   align-items: center;
 `;
 
-export const StyledCardCategory = styled.span`
+const CardCategory = styled.span`
   ${props => props.theme.typography.body1};
   color: ${props => props.theme.colors.fontBlack};
   margin-left: 0.8rem;
 `;
 
-export const StyledRightContents = styled.div`
+const RightContents = styled.div`
   margin-left: auto;
   display: flex;
   align-items: center;
 `;
 
-export const StyledCongestion = styled.span`
+const Congestion = styled.span`
   ${props => props.theme.typography.body1};
   color: ${props => props.theme.colors.fontBlack};
 `;
 
-export const StyledDisatnce = styled.span`
+const Disatnce = styled.span`
   ${props => props.theme.typography.body1};
   color: ${props => props.theme.colors.fontBlack};
   margin-left: 2.4rem;
 `;
+
+export const S = {
+  Title,
+  Card,
+  Link,
+  CardImage,
+  CardTitle,
+  CardInformationWrapper,
+  CardCategory,
+  RightContents,
+  Congestion,
+  Disatnce,
+};
