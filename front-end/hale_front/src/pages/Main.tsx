@@ -4,7 +4,6 @@ import { useQuery } from '@apollo/client';
 import Typography from '@mui/material/Typography';
 import RestaurantCard from '../components/RestaurantCard';
 import { RestaurantCardInfo } from '../model/restaurant-card.interface';
-import { Coordinate } from '../model/coordinate.interface';
 import LocationHeader from '../components/LocationHeader';
 import { GET_RESTAURANTS_QUERY } from '../queries/restaurants.query';
 import { GET_REVERSE_GEOCODING_QUERY } from '../queries/geocoding.query';
@@ -60,9 +59,6 @@ const Main: React.FC = () => {
             query: dongName,
           });
         });
-      },
-      error => {
-        console.error(error);
       },
     );
   }, [addressBySearch, refetchReverseGeocoding, refetchRestaurant]);
