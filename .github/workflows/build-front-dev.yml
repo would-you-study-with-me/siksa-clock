@@ -28,6 +28,11 @@ jobs:
         with:
           fullpaths: ${{ steps.paths.outputs.projectPaths }}
       
+      - name: Configuring git
+        run: |
+          git config user.name 'MaetDol'
+          git config user.email 'rndka9@gmail.com'
+      
       - name: Deploy
         run: |
           git add --all 
