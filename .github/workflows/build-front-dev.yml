@@ -1,7 +1,7 @@
 name: Build all project and delpoy
 on:
   push:
-    branches: [dev]
+    branches: [dev, maetdol/front-build-github-action]
     
 
 jobs:
