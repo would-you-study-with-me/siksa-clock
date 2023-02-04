@@ -38,5 +38,5 @@ jobs:
           git status
           git commit -m 'Deploy build output by Github workflow'
           git checkout github-pages
-          git merge main --strategy-option theirs
+          git merge ${GITHUB_REF##*/} --strategy-option theirs
           git push origin github-pages
