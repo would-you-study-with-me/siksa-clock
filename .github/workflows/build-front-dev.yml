@@ -2,6 +2,10 @@ name: Build all project and delpoy
 on:
   push:
     branches: [dev]
+    
+  pull_request:
+    types: [edited]
+    
 
 jobs:
   Demo-Action:
