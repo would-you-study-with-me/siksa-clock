@@ -20,17 +20,13 @@ jobs:
       - uses: Awesome-Tomato/actions/build-by-path@v1
         env: 
           CI: ""
+          PUBLIC_URL: "."
         with:
           fullpaths: ${{ steps.paths.outputs.projectPaths }}
       
       - uses: Awesome-Tomato/actions/move-build-output-to-parent-directory@v1
         with:
           fullpaths: ${{ steps.paths.outputs.projectPaths }}
-
-      - name: Git configuring
-        run: |
-          git config user.name 'MaetDol'
-          git config user.email 'rndka9@gmail.com'
       
       - name: Deploy
         run: |
