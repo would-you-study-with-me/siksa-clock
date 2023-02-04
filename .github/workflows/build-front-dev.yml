@@ -1,4 +1,4 @@
-name: Build all project and delpoy
+name: Build FE projects and delpoy
 on:
   push:
     branches: [dev, maetdol/front-build-github-action]
@@ -32,6 +32,9 @@ jobs:
     needs: Build-FE-from-dev
     runs-on: ubuntu-latest
     steps:
+      - name: Navigate to workspace
+        run: cd ${GITHUB_WORKSPACE}
+        
       - name: Configuring git
         run: |
           git config user.name 'MaetDol'
