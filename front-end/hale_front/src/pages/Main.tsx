@@ -9,27 +9,19 @@ import { GET_RESTAURANTS_QUERY } from '../queries/restaurants.query';
 import { GET_REVERSE_GEOCODING_QUERY } from '../queries/geocoding.query';
 
 const Main: React.FC = () => {
-  // 다음 주소검색 결과값으로 받아온 도로명주소
-  const [addressBySearch, setAddressBySearch] = useState<{
-    roadname: string | null;
-  }>({
-    roadname: null,
-  });
+  const [roadName, setRoadName] = useState<string | undefined>(undefined);
+  const [dongName, setDongName] = useState<string | undefined>(undefined);
 
   const location = useLocation();
   useEffect(() => {
     const addressData = location.state as { roadname: string };
-    setAddressBySearch(addressData);
-  }, [location.state, addressBySearch]);
+    if (addressData && addressData.roadname) {
+      setRoadName(addressData.roadname);
+    }
+  }, [location.state]);
 
   const { refetch: refetchReverseGeocoding } = useQuery(
     GET_REVERSE_GEOCODING_QUERY,
-    {
-      variables: {
-        x: 127.048542,
-        y: 37.519995,
-      },
-    },
   );
 
   const {
@@ -41,27 +33,29 @@ const Main: React.FC = () => {
     restaurants: RestaurantCardInfo[];
   }>(GET_RESTAURANTS_QUERY, {
     variables: {
-      query: addressBySearch ? addressBySearch.roadname : '강남대로',
+      query: roadName || dongName || '강남대로',
     },
   });
 
   useEffect(() => {
-    if (addressBySearch?.roadname) return;
-    navigator.geolocation?.getCurrentPosition(
-      (position: GeolocationPosition) => {
-        refetchReverseGeocoding({
-          x: position.coords.longitude,
-          y: position.coords.latitude,
-        }).then(result => {
-          const dongName =
-            result?.data?.reverseGeocoding?.results[0]?.region?.area3.name;
-          refetchRestaurant({
-            query: dongName,
+    if (!roadName) {
+      navigator.geolocation?.getCurrentPosition(
+        (position: GeolocationPosition) => {
+          refetchReverseGeocoding({
+            x: position.coords.longitude,
+            y: position.coords.latitude,
+          }).then(result => {
+            const dongName =
+              result?.data?.reverseGeocoding?.results[0]?.region?.area3.name;
+            setDongName(dongName);
+            refetchRestaurant({
+              query: dongName,
+            });
           });
-        });
-      },
-    );
-  }, [addressBySearch, refetchReverseGeocoding, refetchRestaurant]);
+        },
+      );
+    }
+  }, [roadName, refetchReverseGeocoding, refetchRestaurant]);
 
   if (loading)
     return (
