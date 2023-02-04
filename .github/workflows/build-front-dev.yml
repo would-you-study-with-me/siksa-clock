@@ -27,7 +27,10 @@ jobs:
       - uses: Awesome-Tomato/actions/move-build-output-to-parent-directory@v1
         with:
           fullpaths: ${{ steps.paths.outputs.projectPaths }}
-      
+
+  Commit-and-Push:
+    runs-on: ubuntu-latest
+    steps:
       - name: Configuring git
         run: |
           git config user.name 'MaetDol'
