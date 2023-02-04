@@ -37,6 +37,6 @@ jobs:
           git add --all 
           git status
           git commit -m 'Deploy build output by Github workflow'
-          git checkout gh-pages
+          git checkout github-pages
           git merge main --strategy-option theirs
           git push origin github-pages
