@@ -18,6 +18,8 @@ jobs:
           workspace: ${{ github.workspace }}
           
       - uses: Awesome-Tomato/actions/build-by-path@v1
+        env: 
+          CI: ""
         with:
           fullpaths: ${{ steps.paths.outputs.projectPaths }}
       
