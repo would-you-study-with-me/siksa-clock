@@ -1,3 +1,5 @@
+import { Theme } from '@emotion/react';
+
 const FONT_FAMILY = 'font-family: Roboto, NanumGothic, sans-serif;';
 
 const typography = {
@@ -46,3 +48,16 @@ const typography = {
 export default typography;
 export type typography = typeof typography;
 export type Typography = typeof typography[keyof typeof typography];
+
+export const Typography: {
+  [k in keyof typography]: (p: { theme: Theme }) => typography[k];
+} = {
+  body1: p => p.theme.typography.body1,
+  body2: p => p.theme.typography.body2,
+  button: p => p.theme.typography.button,
+  caption: p => p.theme.typography.caption,
+  head1: p => p.theme.typography.head1,
+  head2: p => p.theme.typography.head2,
+  placeholder: p => p.theme.typography.placeholder,
+  title1: p => p.theme.typography.title1,
+} as const;
