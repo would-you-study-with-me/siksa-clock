@@ -27,17 +27,6 @@ jobs:
       - uses: Awesome-Tomato/actions/move-build-output-to-parent-directory@v1
         with:
           fullpaths: ${{ steps.paths.outputs.projectPaths }}
-
-  Commit-and-Push:
-    needs: Build-FE-from-dev
-    runs-on: ubuntu-latest
-    steps:
-      - name: Navigate to workspace
-        run: |
-          echo $GITHUB_WORKSPACE
-          cd $GITHUB_WORKSPACE
-          pwd
-          ls -al
         
       - name: Configuring git
         run: |
