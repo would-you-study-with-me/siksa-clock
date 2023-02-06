@@ -37,6 +37,7 @@ jobs:
           echo $GITHUB_WORKSPACE
           cd $GITHUB_WORKSPACE
           pwd
+          ls -al
         
       - name: Configuring git
         run: |
