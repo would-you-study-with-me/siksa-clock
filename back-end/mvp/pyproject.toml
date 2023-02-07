@@ -12,7 +12,6 @@ uvicorn = {extras = ["standard"], version = "^0.20.0"}
 python-multipart = "^0.0.5"
 python-jose = {extras = ["cryptography"], version = "^3.3.0"}
 passlib = {extras = ["bcrypt"], version = "^1.7.4"}
-SQLAlchemy = {extras = ["asyncio"], version = "^1.4.40"}
 strawberry-graphql = {extras = ["fastapi"], version = "^0.124.0"}
 none = "^0.1.0-alpha.2"
 httpx = "^0.23.0"
@@ -22,10 +21,10 @@ requests = "^2.28.0"
 password = "^0.2"
 schema = "^0.7.5"
 crud = "^0.1"
-dependency-injector = "^4.40.0"
 pyright = "^1.1.276"
 black = "^22.10.0"
-aiomysql = "^0.1.1"
+asyncpg = "^0.27.0"
+sqlalchemy = {extras = ["asyncio"], version = "^2.0.2"}
 
 [tool.poetry.dev-dependencies]
 
