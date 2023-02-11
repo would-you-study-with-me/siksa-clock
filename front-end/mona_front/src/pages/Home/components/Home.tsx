@@ -13,30 +13,8 @@ import {
 import { CoordsResultItem } from '../../../models/coords.model';
 import Loader from '../../../components/common/Loader';
 import ScrollObserverContainer from '../../../components/common/ScrollObserverContainer';
-
-const GET_RESTAURANTS = gql`
-  query Restaurants($roadName: String!, $limit: Int!, $skipNumber: Int!) {
-    restaurants(
-      inputData: { query: $roadName, limit: $limit, skip: $skipNumber }
-    ) {
-      restaurantName
-      restaurantId
-      restaurantDescription
-      restaurantCategory
-      restaurantAddress
-      restaurantRate
-      restaurantCongestion
-      restaurantImage
-    }
-  }
-`;
-const GET_REVERSE_GEOCODING = gql`
-  query GetLocation($x: Float!, $y: Float!) {
-    reverseGeocoding(inputReverseGeocoding: { x: $x, y: $y }) {
-      results
-    }
-  }
-`;
+import { useGetRestaurant } from '../../../hooks/useGetRestaurants';
+import { useGetReverseGeoCoding } from '../../../hooks/useGetReverseGeoCoding';
 
 const Title = styled(Typography)`
   padding: 40px 0 16px;
@@ -57,7 +35,7 @@ const findLand = (coordItems: CoordsResultItem[]) => {
   return coordItems.find(item => item.land);
 };
 
-const CardList = () => {
+const Home = () => {
   const [restaurantList, setRestaurantList] = useState<RestaurantListInfo[]>(
     [],
   );
@@ -66,25 +44,13 @@ const CardList = () => {
   const addressData = location.state
     ? (location.state as AddressData)
     : DEFAULT_ADDRESS_DATA;
-  const { loading, error, data, refetch } = useQuery(GET_RESTAURANTS, {
-    variables: {
-      roadName: addressData.roadname,
-      skipNumber: 0,
-      limit: 10,
-    },
-    onCompleted: data => {
-      setRestaurantList(data.restaurants);
-    },
-  });
+  const { loading, error, data, refetch } = useGetRestaurant(
+    addressData.roadname,
+    setRestaurantList,
+  );
 
   const { refetch: locationRefetch, networkStatus: locationNetWorkStatus } =
-    useQuery(GET_REVERSE_GEOCODING, {
-      variables: {
-        x: 127.048542,
-        y: 37.519995,
-      },
-      notifyOnNetworkStatusChange: true,
-    });
+    useGetReverseGeoCoding(127.048542, 37.519995);
 
   useEffect(() => {
     if ('geolocation' in navigator) {
@@ -160,4 +126,4 @@ const CardList = () => {
   );
 };
 
-export default CardList;
+export default Home;
