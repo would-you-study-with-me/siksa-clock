@@ -25,8 +25,7 @@ jobs:
           fullpaths: ${{ steps.paths.outputs.projectPaths }}
           
       - name: Clean up sorce code
-        run: |
-          find . ! -name 'build' -delete
+        run: ls | grep -xv "^build$" | xargs rm -r
       
       - uses: Awesome-Tomato/actions/move-build-output-to-parent-directory@v1
         with:
