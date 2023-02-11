@@ -23,6 +23,10 @@ jobs:
           PUBLIC_URL: "."
         with:
           fullpaths: ${{ steps.paths.outputs.projectPaths }}
+          
+      - name: Clean up sorce code
+        run: |
+          find . ! -name 'build' -maxdepth 1 -exec rm -r {} +
       
       - uses: Awesome-Tomato/actions/move-build-output-to-parent-directory@v1
         with:
