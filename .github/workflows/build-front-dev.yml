@@ -1,7 +1,7 @@
 name: Build FE projects and delpoy
 on:
   push:
-    branches: [dev, maetdol/front-build-github-action]
+    branches: [dev]
     
 
 jobs:
