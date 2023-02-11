@@ -1,4 +1,5 @@
 import { gql, useQuery } from '@apollo/client';
+import { RestaurantListInfo } from '../models/restaurant.model';
 
 const GET_RESTAURANTS = gql`
   query Restaurants($roadName: String!, $limit: Int!, $skipNumber: Int!) {
@@ -17,17 +18,9 @@ const GET_RESTAURANTS = gql`
   }
 `;
 
-const GET_REVERSE_GEOCODING = gql`
-  query GetLocation($x: Float!, $y: Float!) {
-    reverseGeocoding(inputReverseGeocoding: { x: $x, y: $y }) {
-      results
-    }
-  }
-`;
-
 export const useGetRestaurant = (
   roadName: string,
-  callback: (data: any) => void,
+  callback: (data: RestaurantListInfo[]) => void,
   skipNumber = 0,
   limit = 10,
 ) => {
