@@ -3,42 +3,34 @@ import { useLocation, Link, NavLink } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 import Typography from '@mui/material/Typography';
 import RestaurantCard from '../components/RestaurantCard';
-import { RestaurantCardInfo } from '../model/restaurant-card.interface';
 import LocationHeader from '../components/LocationHeader';
-import { GET_RESTAURANTS_QUERY } from '../queries/restaurants.query';
 import { GET_REVERSE_GEOCODING_QUERY } from '../queries/geocoding.query';
+import { useRestaurants } from '../hooks/useRestaurants.hook';
 
 const Main: React.FC = () => {
-  const [roadName, setRoadName] = useState<string | undefined>(undefined);
-  const [dongName, setDongName] = useState<string | undefined>(undefined);
+  const [address, setAddress] = useState<string | undefined>(undefined);
+  const [hasRegisteredAddress, setHasRegisteredAddress] =
+    useState<boolean>(false);
+
+  const {
+    restaurants: data,
+    loading,
+    error,
+    refetch: refetchRestaurant,
+  } = useRestaurants(address);
 
   const location = useLocation();
-  useEffect(() => {
-    const addressData = location.state as { roadname: string };
-    if (addressData && addressData.roadname) {
-      setRoadName(addressData.roadname);
-    }
-  }, [location.state]);
 
   const { refetch: refetchReverseGeocoding } = useQuery(
     GET_REVERSE_GEOCODING_QUERY,
   );
 
-  const {
-    loading,
-    error,
-    data,
-    refetch: refetchRestaurant,
-  } = useQuery<{
-    restaurants: RestaurantCardInfo[];
-  }>(GET_RESTAURANTS_QUERY, {
-    variables: {
-      query: roadName || dongName || '강남대로',
-    },
-  });
-
   useEffect(() => {
-    if (!roadName) {
+    const addressData = location.state as { roadname: string };
+    if (addressData && addressData.roadname) {
+      setAddress(addressData.roadname);
+      setHasRegisteredAddress(true);
+    } else {
       navigator.geolocation?.getCurrentPosition(
         (position: GeolocationPosition) => {
           refetchReverseGeocoding({
@@ -47,7 +39,7 @@ const Main: React.FC = () => {
           }).then(result => {
             const dongName =
               result?.data?.reverseGeocoding?.results[0]?.region?.area3.name;
-            setDongName(dongName);
+            setAddress(dongName);
             refetchRestaurant({
               query: dongName,
             });
@@ -55,7 +47,13 @@ const Main: React.FC = () => {
         },
       );
     }
-  }, [roadName, refetchReverseGeocoding, refetchRestaurant]);
+  }, [
+    location.state,
+    address,
+    hasRegisteredAddress,
+    refetchReverseGeocoding,
+    refetchRestaurant,
+  ]);
 
   if (loading)
     return (
@@ -83,7 +81,7 @@ const Main: React.FC = () => {
       </Link>
       <Typography variant="h2">내 주변 식사</Typography>
       {data &&
-        data.restaurants.map(restaurant => (
+        data.map(restaurant => (
           <NavLink
             to={`restaurants/${restaurant.restaurantId}`}
             key={restaurant.restaurantId}
