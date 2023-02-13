@@ -3,10 +3,12 @@ import random
 from time import strftime, localtime, time
 from uuid import UUID
 
+from fastapi import Depends
 from pydantic import Json
 from sqlalchemy import update
+from sqlalchemy.orm import Session
 
-from app.config.database import get_session
+from app.dependencies import get_db_session
 from app.models.restaurant import Restaurant
 from app.services.api_service import NaverApi
 
@@ -70,7 +72,8 @@ class RestaurantService:
             self,
             restaurant_id: UUID,
             restaurant_name: str,
-            restaurant_image: str = None
+            restaurant_image: str = None,
+            get_session: Session = Depends(get_db_session)
     ) -> Json:
         logging.info("음식점 이미지 데이터 확인 및 적재")
 
@@ -83,9 +86,8 @@ class RestaurantService:
                 .where(Restaurant.restaurant_id == restaurant_id)\
                 .values(restaurant_image=image_data.json())
 
-            async with get_session() as s:
-                await s.execute(sql)
-                await s.commit()
+            get_session.execute(sql)
+            get_session.commit()
 
             return image_data.json()
         else:
@@ -96,7 +98,8 @@ class RestaurantService:
             self,
             restaurant_id: UUID,
             restaurant_name: str,
-            restaurant_menu: str
+            restaurant_menu: str,
+            get_session: Session = Depends(get_db_session)
     ) -> Json:
         logging.info("음식점 메뉴판 데이터 확인 및 적재")
 
@@ -110,9 +113,8 @@ class RestaurantService:
                 .where(Restaurant.restaurant_id == restaurant_id) \
                 .values(restaurant_menu=menu_data.json())
 
-            async with get_session() as s:
-                await s.execute(sql)
-                await s.commit()
+            get_session.execute(sql)
+            get_session.commit()
 
             return menu_data.json()
         else:

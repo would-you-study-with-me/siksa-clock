@@ -63,5 +63,8 @@
     "eslint": "^8.18.0",
     "eslint-config-airbnb-typescript": "^17.0.0",
     "eslint-config-prettier": "^8.5.0"
+  },
+  "volta": {
+    "node": "16.15.1"
   }
 }

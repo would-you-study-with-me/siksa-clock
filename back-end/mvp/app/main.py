@@ -50,7 +50,7 @@ async def love_song():
 
 if __name__ == '__main__':
     print("Database Loading")
-    asyncio.run(create_table())
+    create_table()
     print("Database Done!")
 
     print("Start Server")

@@ -2,7 +2,6 @@ import os, json
 
 from fastapi import HTTPException
 
-
 secret_json_file = os.path.join('./', 'secret.json')
 
 
@@ -21,8 +20,10 @@ def get_secret(setting, secret=secret):
         raise HTTPException(status_code=404, message=error_msg)
 
 
-def get_os_secrets(setting):
-    "환경변수를 가져오는 기능"
+def get_os_secrets(setting: str):
+    """
+    환경 변수값을 가져오는 기능
+    """
     try:
         return os.environ[setting]
     except KeyError:
