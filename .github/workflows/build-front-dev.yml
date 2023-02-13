@@ -1,7 +1,7 @@
 name: Build FE projects and delpoy
 on:
   push:
-    branches: [dev]
+    branches: [dev, feature/maetdol-prototype-build-action]
     
 
 jobs:
@@ -38,6 +38,12 @@ jobs:
           git add --all 
           git status
           git commit -m 'Deploy build output by Github workflow'
+          hash=$(git log -1 --pretty="%H")
+          
           git checkout github-pages
-          git cherry-pick $(git log -1 --pretty="%H")
+          rm -rf *
+          git add --all
+          git commit -m"Clean up directory"
+          
+          git cherry-pick $hash
           git push origin github-pages -f
