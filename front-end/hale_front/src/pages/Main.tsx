@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useLocation, Link, NavLink } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 import Typography from '@mui/material/Typography';
@@ -9,14 +9,12 @@ import { useRestaurants } from '../hooks/useRestaurants.hook';
 
 const Main: React.FC = () => {
   const [address, setAddress] = useState<string | undefined>(undefined);
-  const [hasRegisteredAddress, setHasRegisteredAddress] =
-    useState<boolean>(false);
 
   const {
     restaurants: data,
     loading,
     error,
-    refetch: refetchRestaurant,
+    refetch,
   } = useRestaurants(address);
 
   const location = useLocation();
@@ -25,35 +23,29 @@ const Main: React.FC = () => {
     GET_REVERSE_GEOCODING_QUERY,
   );
 
+  const setGeolocationAddress = useCallback(() => {
+    navigator.geolocation?.getCurrentPosition(
+      (position: GeolocationPosition) => {
+        refetchReverseGeocoding({
+          x: position.coords.longitude,
+          y: position.coords.latitude,
+        }).then(result => {
+          const dongName =
+            result?.data?.reverseGeocoding?.results[0]?.region?.area3.name;
+          setAddress(dongName);
+        });
+      },
+    );
+  }, [refetchReverseGeocoding]);
+
   useEffect(() => {
     const addressData = location.state as { roadname: string };
     if (addressData && addressData.roadname) {
       setAddress(addressData.roadname);
-      setHasRegisteredAddress(true);
     } else {
-      navigator.geolocation?.getCurrentPosition(
-        (position: GeolocationPosition) => {
-          refetchReverseGeocoding({
-            x: position.coords.longitude,
-            y: position.coords.latitude,
-          }).then(result => {
-            const dongName =
-              result?.data?.reverseGeocoding?.results[0]?.region?.area3.name;
-            setAddress(dongName);
-            refetchRestaurant({
-              query: dongName,
-            });
-          });
-        },
-      );
+      setGeolocationAddress();
     }
-  }, [
-    location.state,
-    address,
-    hasRegisteredAddress,
-    refetchReverseGeocoding,
-    refetchRestaurant,
-  ]);
+  }, [location.state, setGeolocationAddress]);
 
   if (loading)
     return (
