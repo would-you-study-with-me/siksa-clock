@@ -39,5 +39,5 @@ jobs:
           git status
           git commit -m 'Deploy build output by Github workflow'
           git checkout github-pages
-          git merge ${GITHUB_REF_NAME} --strategy-option theirs
+          git cherry-pick $(git log -1 --pretty="%H")
           git push origin github-pages -f
