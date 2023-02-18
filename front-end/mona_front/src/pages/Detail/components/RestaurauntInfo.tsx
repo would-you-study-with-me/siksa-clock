@@ -1,7 +1,6 @@
-import { useQuery, gql } from '@apollo/client';
 import styled from '@emotion/styled';
 import { Typography } from '@mui/material';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import CongestionComponent from '../../../components/common/Congestion';
 import StarRate from '../../../components/common/StarRate';
@@ -10,28 +9,9 @@ import {
   RestaurantDetailInfo,
 } from '../../../models/restaurant.model';
 import SlickSlide from './SlickSlide';
+import { useGetRestaurantInfo } from '../../../hooks/useGetRestaurantInfo';
+import { KAKAO_MAP_KEY } from '../../../assets/const/kakaoKey';
 
-const GET_RESTAURANTS_DETAIL = gql`
-  query RestaurantsItem($id: UUID!) {
-    restaurant(inputData: { restaurantId: $id }) {
-      restaurantAddress
-      restaurantBreakTime
-      restaurantBreakTimeDays
-      restaurantCategory
-      restaurantCongestion
-      restaurantContact
-      restaurantDescription
-      restaurantName
-      restaurantOpeningTime
-      restaurantOpeningTimeDays
-      restaurantImage
-      restaurantMenu
-      restaurantRate
-      restaurantX
-      restaurantY
-    }
-  }
-`;
 const mockImageUrls = [
   'https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=987&q=80',
   'https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1380&q=80',
@@ -71,25 +51,65 @@ const ContactAndOpeningContainer = styled.div`
 const MapContainer = styled.div`
   padding: 24px 0;
 `;
+
+const MapContents = styled.div`
+  width: 100%;
+  min-height: 300px;
+`;
 const RestaurauntInfo = () => {
   const [detailInfo, setDetailInfo] = useState<RestaurantDetailInfo>();
+  const [kakaoMap, setKaKaoMap] = useState<typeof kakao>();
   const { id } = useParams();
-  const { loading, error, data } = useQuery(GET_RESTAURANTS_DETAIL, {
-    context: { clientName: 'restaurant' },
-    variables: {
-      id,
-    },
-    onCompleted: data => {
-      setDetailInfo(data.restaurant);
-    },
-  });
-  if (loading) return <div>로딩</div>;
+  const { loading, error, data } = useGetRestaurantInfo(
+    id ?? '',
+    setDetailInfo,
+  );
+  const mapContainer = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const kakaoMapScript = document.createElement('script');
+    kakaoMapScript.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${KAKAO_MAP_KEY}&autoload=false`;
+    document.body.appendChild(kakaoMapScript);
+    kakaoMapScript.onload = () =>
+      window.kakao.maps.load(() => {
+        setKaKaoMap(window.kakao);
+      });
+  }, [setKaKaoMap]);
+
   const imageDataURL = detailInfo?.restaurantImage.items.map(img => img.link);
-  // TODO: 메뉴판 이미지 슬라이드 출력하기
   const menuImageDataURL = detailInfo?.restaurantMenu.items.map(
     img => img.link,
   );
 
+  const makeKaKaoMap = () => {
+    if (kakaoMap && mapContainer.current) {
+      const option: kakao.maps.MapOptions = {
+        center: new kakaoMap.maps.LatLng(
+          detailInfo?.restaurantY ?? 33.450701,
+          detailInfo?.restaurantX ?? 126.570667,
+        ),
+        level: 3, // 지도의 레벨(확대, 축소 정도)
+      };
+      const map = new kakaoMap.maps.Map(mapContainer.current, option);
+      const markerPosition = new kakaoMap.maps.LatLng(
+        detailInfo?.restaurantY ?? 33.450701,
+        detailInfo?.restaurantX ?? 126.570667,
+      );
+
+      // 마커를 생성합니다
+      const marker = new kakaoMap.maps.Marker({
+        position: markerPosition,
+      });
+
+      // 마커가 지도 위에 표시되도록 설정합니다
+      marker.setMap(map);
+    }
+  };
+
+  useEffect(() => {
+    makeKaKaoMap();
+  });
+
+  if (loading) return <div>로딩</div>;
   return (
     <div>
       <SlideContainer>
@@ -123,7 +143,10 @@ const RestaurauntInfo = () => {
             <SlickSlide imageUrls={menuImageDataURL || mockImageUrls} />
           </SlideContainer>
         )}
-        <MapContainer>지도 영역</MapContainer>
+        <MapContainer>
+          <TitleTypo variant="h2">지도</TitleTypo>
+          <MapContents ref={mapContainer} />
+        </MapContainer>
       </InfoContainer>
     </div>
   );

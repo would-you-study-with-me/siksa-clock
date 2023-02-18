@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { Typography } from '@mui/material';
-import { useQuery, gql, NetworkStatus } from '@apollo/client';
-import { useEffect, useState, useCallback, Fragment } from 'react';
+import { NetworkStatus } from '@apollo/client';
+import { useEffect, useState, useCallback } from 'react';
 import { useLocation, Link } from 'react-router-dom';
 import { RestaurantListInfo } from '../../../models/restaurant.model';
 import CardItem from '../../../components/card/CardItem';
@@ -13,8 +13,8 @@ import {
 import { CoordsResultItem } from '../../../models/coords.model';
 import Loader from '../../../components/common/Loader';
 import ScrollObserverContainer from '../../../components/common/ScrollObserverContainer';
-import { useGetRestaurant } from '../../../hooks/useGetRestaurants';
 import { useGetReverseGeoCoding } from '../../../hooks/useGetReverseGeoCoding';
+import { useGetRestaurants } from '../../../hooks/useGetRestaurants';
 
 const Title = styled(Typography)`
   padding: 40px 0 16px;
@@ -44,7 +44,7 @@ const Home = () => {
   const addressData = location.state
     ? (location.state as AddressData)
     : DEFAULT_ADDRESS_DATA;
-  const { loading, error, data, refetch } = useGetRestaurant(
+  const { loading, error, refetch } = useGetRestaurants(
     addressData.roadname,
     setRestaurantList,
   );
