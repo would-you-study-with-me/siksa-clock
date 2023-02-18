@@ -1,42 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import { useLocation, Link, NavLink } from 'react-router-dom';
-import { useQuery } from '@apollo/client';
+import React from 'react';
+import { Link, NavLink } from 'react-router-dom';
 import Typography from '@mui/material/Typography';
+import { useMain } from 'hooks/useMain.hook';
 import RestaurantCard from '../components/RestaurantCard';
-import { RestaurantCardInfo } from '../model/restaurant-card.interface';
-import { calculateDistance } from '../utils/util';
-import { Coordinate } from '../model/coordinate.interface';
 import LocationHeader from '../components/LocationHeader';
-import { GET_RESTAURANTS_QUERY } from '../queries/restaurants.query';
 
 const Main: React.FC = () => {
-  const location = useLocation();
-  const state = location.state as { roadname: string };
+  const { restaurants, loading, error } = useMain();
 
-  const [currentCoords, setCurrentCoords] = useState<Coordinate>({
-    latitude: 0,
-    longitude: 0,
-  });
-
-  useEffect(() => {
-    navigator.geolocation?.getCurrentPosition(
-      (position: GeolocationPosition) => {
-        setCurrentCoords({
-          latitude: position.coords.latitude,
-          longitude: position.coords.longitude,
-        });
-      },
-      error => {
-        console.error(error);
-      },
-    );
-  }, []);
-
-  const { loading, error, data } = useQuery<{
-    restaurants: RestaurantCardInfo[];
-  }>(GET_RESTAURANTS_QUERY, {
-    variables: { query: state ? state.roadname : '강남대로' },
-  });
   if (loading)
     return (
       <div>
@@ -62,21 +33,20 @@ const Main: React.FC = () => {
         <LocationHeader />
       </Link>
       <Typography variant="h2">내 주변 식사</Typography>
-      {data &&
-        data.restaurants.map(restaurant => (
-          <NavLink
-            to={`restaurants/${restaurant.restaurantId}`}
+      {restaurants?.map(restaurant => (
+        <NavLink
+          to={`restaurants/${restaurant.restaurantId}`}
+          key={restaurant.restaurantId}
+        >
+          <RestaurantCard
             key={restaurant.restaurantId}
-          >
-            <RestaurantCard
-              key={restaurant.restaurantId}
-              name={restaurant.restaurantName}
-              rate={restaurant.restaurantRate}
-              category={restaurant.restaurantCategory}
-              congestion={restaurant.restaurantCongestion}
-            />
-          </NavLink>
-        ))}
+            name={restaurant.restaurantName}
+            rate={restaurant.restaurantRate}
+            category={restaurant.restaurantCategory}
+            congestion={restaurant.restaurantCongestion}
+          />
+        </NavLink>
+      ))}
     </div>
   );
 };
