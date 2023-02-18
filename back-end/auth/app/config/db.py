@@ -1,15 +1,19 @@
-from sqlalchemy import create_engine
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker
+import logging
 
+from sqlalchemy import create_engine
+from sqlalchemy.orm import Session
+
+from app.model.account import Base
 from app.service.secret import get_secret
 
-SQLALCHEMY_DATABASE_URL = "mysql+mysqldb://{user}:{password}@{host}:{port}/{database_name}".format(
-    user=get_secret('database_user'),
-    password=get_secret('database_password'),
-    host=get_secret('database_host'),
-    port=get_secret('database_port'),
-    database_name=get_secret('database_name'),
+logging.basicConfig(level=logging.INFO)
+
+SQLALCHEMY_DATABASE_URL = "postgresql://{user}:{password}@{host}:{port}/{database_name}".format(
+    user=get_secret("dev_user"),
+    password=get_secret("dev_password"),
+    host=get_secret("database_host"),
+    port=get_secret("database_port"),
+    database_name=get_secret("database_name"),
 )
 
 engine = create_engine(
@@ -20,11 +24,14 @@ engine = create_engine(
     pool_pre_ping=True
 )
 
-session = sessionmaker(
+session = Session(
     engine,
     expire_on_commit=False,
     autoflush=False,
     autocommit=False
 )
 
-Base = declarative_base()
+
+def create_table():
+    logging.info("auth api create table")
+    Base.metadata.create_all(engine)

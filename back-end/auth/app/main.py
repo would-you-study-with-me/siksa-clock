@@ -1,5 +1,8 @@
+import uvicorn
 from fastapi import Depends, FastAPI
 from starlette.middleware.cors import CORSMiddleware
+
+from app.config.db import create_table
 
 app = FastAPI(version="0.1", description="Siksa Auth")
 
@@ -22,3 +25,8 @@ app.add_middleware(
 @app.get("/")
 async def root():
     return {"Message": "Test??"}
+
+
+if __name__ == '__main__':
+    create_table()
+    uvicorn.run("main:app", port=80, reload=True)
