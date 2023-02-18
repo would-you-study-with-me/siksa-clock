@@ -47,7 +47,7 @@ export const useMain = (): MainHookReturnType => {
 
   useEffect(() => {
     const addressData = location.state as { roadname: string };
-    if (addressData && addressData.roadname) {
+    if (addressData?.roadname) {
       setAddress(addressData.roadname);
     } else {
       setGeolocationAddress();

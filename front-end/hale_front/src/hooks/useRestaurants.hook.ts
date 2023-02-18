@@ -16,8 +16,9 @@ export const useRestaurants = (address: string | undefined) => {
   });
 
   useEffect(() => {
-    if (!data) return;
-    setRestaurants(data?.restaurants);
+    if (data?.restaurants) {
+      setRestaurants(data.restaurants);
+    }
   }, [data, setRestaurants]);
 
   return {
