@@ -6,7 +6,7 @@ import { RestaurantCardInfo } from 'model/restaurant-card.interface';
 export const useRestaurants = (address: string | undefined) => {
   const [restaurants, setRestaurants] = useState<RestaurantCardInfo[]>([]);
 
-  const { data, loading, error, refetch } = useQuery<{
+  const { data, loading, error } = useQuery<{
     restaurants: RestaurantCardInfo[];
   }>(GET_RESTAURANTS_QUERY, {
     variables: {
@@ -24,6 +24,5 @@ export const useRestaurants = (address: string | undefined) => {
     restaurants,
     loading,
     error,
-    refetch,
   };
 };

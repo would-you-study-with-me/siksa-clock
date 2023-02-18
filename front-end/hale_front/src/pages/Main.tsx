@@ -11,17 +11,18 @@ const Main: React.FC = () => {
   const [address, setAddress] = useState<string | undefined>(undefined);
 
   const {
-    restaurants: data,
-    loading,
-    error,
-    refetch,
+    restaurants,
+    loading: isLoadingRestaurants,
+    error: isErrorRestaurants,
   } = useRestaurants(address);
 
   const location = useLocation();
 
-  const { refetch: refetchReverseGeocoding } = useQuery(
-    GET_REVERSE_GEOCODING_QUERY,
-  );
+  const {
+    loading: isLoadingGeocoding,
+    error: isErrorGeocoding,
+    refetch: refetchReverseGeocoding,
+  } = useQuery(GET_REVERSE_GEOCODING_QUERY);
 
   const setGeolocationAddress = useCallback(() => {
     navigator.geolocation?.getCurrentPosition(
@@ -47,7 +48,7 @@ const Main: React.FC = () => {
     }
   }, [location.state, setGeolocationAddress]);
 
-  if (loading)
+  if (isLoadingRestaurants || isLoadingGeocoding)
     return (
       <div>
         <Link to="postcode">
@@ -56,7 +57,7 @@ const Main: React.FC = () => {
         <p>Loading...</p>
       </div>
     );
-  if (error)
+  if (isErrorRestaurants || isErrorGeocoding)
     return (
       <div>
         <Link to="postcode">
@@ -72,8 +73,8 @@ const Main: React.FC = () => {
         <LocationHeader />
       </Link>
       <Typography variant="h2">내 주변 식사</Typography>
-      {data &&
-        data.map(restaurant => (
+      {restaurants &&
+        restaurants.map(restaurant => (
           <NavLink
             to={`restaurants/${restaurant.restaurantId}`}
             key={restaurant.restaurantId}
