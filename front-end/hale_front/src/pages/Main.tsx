@@ -1,54 +1,14 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { useLocation, Link, NavLink } from 'react-router-dom';
-import { useQuery } from '@apollo/client';
+import React from 'react';
+import { Link, NavLink } from 'react-router-dom';
 import Typography from '@mui/material/Typography';
+import { useMain } from 'hooks/useMain.hook';
 import RestaurantCard from '../components/RestaurantCard';
 import LocationHeader from '../components/LocationHeader';
-import { GET_REVERSE_GEOCODING_QUERY } from '../queries/geocoding.query';
-import { useRestaurants } from '../hooks/useRestaurants.hook';
 
 const Main: React.FC = () => {
-  const [address, setAddress] = useState<string | undefined>(undefined);
+  const { restaurants, loading, error } = useMain();
 
-  const {
-    restaurants,
-    loading: isLoadingRestaurants,
-    error: isErrorRestaurants,
-  } = useRestaurants(address);
-
-  const location = useLocation();
-
-  const {
-    loading: isLoadingGeocoding,
-    error: isErrorGeocoding,
-    refetch: refetchReverseGeocoding,
-  } = useQuery(GET_REVERSE_GEOCODING_QUERY);
-
-  const setGeolocationAddress = useCallback(() => {
-    navigator.geolocation?.getCurrentPosition(
-      (position: GeolocationPosition) => {
-        refetchReverseGeocoding({
-          x: position.coords.longitude,
-          y: position.coords.latitude,
-        }).then(result => {
-          const dongName =
-            result?.data?.reverseGeocoding?.results[0]?.region?.area3.name;
-          setAddress(dongName);
-        });
-      },
-    );
-  }, [refetchReverseGeocoding]);
-
-  useEffect(() => {
-    const addressData = location.state as { roadname: string };
-    if (addressData && addressData.roadname) {
-      setAddress(addressData.roadname);
-    } else {
-      setGeolocationAddress();
-    }
-  }, [location.state, setGeolocationAddress]);
-
-  if (isLoadingRestaurants || isLoadingGeocoding)
+  if (loading)
     return (
       <div>
         <Link to="postcode">
@@ -57,7 +17,7 @@ const Main: React.FC = () => {
         <p>Loading...</p>
       </div>
     );
-  if (isErrorRestaurants || isErrorGeocoding)
+  if (error)
     return (
       <div>
         <Link to="postcode">
