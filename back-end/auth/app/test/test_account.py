@@ -20,7 +20,7 @@ def test_register(self):
 
     assert response.status_code == 201
     # cookie test
-    secret_cookie = response.cookies['siksa_auth'].
+    secret_cookie = response.cookies['siksa_auth']`
 
 
 
