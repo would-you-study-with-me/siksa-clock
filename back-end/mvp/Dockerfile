@@ -1,4 +1,4 @@
-FROM python:3.10
+FROM python:3.11
 
 COPY requirements.txt requirements.txt
 
@@ -6,7 +6,7 @@ RUN pip install -r requirements.txt
 
 COPY ./app /app
 
-COPY app/secret.json secret.json
+COPY secret.json secret.json
 
 EXPOSE 80
 
