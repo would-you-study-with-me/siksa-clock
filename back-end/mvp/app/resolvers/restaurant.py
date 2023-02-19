@@ -5,7 +5,7 @@ from fastapi import Depends
 from sqlalchemy import select, func
 from sqlalchemy.orm import Session
 
-from app.dependencies import get_db_session
+from app.config.database import session
 from app.models.restaurant import Restaurant
 from app.schemas.restaurant import InputRestaurant, OutputRestaurant, InputRestaurants
 from app.services.restaurant import RestaurantService
@@ -13,10 +13,12 @@ from app.services.restaurant import RestaurantService
 logging.basicConfig(level=logging.INFO)
 
 
-async def get_restaurant(restaurant_input_data: InputRestaurant, get_session: Session = Depends(get_db_session)) -> OutputRestaurant:
+async def get_restaurant(restaurant_input_data: InputRestaurant, get_session: Session = session) -> OutputRestaurant:
     sql = select(Restaurant).where(Restaurant.restaurant_id == restaurant_input_data.restaurant_id)
 
-    restaurant_data = get_session.execute(sql).one()
+    restaurant_data = get_session.scalars(sql).one()
+    get_session.close()
+
 
     restaurant_model_service = RestaurantService()
     restaurant_model_service.dhmm_model(remaining_seats=restaurant_data.restaurant_count_seats)
@@ -59,10 +61,11 @@ async def get_restaurant(restaurant_input_data: InputRestaurant, get_session: Se
         restaurant_menu=restaurant_menu
     )
 
+
     return restaurant_data
 
 
-async def get_restaurants(restaurants_input_data: InputRestaurants, get_session: Session = Depends(get_db_session)) -> List[OutputRestaurant]:
+async def get_restaurants(restaurants_input_data: InputRestaurants, get_session: Session = session) -> List[OutputRestaurant]:
     # x, y 값이 없는 경우로
     if (restaurants_input_data.x is not None) and (restaurants_input_data.y is not None):
         sql = select(Restaurant) \
@@ -77,6 +80,8 @@ async def get_restaurants(restaurants_input_data: InputRestaurants, get_session:
     logging.info('Restaurants SQL : {}'.format(sql))
 
     restaurant_db_datas = get_session.execute(sql).scalars().unique().all()
+    get_session.close()
+
 
     # 레스토랑 DHMM 모델 작동
     restaurant_model_service = RestaurantService()
@@ -120,5 +125,6 @@ async def get_restaurants(restaurants_input_data: InputRestaurants, get_session:
             restaurant_menu=restaurant_menu
         )
         output_restaurant_list.append(output_restaurant_data)
+
 
     return output_restaurant_list
