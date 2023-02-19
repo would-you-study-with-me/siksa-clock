@@ -16,7 +16,7 @@ logging.basicConfig(level=logging.INFO)
 async def get_restaurant(restaurant_input_data: InputRestaurant, get_session: Session = Depends(get_db_session)) -> OutputRestaurant:
     sql = select(Restaurant).where(Restaurant.restaurant_id == restaurant_input_data.restaurant_id)
 
-    restaurant_data = get_session.execute(sql).scalars().unique().first()
+    restaurant_data = get_session.execute(sql).one()
 
     restaurant_model_service = RestaurantService()
     restaurant_model_service.dhmm_model(remaining_seats=restaurant_data.restaurant_count_seats)
@@ -114,8 +114,6 @@ async def get_restaurants(restaurants_input_data: InputRestaurants, get_session:
             restaurant_opening_time=restaurant.restaurant_opening_time,
             restaurant_break_time_days=restaurant.restaurant_break_time_days,
             restaurant_break_time=restaurant.restaurant_break_time,
-            opening_time_created_at=restaurant.opening_time_created_at,
-            opening_time_updated_at=restaurant.opening_time_updated_at,
             restaurant_congestion=restaurant_model_service.congestion_classification,
             restaurant_waiting_people=restaurant_model_service.waiting_people,
             restaurant_image=restaurant_image,

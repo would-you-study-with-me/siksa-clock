@@ -16,29 +16,26 @@ class RestaurantBase(BaseModel):
     restaurant_contact: str | None
     restaurant_image: dict | None
     restaurant_menu: dict | None
-
-
-class OpeningTimeBase(BaseModel):
     restaurant_opening_time_days: str | None
     restaurant_opening_time: str | None
     restaurant_break_time_days: str | None
     restaurant_break_time: str | None
+    restaurant_opening_time_days: str | None
+    restaurant_opening_time: str | None
+    restaurant_break_time_days: str | None
+    restaurant_break_time: str | None
+
 
 class RestaurantTimeStampBase(BaseModel):
     restaurant_created_at: datetime
     restaurant_updated_at: datetime
 
 
-class OpeningTimeStampBase(BaseModel):
-    opening_time_created_at: datetime
-    opening_time_updated_at: datetime
-
-
 class InputRestaurant(BaseModel):
     restaurant_id: UUID
 
 
-class OutputRestaurant(RestaurantBase, RestaurantTimeStampBase, OpeningTimeBase, OpeningTimeStampBase):
+class OutputRestaurant(RestaurantBase, RestaurantTimeStampBase):
     restaurant_id: UUID
     restaurant_congestion: str
     restaurant_waiting_people: int

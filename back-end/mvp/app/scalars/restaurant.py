@@ -32,8 +32,6 @@ class OutputRestaurant:
     restaurant_break_time: Optional[str]
     restaurant_created_at: datetime
     restaurant_updated_at: datetime
-    opening_time_created_at: datetime
-    opening_time_updated_at: datetime
 
 
 
