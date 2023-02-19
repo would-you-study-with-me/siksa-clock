@@ -44,6 +44,7 @@ const Main: React.FC = () => {
             rate={restaurant.restaurantRate}
             category={restaurant.restaurantCategory}
             congestion={restaurant.restaurantCongestion}
+            image={restaurant.restaurantImage}
           />
         </NavLink>
       ))}

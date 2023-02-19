@@ -1,13 +1,17 @@
 import React from 'react';
 import Typography from '@mui/material/Typography';
 import { Card, CardContent } from '@mui/material';
+import styled from '@emotion/styled';
 import { RestaurantCardInfo } from '../model/restaurant-card.interface';
+import Thumbnail from './Thumbnail';
+import CardTitle from './CardTitle';
 
 interface RestaurantCardProps extends React.PropsWithChildren {
   name: RestaurantCardInfo['restaurantName'];
   rate: RestaurantCardInfo['restaurantRate'];
   category: RestaurantCardInfo['restaurantCategory'];
   congestion: RestaurantCardInfo['restaurantCongestion'];
+  image: RestaurantCardInfo['restaurantImage'];
   // onClick?: () => void;
 }
 
@@ -16,19 +20,18 @@ const RestaurantCard = ({
   rate,
   category,
   congestion,
+  image,
 }: RestaurantCardProps) => {
   return (
     <div>
       <Card sx={{ minWidth: 275 }}>
         <CardContent>
-          <img
-            alt="restaurant thumbnail"
-            style={{ backgroundPosition: 'center' }}
-          />
-          <Typography variant="subtitle1">{name}</Typography>
+          <Thumbnail imageData={image} />
+          <CardTitle name={name} />
           <div>평점: {rate}</div>
-          <div>카테고리: {category}</div>
-          <div>혼잡도: {congestion}</div>
+          <Typography variant="body1">{category}</Typography>
+          <Typography variant="body1">혼잡도</Typography>
+          <div>{congestion}</div>
         </CardContent>
       </Card>
     </div>

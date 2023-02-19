@@ -12,4 +12,19 @@ export interface RestaurantCardInfo {
   restaurantCongestion: Congestion;
   restaurantX: number;
   restaurantY: number;
+  restaurantImage: RestaurantImageResponse;
+}
+
+export interface RestaurantImageResponse {
+  total: number;
+  start: number;
+  display: number;
+  items: ImageRaw[];
+}
+export interface ImageRaw {
+  title: string;
+  link: string;
+  thumbnail: string;
+  sizeheight: string;
+  sizewidth: string;
 }
