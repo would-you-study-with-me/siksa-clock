@@ -7,7 +7,7 @@ const globalStyle = css`
     font-size: 62.5%;
     margin: 0;
     width: 100%;
-    min-height: 100%;
+    height: 100%;
     background-color: ${colors.white};
   }
 
