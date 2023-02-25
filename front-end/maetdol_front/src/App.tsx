@@ -1,7 +1,7 @@
 import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
 import { Global, ThemeProvider } from '@emotion/react';
-import { Home, RestaurantDetail } from 'pages';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
+import { Routing } from 'routing';
 import globalStyle from 'styles/global';
 import colors from 'styles/palette';
 import typography from 'styles/typography';
@@ -19,10 +19,7 @@ function App() {
         <GlobalContextProvider>
           <Global styles={globalStyle} />
           <BrowserRouter>
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/:restaurantId" element={<RestaurantDetail />} />
-            </Routes>
+            <Routing />
           </BrowserRouter>
         </GlobalContextProvider>
       </ThemeProvider>
