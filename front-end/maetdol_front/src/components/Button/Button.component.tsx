@@ -11,6 +11,7 @@ type Props = PropsWithChildren<{
   icon?: IconFileNames;
   iconPosition?: 'begin' | 'end';
   outline?: boolean;
+  fullWidth?: boolean;
 }>;
 
 export function Button({
@@ -22,6 +23,7 @@ export function Button({
   icon = undefined,
   iconPosition = 'begin',
   outline = false,
+  fullWidth = false,
 }: Props) {
   const RenderedIcon = icon && (
     <Icon size={25} type={icon} colors={{ black: textColor }} />
@@ -35,6 +37,7 @@ export function Button({
       textColor={textColor}
       hasIcon={!!icon}
       outline={outline}
+      fullWidth={fullWidth}
     >
       {iconPosition === 'begin' && RenderedIcon}
       {children}
