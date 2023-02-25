@@ -26,7 +26,6 @@ const Main: React.FC = () => {
         <p>Error :(</p>
       </div>
     );
-
   return (
     <div>
       <Link to="postcode">

@@ -18,12 +18,19 @@ const ImageContainer = styled.div`
 `;
 
 const Thumbnail = ({ imageData }: ThumbnailProps) => {
-  const imageUrl = imageData.items[0].thumbnail;
+  if ('items' in imageData && imageData.items.length) {
+    const imageUrl = imageData.items[0].thumbnail;
+    return (
+      <ImageContainer>
+        <img alt="restaurant thumbnail" src={imageUrl} />
+      </ImageContainer>
+    );
+  }
   return (
     <ImageContainer>
       <img
         alt="restaurant thumbnail"
-        src={imageUrl ?? 'https://via.placeholder.com/500?text=siksa'}
+        src="https://via.placeholder.com/500?text=siksa"
       />
     </ImageContainer>
   );
