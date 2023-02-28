@@ -1,3 +1,3 @@
-import CardList from './components/CardList';
+import Home from './components/Home';
 
-export default CardList;
+export default Home;

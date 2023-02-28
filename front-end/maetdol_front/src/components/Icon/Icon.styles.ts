@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-export const StyledSpan = styled.span<{
+const Span = styled.span<{
   size: number;
 }>`
   display: inline-block;
@@ -11,3 +11,7 @@ export const StyledSpan = styled.span<{
     height: ${props => props.size / 10}rem;
   }
 `;
+
+export const S = {
+  Span,
+};

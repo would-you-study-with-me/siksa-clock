@@ -1,10 +1,8 @@
 import styled from '@emotion/styled';
 import { Paper, Typography } from '@mui/material';
-import { Congestion, RestaurantListInfo } from '../../models/restaurant.model';
+import { RestaurantListInfo } from '../../models/restaurant.model';
 import StarRate from '../common/StarRate';
-import MoodBadIcon from '../../assets/icons/MoodBadIcon';
-import MoodNormalIcon from '../../assets/icons/MoodNormalIcon';
-import MoodGoodIcon from '../../assets/icons/MoodGoodIcon';
+import CongestionComponent from '../common/Congestion';
 
 interface Props extends React.PropsWithChildren {
   title: RestaurantListInfo['restaurantName'];
@@ -12,7 +10,7 @@ interface Props extends React.PropsWithChildren {
   congestion: RestaurantListInfo['restaurantCongestion'];
   category: RestaurantListInfo['restaurantCategory'];
   distance: RestaurantListInfo['distance'];
-  imgsrc?: string;
+  imgList?: RestaurantListInfo['restaurantImage']['items'];
 }
 
 const Container = styled(Paper)``;
@@ -20,7 +18,12 @@ const ImageContainer = styled.div`
   border-radius: 8px;
   overflow: hidden;
   width: 100%;
-  max-height: 120px;
+  max-height: 140px;
+  img {
+    width: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
 `;
 
 const Name = styled(Typography)`
@@ -45,12 +48,6 @@ const RightContainer = styled.div`
   margin-left: auto;
 `;
 
-const CongestionContainer = styled.div`
-  margin-right: 24px;
-  display: flex;
-  align-items: center;
-`;
-
 const CardItem = ({
   title,
   rate,
@@ -59,23 +56,12 @@ const CardItem = ({
   distance,
   ...props
 }: Props) => {
-  const { imgsrc = 'https://via.placeholder.com/600' } = props;
-  const makeCongestionIcon = () => {
-    switch (congestion) {
-      case Congestion.CROWDED:
-        return <MoodBadIcon fontSize="small" />;
-      case Congestion.NORMAL:
-        return <MoodNormalIcon fontSize="small" />;
-      case Congestion.SMOOTH:
-        return <MoodGoodIcon fontSize="small" />;
-      default:
-        return <MoodBadIcon fontSize="small" />;
-    }
-  };
+  const { imgList } = props;
+  const firstImage = imgList?.[0]?.link ?? 'https://via.placeholder.com/600';
   return (
     <Container elevation={0}>
       <ImageContainer>
-        <img src={imgsrc} alt="placeholder" />
+        <img src={firstImage} alt={title} />
       </ImageContainer>
       <Name variant="h2">{title}</Name>
       <DetailContainer>
@@ -84,10 +70,7 @@ const CardItem = ({
           <DetailText variant="body1">{category}</DetailText>
         </LeftContainer>
         <RightContainer>
-          <CongestionContainer>
-            <DetailText variant="body1">혼잡도</DetailText>
-            {makeCongestionIcon()}
-          </CongestionContainer>
+          <CongestionComponent congestion={congestion} />
           <DetailText variant="body1">{distance}km</DetailText>
         </RightContainer>
       </DetailContainer>

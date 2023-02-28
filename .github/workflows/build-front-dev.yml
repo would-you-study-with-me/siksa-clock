@@ -1,0 +1,43 @@
+name: Build FE projects and delpoy
+on:
+  push:
+    branches: [dev]
+    
+
+jobs:
+  Build-FE-from-dev:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - uses: Awesome-Tomato/actions/get-build-target-fullpaths@v1
+        id: paths
+        with:
+          workspace: ${{ github.workspace }}
+          
+      - uses: Awesome-Tomato/actions/build-by-path@v1
+        env: 
+          CI: ""
+          PUBLIC_URL: "."
+        with:
+          fullpaths: ${{ steps.paths.outputs.projectPaths }}
+      
+      - uses: Awesome-Tomato/actions/move-build-output-to-parent-directory@v1
+        with:
+          fullpaths: ${{ steps.paths.outputs.projectPaths }}
+        
+      - name: Configuring git
+        run: |
+          git config user.name 'MaetDol'
+          git config user.email 'rndka9@gmail.com'
+      
+      - name: Deploy
+        run: |
+          git add --all 
+          git status
+          git commit -m 'Deploy build output by Github workflow'
+          git checkout github-pages
+          git cherry-pick $(git log -1 --pretty="%H")
+          git push origin github-pages -f
