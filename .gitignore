@@ -503,3 +503,5 @@ restaurant-congestion/data/*
 # secret file patterns
 .secret.json
 *.json
+
+!manifest.json

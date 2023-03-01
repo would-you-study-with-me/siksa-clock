@@ -1,17 +1,6 @@
-import Icon from 'components/Icon';
-import StarRate from 'components/StarRate';
+import { Icon, StarRate } from 'components';
 import { Congestion, CongestionIconMap } from './ThumbnailCard.model';
-import {
-  StyeldCardInformationWrapper,
-  StyledCard,
-  StyledCardCategory,
-  StyledCardImage,
-  StyledCardTitle,
-  StyledCongestion,
-  StyledDisatnce,
-  StyledLink,
-  StyledRightContents,
-} from './ThumbnailCard.styles';
+import { S } from './ThumbnailCard.styles';
 
 interface Props {
   thumbnailSrc: string;
@@ -23,7 +12,7 @@ interface Props {
   category: string;
 }
 
-export default function ThumbnailCard({
+export function ThumbnailCard({
   category,
   congestion,
   meterDistance,
@@ -33,20 +22,20 @@ export default function ThumbnailCard({
   title,
 }: Props) {
   return (
-    <StyledCard>
-      <StyledLink to={`/r/${restaurantId}`}>
-        <StyledCardImage src={thumbnailSrc} />
-        <StyledCardTitle>{title}</StyledCardTitle>
-        <StyeldCardInformationWrapper>
+    <S.Card>
+      <S.Link to={`/r/${restaurantId}`}>
+        <S.CardImage src={thumbnailSrc} />
+        <S.CardTitle>{title}</S.CardTitle>
+        <S.CardInformationWrapper>
           <StarRate rating={rating} />
-          <StyledCardCategory>{category}</StyledCardCategory>
-          <StyledRightContents>
-            <StyledCongestion>혼잡도</StyledCongestion>
+          <S.CardCategory>{category}</S.CardCategory>
+          <S.RightContents>
+            <S.Congestion>혼잡도</S.Congestion>
             <Icon type={CongestionIconMap[congestion]} />
-            <StyledDisatnce>{meterDistance}m</StyledDisatnce>
-          </StyledRightContents>
-        </StyeldCardInformationWrapper>
-      </StyledLink>
-    </StyledCard>
+            <S.Disatnce>{meterDistance}m</S.Disatnce>
+          </S.RightContents>
+        </S.CardInformationWrapper>
+      </S.Link>
+    </S.Card>
   );
 }

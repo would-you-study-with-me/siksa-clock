@@ -1,17 +1,23 @@
 import styled from '@emotion/styled';
 
-export const StyledContainer = styled.div`
+const Container = styled.div`
   padding: 4rem 1.6rem;
   overflow: hidden;
 `;
 
-export const StyledTitle = styled.h2`
+const Title = styled.h2`
   margin: 0 0 1.6rem 0;
   ${props => props.theme.typography.head2};
 `;
 
-export const StyeldCardList = styled.ul`
+const CardList = styled.ul`
   margin: 0;
   padding: 0;
   list-style: none;
 `;
+
+export const S = {
+  Container,
+  Title,
+  CardList,
+};
