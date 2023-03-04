@@ -18,7 +18,7 @@ const GET_RESTAURANTS = gql`
   }
 `;
 
-export const useGetRestaurant = (
+export const useGetRestaurants = (
   roadName: string,
   callback: (data: RestaurantListInfo[]) => void,
   skipNumber = 0,
