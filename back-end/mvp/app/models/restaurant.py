@@ -1,9 +1,9 @@
-import uuid, json
+import uuid
 from datetime import datetime
 
 from sqlalchemy import String, Integer, DateTime
 from sqlalchemy.orm import Mapped, DeclarativeBase, mapped_column
-from sqlalchemy.dialects.postgresql import JSON, UUID, BIGINT
+from sqlalchemy.dialects.postgresql import JSON, UUID, FLOAT
 
 
 class Base(DeclarativeBase):
@@ -18,8 +18,8 @@ class Restaurant(Base):
     restaurant_rate: Mapped[int] = mapped_column(Integer, comment="식당평점 0~5")
     restaurant_category: Mapped[str] = mapped_column(String(30), nullable=True, comment="식당 종류")
     restaurant_count_seats: Mapped[int] = mapped_column(Integer, default=39, comment="식당 자리수")
-    restaurant_x: Mapped[float] = mapped_column(BIGINT, nullable=True, comment="X좌표")
-    restaurant_y: Mapped[float] = mapped_column(BIGINT, nullable=True, comment='Y좌표')
+    restaurant_x: Mapped[float] = mapped_column(FLOAT, nullable=True, comment="X좌표")
+    restaurant_y: Mapped[float] = mapped_column(FLOAT, nullable=True, comment='Y좌표')
     restaurant_address: Mapped[str] = mapped_column(String(150), index=True, nullable=True, comment='식당 주소')
     restaurant_description: Mapped[str] = mapped_column(String(100), nullable=True, comment='식당 설명')
     restaurant_contact: Mapped[int] = mapped_column(Integer, nullable=True, comment='식당 전화번호')
