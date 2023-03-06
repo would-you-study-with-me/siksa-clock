@@ -22,7 +22,11 @@ const Thumbnail = ({ imageData }: ThumbnailProps) => {
     const imageUrl = imageData.items[0].thumbnail;
     return (
       <ImageContainer>
-        <img alt="restaurant thumbnail" src={imageUrl} />
+        <img
+          alt="restaurant thumbnail"
+          referrerPolicy="no-referrer"
+          src={imageUrl}
+        />
       </ImageContainer>
     );
   }
