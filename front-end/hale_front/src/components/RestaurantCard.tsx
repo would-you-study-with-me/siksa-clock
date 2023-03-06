@@ -6,6 +6,7 @@ import { RestaurantCardInfo } from '../model/restaurant-card.interface';
 import Thumbnail from './Thumbnail';
 import CardTitle from './CardTitle';
 import StarRate from './StarRate';
+import CongestionRate from './CongestionRate';
 
 interface RestaurantCardProps extends React.PropsWithChildren {
   name: RestaurantCardInfo['restaurantName'];
@@ -15,6 +16,11 @@ interface RestaurantCardProps extends React.PropsWithChildren {
   image: RestaurantCardInfo['restaurantImage'];
   // onClick?: () => void;
 }
+
+const ContentContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
 
 const RestaurantCard = ({
   name,
@@ -29,10 +35,11 @@ const RestaurantCard = ({
         <CardContent>
           <Thumbnail imageData={image} />
           <CardTitle name={name} />
-          <StarRate rate={rate} />
-          <Typography variant="body1">{category}</Typography>
-          <Typography variant="body1">혼잡도</Typography>
-          <div>{congestion}</div>
+          <ContentContainer>
+            <StarRate rate={rate} />
+            <Typography variant="body1">{category}</Typography>
+            <CongestionRate rate={congestion} />
+          </ContentContainer>
         </CardContent>
       </Card>
     </div>

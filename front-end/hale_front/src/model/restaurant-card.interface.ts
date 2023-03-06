@@ -1,23 +1,9 @@
 export enum Congestion {
-  CROWDED = 'crowded',
-  NORMAL = 'normal',
-  SMOOTH = 'smooth',
+  CROWDED = '혼잡',
+  NORMAL = '보통',
+  SMOOTH = '원활',
 }
 
-export interface RestaurantCardInfo {
-  restaurantId: string;
-  restaurantName: string;
-  restaurantRate: number;
-  restaurantCategory: string;
-  restaurantCongestion: Congestion;
-  restaurantX: number;
-  restaurantY: number;
-  restaurantImage: RestaurantImageResponse;
-}
-
-export type RestaurantImageResponse =
-  | RestaurantImageResponseSuccess
-  | RestaurantImageResponseError;
 export interface ImageRaw {
   title: string;
   link: string;
@@ -36,4 +22,19 @@ interface RestaurantImageResponseSuccess {
 interface RestaurantImageResponseError {
   errorMessage: string;
   errorCode: string;
+}
+
+export type RestaurantImageResponse =
+  | RestaurantImageResponseSuccess
+  | RestaurantImageResponseError;
+
+export interface RestaurantCardInfo {
+  restaurantId: string;
+  restaurantName: string;
+  restaurantRate: number;
+  restaurantCategory: string;
+  restaurantCongestion: Congestion;
+  restaurantX: number;
+  restaurantY: number;
+  restaurantImage: RestaurantImageResponse;
 }
