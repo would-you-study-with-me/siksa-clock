@@ -54,4 +54,4 @@ if __name__ == '__main__':
     print("Database Done!")
 
     print("Start Server")
-    uvicorn.run("main:app", host='127.0.0.1', port=80, reload=True)
+    uvicorn.run("main:app", host='127.0.0.1', port=9090, reload=True)
