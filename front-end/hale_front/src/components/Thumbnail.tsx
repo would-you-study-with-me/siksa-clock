@@ -11,10 +11,11 @@ const ImageContainer = styled.div`
   max-width: 420px;
   max-height: 140px;
   overflow: hidden;
-  img {
-    width: 100%;
-    max-height: 140px;
-  }
+`;
+
+const Image = styled.img`
+  width: 100%;
+  max-height: 140px;
 `;
 
 const Thumbnail = ({ imageData }: ThumbnailProps) => {
@@ -22,7 +23,7 @@ const Thumbnail = ({ imageData }: ThumbnailProps) => {
     const imageUrl = imageData.items[0].thumbnail;
     return (
       <ImageContainer>
-        <img
+        <Image
           alt="restaurant thumbnail"
           referrerPolicy="no-referrer"
           src={imageUrl}
@@ -32,7 +33,7 @@ const Thumbnail = ({ imageData }: ThumbnailProps) => {
   }
   return (
     <ImageContainer>
-      <img
+      <Image
         alt="restaurant thumbnail"
         src="https://via.placeholder.com/500?text=siksa"
       />
