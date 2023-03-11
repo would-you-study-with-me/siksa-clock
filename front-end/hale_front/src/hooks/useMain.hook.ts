@@ -42,7 +42,6 @@ export const useMain = (): MainHookReturnType => {
   const setGeolocationAddress = useCallback(() => {
     navigator.geolocation?.getCurrentPosition(
       (position: GeolocationPosition) => {
-        console.dir(position);
         setCoords({
           latitude: position.coords.latitude,
           longitude: position.coords.longitude,
