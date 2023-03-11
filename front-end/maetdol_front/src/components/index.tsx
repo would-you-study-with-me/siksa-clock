@@ -5,7 +5,6 @@ export * from './HeaderWithSearchAddress';
 export * from './Icon';
 export * from './Loading';
 export * from './Portal';
-export * from './RestaurantDetail';
 export * from './ScrollObserver';
 export * from './StarRate';
 export * from './ThumbnailCard';

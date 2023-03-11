@@ -2,16 +2,13 @@ import styled from '@emotion/styled';
 import { Typography } from 'styles/typography';
 
 const SliderContainer = styled.div`
-  background-color: ${p => p.theme.colors.white};
-  padding-top: 68.2%;
   position: relative;
 `;
 
 const SliderWrapper = styled.div`
-  position: absolute;
-  top: 0;
-  width: 100%;
-  height: 100%;
+  background-color: ${p => p.theme.colors.white};
+  padding-top: 68.2%;
+  background: linear-gradient(to right, #000, #fff);
 `;
 
 const ContentContainer = styled.div`

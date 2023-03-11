@@ -5,7 +5,7 @@ export function Routing() {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
-      <Route path="/:restaurantId" element={<Detail />} />
+      <Route path="/r/:restaurantId" element={<Detail />} />
     </Routes>
   );
 }
