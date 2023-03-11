@@ -106,6 +106,11 @@ const Map = styled.div`
 const ButtonContainer = styled.div`
   display: flex;
   gap: 10px;
+  padding: 16px 25px;
+  background: white;
+  bottom: 0;
+  position: sticky;
+  margin: 0 -16px -25px;
 `;
 
 const Indicator = styled.span`

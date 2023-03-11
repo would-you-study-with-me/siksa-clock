@@ -5,7 +5,7 @@ import { S } from './RestaurantDetail.styles';
 
 export function RestaurantDetail() {
   return (
-    <div>
+    <>
       <HeaderWithBackButton />
       <S.SliderContainer>
         <S.SliderWrapper />
@@ -54,14 +54,14 @@ export function RestaurantDetail() {
         <S.Map />
 
         <S.ButtonContainer>
-          <Button outline textColor={colors.primaryLight}>
+          <Button outline fullWidth textColor={colors.primaryLight}>
             전화보기
           </Button>
-          <Button outline textColor={colors.primaryLight}>
+          <Button outline fullWidth textColor={colors.primaryLight}>
             위치보기
           </Button>
         </S.ButtonContainer>
       </S.ContentContainer>
-    </div>
+    </>
   );
 }
