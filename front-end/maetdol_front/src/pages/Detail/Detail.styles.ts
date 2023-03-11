@@ -71,12 +71,12 @@ const Description = styled.p`
 `;
 
 const SlideTitle = styled.h2`
-  ${Typography.head1};
+  ${Typography.title1};
   color: ${p => p.theme.colors.fontBlack};
   margin-bottom: 16px;
 `;
 
-const SlidePlaceholderWrapper = styled.div`
+const MenuImageSlider = styled.div`
   width: max-content;
 `;
 
@@ -91,7 +91,7 @@ const SlidePlaceholder = styled.div`
   }
 `;
 
-const SlideScrollWrapper = styled.div`
+const MenuImageSlideContainer = styled.div`
   overflow-x: auto;
   margin-bottom: 40px;
 `;
@@ -127,9 +127,9 @@ export const S = {
   PhoneNumberAndCloseTimeWrapper,
   Description,
   SlideTitle,
-  SlidePlaceholderWrapper,
+  MenuImageSlider,
   SlidePlaceholder,
-  SlideScrollWrapper,
+  MenuImageSlideContainer,
   Map,
   ButtonContainer,
 };

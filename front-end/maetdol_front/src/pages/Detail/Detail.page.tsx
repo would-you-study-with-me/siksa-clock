@@ -52,14 +52,14 @@ export function Detail() {
         <S.Description>Description here</S.Description>
 
         <S.SlideTitle>메뉴</S.SlideTitle>
-        <S.SlideScrollWrapper>
-          <S.SlidePlaceholderWrapper>
+        <S.MenuImageSlideContainer>
+          <S.MenuImageSlider>
             <S.SlidePlaceholder />
             <S.SlidePlaceholder />
             <S.SlidePlaceholder />
             <S.SlidePlaceholder />
-          </S.SlidePlaceholderWrapper>
-        </S.SlideScrollWrapper>
+          </S.MenuImageSlider>
+        </S.MenuImageSlideContainer>
 
         <S.Map />
 
