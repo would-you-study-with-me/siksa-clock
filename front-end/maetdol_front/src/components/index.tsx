@@ -6,5 +6,6 @@ export * from './Icon';
 export * from './Loading';
 export * from './Portal';
 export * from './ScrollObserver';
+export * from './Slider';
 export * from './StarRate';
 export * from './ThumbnailCard';

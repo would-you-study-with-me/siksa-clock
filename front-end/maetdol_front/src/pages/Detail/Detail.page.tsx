@@ -1,6 +1,10 @@
-import { Button, HeaderWithBackButton, Icon, IconFileNames } from 'components';
-import Slider from 'react-slick';
-import 'slick-carousel/slick/slick.css';
+import {
+  Button,
+  HeaderWithBackButton,
+  Icon,
+  IconFileNames,
+  Slider,
+} from 'components';
 import colors from 'styles/palette';
 import { repeat } from 'utils';
 import { S } from './Detail.styles';
@@ -9,15 +13,11 @@ export function Detail() {
   return (
     <>
       <HeaderWithBackButton />
-      <S.SliderContainer>
-        <Slider autoplay arrows={false}>
-          <S.SliderWrapper />
-          <S.SliderWrapper />
-          <S.SliderWrapper />
-          <S.SliderWrapper />
-        </Slider>
-        <S.Indicator>2 / 2</S.Indicator>
-      </S.SliderContainer>
+      <Slider indicator>
+        <span>123</span>
+        <span>123</span>
+        <span>123</span>
+      </Slider>
 
       <S.ContentContainer>
         <S.Category>카테고리</S.Category>

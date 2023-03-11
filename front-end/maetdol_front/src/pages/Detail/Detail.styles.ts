@@ -1,10 +1,6 @@
 import styled from '@emotion/styled';
 import { Typography } from 'styles/typography';
 
-const SliderContainer = styled.div`
-  position: relative;
-`;
-
 const SliderWrapper = styled.div`
   background-color: ${p => p.theme.colors.white};
   padding-top: 68.2%;
@@ -110,19 +106,7 @@ const ButtonContainer = styled.div`
   margin: 0 -16px -25px;
 `;
 
-const Indicator = styled.span`
-  padding: 4px 7px;
-  ${Typography.caption};
-  color: ${p => p.theme.colors.white};
-  position: absolute;
-  right: 16px;
-  bottom: 8px;
-  border-radius: 4px;
-  background-color: ${p => p.theme.colors.fontBlack};
-`;
-
 export const S = {
-  SliderContainer,
   SliderWrapper,
   Category,
   ContentContainer,
@@ -141,5 +125,4 @@ export const S = {
   SlideScrollWrapper,
   Map,
   ButtonContainer,
-  Indicator,
 };
