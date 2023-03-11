@@ -1,4 +1,3 @@
-import { Congestion } from 'components/ThumbnailCard/ThumbnailCard.model';
 import { RestaurantRawData, RestaurantThumbnailCard } from './Home.model';
 
 export function rawThumbnailDataToThumbnail({
@@ -11,7 +10,7 @@ export function rawThumbnailDataToThumbnail({
 }: RestaurantRawData): RestaurantThumbnailCard {
   return {
     category: restaurantCategory,
-    congestion: restaurantCongestion as Congestion,
+    congestion: restaurantCongestion,
     id: restaurantId,
     name: restaurantName,
     rate: restaurantRate,
