@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import SlickSlider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import { S } from './Slider.styles';
@@ -8,12 +9,19 @@ interface Props {
 }
 
 export function Slider({ indicator = false, children }: Props) {
+  const [index, setIndex] = useState(1);
+
   return (
     <S.SliderContainer>
-      <SlickSlider autoplay arrows={false}>
+      <SlickSlider autoplay arrows={false} afterChange={setIndex}>
         {children}
       </SlickSlider>
-      {indicator && <S.Indicator>2 / 2</S.Indicator>}
+
+      {indicator && (
+        <S.Indicator>
+          {index} / {children.length}
+        </S.Indicator>
+      )}
     </S.SliderContainer>
   );
 }
