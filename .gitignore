@@ -505,3 +505,7 @@ restaurant-congestion/data/*
 *.json
 
 !manifest.json
+
+# key
+*.key
+*.crt
