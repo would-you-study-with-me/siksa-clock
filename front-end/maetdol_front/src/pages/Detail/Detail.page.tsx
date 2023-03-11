@@ -13,11 +13,14 @@ export function Detail() {
   return (
     <>
       <HeaderWithBackButton />
-      <Slider indicator>
-        <span>123</span>
-        <span>123</span>
-        <span>123</span>
-      </Slider>
+      <S.MainImageContainer>
+        <Slider indicator>
+          <S.MainImage />
+          <S.MainImage />
+          <S.MainImage />
+          <S.MainImage />
+        </Slider>
+      </S.MainImageContainer>
 
       <S.ContentContainer>
         <S.Category>카테고리</S.Category>

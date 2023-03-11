@@ -4,6 +4,7 @@ import { Typography } from 'styles/typography';
 export const S = {
   SliderContainer: styled.div`
     position: relative;
+    font-size: 0;
   `,
 
   Indicator: styled.span`

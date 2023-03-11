@@ -1,9 +1,15 @@
 import styled from '@emotion/styled';
 import { Typography } from 'styles/typography';
 
-const SliderWrapper = styled.div`
-  background-color: ${p => p.theme.colors.white};
-  padding-top: 68.2%;
+const MainImageContainer = styled.div`
+  width: 100%;
+  aspect-ratio: 1 / 0.682;
+  background-color: ${props => props.theme.colors.white};
+`;
+
+const MainImage = styled.img`
+  width: 100%;
+  aspect-ratio: 1 / 0.682;
   background: linear-gradient(to right, #000, #fff);
 `;
 
@@ -107,7 +113,8 @@ const ButtonContainer = styled.div`
 `;
 
 export const S = {
-  SliderWrapper,
+  MainImageContainer,
+  MainImage,
   Category,
   ContentContainer,
   Title,
