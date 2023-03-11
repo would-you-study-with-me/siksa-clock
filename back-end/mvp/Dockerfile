@@ -8,6 +8,6 @@ RUN pip install -r requirements.txt
 
 COPY ./app /app
 
-COPY secret.json secret.jsono
+COPY secret.json secret.json
 
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "7777"]
+CMD ["uvicorn", "app.main:app", "--host", "127.0.0.1", "--port", "7777"]
