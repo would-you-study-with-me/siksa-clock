@@ -4,8 +4,10 @@ EXPOSE 80
 EXPOSE 443
 
 # default nginx option setting
-COPY default.conf /etc/nginx/sites-available/default
+COPY default.conf /etc/nginx/sites-available/default.conf
 
 # SSL
 COPY certificate.crt /etc/ssl/certificate.crt
 COPY private.key /etc/ssl/private.key
+
+# Service Reload
