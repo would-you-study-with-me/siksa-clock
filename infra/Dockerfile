@@ -11,4 +11,4 @@ COPY certificate.crt /etc/ssl/certificate.crt
 COPY private.key /etc/ssl/private.key
 
 # Service Reload
-RUN service restart nginx
+RUN /usr/bin/nginx -s reload
