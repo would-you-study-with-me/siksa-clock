@@ -42,5 +42,5 @@ jobs:
           git status
           git commit -m 'Deploy build output by Github workflow'
           git checkout github-pages
-          git cherry-pick $(git log -1 --pretty="%H")
+          git cherry-pick $(git log --all -1 --pretty="%H")
           git push origin github-pages -f
