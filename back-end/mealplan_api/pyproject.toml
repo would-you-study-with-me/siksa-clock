@@ -1,6 +1,6 @@
 [tool.poetry]
-name = "mvp"
-version = "0.1.2"
+name = "mealplan_api"
+version = "1.1.0"
 description = "siksa_clock graphql mvp"
 authors = ["Hyeonproject <axzswq@gmail.com>"]
 readme = "README.md"
