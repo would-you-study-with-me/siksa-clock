@@ -34,7 +34,7 @@ jobs:
             -not -path "*/build/*" \
             -not -path "./.git/*" \
             -not -path "./.gitignore" \
-            -not -path "./package.json" \
+            -not -path "*/package.json" \
             -not -path "*/node_modules/*" \
             -type f
           
@@ -43,7 +43,7 @@ jobs:
             -not -path "*/build/*" \
             -not -path "./.git/*" \
             -not -path "./.gitignore" \
-            -not -path "./package.json" \
+            -not -path "*/package.json" \
             -type f -delete
       
       - uses: Awesome-Tomato/actions/move-build-output-to-parent-directory@v1
