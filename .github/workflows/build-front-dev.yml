@@ -39,8 +39,8 @@ jobs:
       - name: Deploy
         run: |
           git add --all 
+          # HEAD 포인터를 아래 브랜치로 이동시킨다(로컬 파일 수정 없이)
+          git symbolic-ref HEAD refs/heads/github-pages
           git status
           git commit -m 'Deploy build output by Github workflow'
-          git checkout github-pages
-          git cherry-pick $(git log --all -1 --pretty="%H")
-          git push origin github-pages -f
+          git push origin github-pages
