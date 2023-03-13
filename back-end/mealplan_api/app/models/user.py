@@ -10,8 +10,8 @@ class Base(DeclarativeBase):
     pass
 
 
-class Account(Base):
-    __tablename__ = "accounts"
+class User(Base):
+    __tablename__ = "user"
 
     id: Mapped[uuid.UUID] = Column(UUID, primary_key=True, default=lambda : uuid.uuid4(), index=True, comment="회원데이터 id")
     email: Mapped[str] = Column(String(100), index=True, unique=True, comment="회원 이메일")
