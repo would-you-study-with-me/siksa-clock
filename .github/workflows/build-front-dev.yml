@@ -32,8 +32,10 @@ jobs:
           echo "Delete Will..."
           find . \
             -not -path "*/build/*" \
-            -not -path "*/node_modules/*" \
             -not -path "./.git/*" \
+            -not -path "./.gitignore" \
+            -not -path "./package.json" \
+            -not -path "*/node_modules/*" \
             -type f
           
           find . -path "*/node_modules/*" -type f -delete
@@ -41,6 +43,7 @@ jobs:
             -not -path "*/build/*" \
             -not -path "./.git/*" \
             -not -path "./.gitignore" \
+            -not -path "./package.json" \
             -type f -delete
       
       - uses: Awesome-Tomato/actions/move-build-output-to-parent-directory@v1
