@@ -28,7 +28,7 @@ jobs:
             REACT_APP_MONA_BASENAME: /siksa-clock/front-end/mona_front/
             
       - name: Clean up except build
-        run: find . -not -path "*/build/*" -delete
+        run: find . -not -path "*/build/*" -delete -type f
       
       - uses: Awesome-Tomato/actions/move-build-output-to-parent-directory@v1
         with:
