@@ -7,7 +7,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.config.database import create_table
 from app.routers.restaurant import restaurant_graphql_app
 
-app = FastAPI(version='2.0')
+app = FastAPI(version='3.0')
 
 app.include_router(restaurant_graphql_app, prefix='/restaurant')
 app.add_websocket_route('/restaurant', restaurant_graphql_app)
@@ -35,7 +35,7 @@ app.add_middleware(
 
 @app.get('/egg')
 async def hehe():
-    return {'hehe', }
+    return {'hehe': '사랑해요!!'}
 
 @app.get('/')
 async def welcome():
