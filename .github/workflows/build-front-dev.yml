@@ -1,7 +1,7 @@
 name: Build FE projects and delpoy
 on:
   push:
-    branches: [dev]
+    branches: [dev, maetdol/#184-fe-build-action-env]
     
 
 jobs:
@@ -26,6 +26,9 @@ jobs:
           build-env-yaml: |
             REACT_APP_MONA_KAKAO_MAP: ${{ secrets.REACT_APP_MONA_KAKAO_MAP }}
             REACT_APP_MONA_BASENAME: /siksa-clock/front-end/mona_front/
+            
+      - name: Clean up except build
+        run: find . -not -path "*/build/*" -delete
       
       - uses: Awesome-Tomato/actions/move-build-output-to-parent-directory@v1
         with:
@@ -43,4 +46,4 @@ jobs:
           git symbolic-ref HEAD refs/heads/github-pages
           git status
           git commit -m 'Deploy build output by Github workflow'
-          git push origin github-pages
+          git push origin github-pages -f
