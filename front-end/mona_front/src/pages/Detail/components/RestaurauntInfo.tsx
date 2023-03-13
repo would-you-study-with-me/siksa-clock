@@ -10,7 +10,7 @@ import {
 } from '../../../models/restaurant.model';
 import SlickSlide from './SlickSlide';
 import { useGetRestaurantInfo } from '../../../hooks/useGetRestaurantInfo';
-import { KAKAO_MAP_KEY } from '../../../assets/const/kakaoKey';
+import { KAKAO_MAP_KEY } from '../../../assets/const/env_keys';
 
 const mockImageUrls = [
   'https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=987&q=80',
