@@ -33,6 +33,9 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+@app.get('/egg')
+async def hehe():
+    return {'hehe', }
 
 @app.get('/')
 async def welcome():
