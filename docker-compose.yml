@@ -2,20 +2,18 @@ version: "3"
 
 networks:
   siksa-clock-web:
-    driver: bridge
+    driver: overlay
     external: true
 services:
   # Back End
-  back-end-mvp:
-    container_name: siksa_clock_mvp
+  back_end_mvp:
     build: back-end/mvp
     ports:
       - 7777:7777
     networks:
       - siksa-clock-web
 
-  siksa-clock-nginx:
-    container_name: siksa_clock_nginx
+  siksa_clock_nginx:
     build: infra
     ports:
       - 80:80
