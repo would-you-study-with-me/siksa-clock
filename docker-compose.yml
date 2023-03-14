@@ -20,7 +20,7 @@ services:
     networks:
       - siksa-clock-web
     volumes:
-      - infra/nginx.conf:/etc/nginx/nginx.conf
+      - infra/nginx.conf:/etc/nginx/nginx.conf:ro
       - infra/certificate.crt:/etc/nginx/certificate.crt
       - infra/private.key:/etc/nginx/private.key
     
