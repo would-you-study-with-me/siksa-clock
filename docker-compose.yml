@@ -5,23 +5,23 @@ networks:
     external: true
 
 services:
-  # Back End
-  mealplain_api:
-    build: "./back-end/mealplain_api"
+  mealplan_api:
+    build:
+      context: .
+      dockerfile: back-end/mealplan_api/
     ports:
       - "7777:7777"
     networks:
       - siksa-clock-web
-    links:
-      - siksa_clock_nginx
 
   siksa_clock_nginx:
-    build: "./infra"
+    build:
+      context: .
+      dockerfile: infra/
     ports:
       - "80:80"
       - "443:443"
     networks:
       - siksa-clock-web
-    
-
-  # Front End
+    depends_on:
+      - mealplan_api
