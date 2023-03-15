@@ -7,14 +7,14 @@ networks:
 services:
   # Back End
   mealplain_api:
-    build: back-end/mealplain_api
+    build: ./back-end/mealplain_api
     ports:
       - 7777:7777
     networks:
       - siksa-clock-web
 
   siksa_clock_nginx:
-    build: infra
+    build: ./infra
     ports:
       - 80:80
       - 443:443
