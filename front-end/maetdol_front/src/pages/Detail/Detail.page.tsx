@@ -3,6 +3,7 @@ import {
   HeaderWithBackButton,
   Icon,
   IconFileNames,
+  KakaoMap,
   Loading,
   Slider,
 } from 'components';
@@ -40,10 +41,14 @@ function DetailContents() {
     return null;
   }
 
-  const mainImages = restaurantDetail.restaurantImage.items;
+  const { restaurantImage, restaurantMenu, restaurantX, restaurantY } =
+    restaurantDetail;
+
+  const mainImages = restaurantImage.items;
   const shouldShowSliderIndicator = mainImages.length > 0;
 
-  const menuImages = restaurantDetail.restaurantMenu.items;
+  const menuImages = restaurantMenu.items;
+  const hasCoordinates = restaurantX !== null && restaurantY !== null;
 
   return (
     <>
@@ -98,7 +103,17 @@ function DetailContents() {
           </S.MenuImageSlider>
         </S.MenuImageSlideContainer>
 
-        <S.Map />
+        <S.Map>
+          {hasCoordinates ? (
+            <KakaoMap
+              style={{ width: '100%', height: '100%' }}
+              x={restaurantX}
+              y={restaurantY}
+            />
+          ) : (
+            '위치를 알 수 없어요 :('
+          )}
+        </S.Map>
 
         <S.ButtonContainer>
           <Button outline fullWidth textColor={colors.primaryLight}>
