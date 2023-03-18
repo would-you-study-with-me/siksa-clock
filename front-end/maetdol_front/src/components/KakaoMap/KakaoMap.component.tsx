@@ -21,11 +21,15 @@ export function KakaoMap({ x, y, style = {} }: Props) {
     kakao.maps.load(() => {
       if (!ref.current) return;
 
-      const location = new kakao.maps.LatLng(x, y);
       const map = new kakao.maps.Map(ref.current, {
-        center: location,
+        center: new kakao.maps.LatLng(y, x),
         level: 3,
       });
+
+      const marker = new kakao.maps.Marker({
+        position: new kakao.maps.LatLng(y, x),
+      });
+      marker.setMap(map);
     });
   }, [isLoaded, ref, x, y]);
 
