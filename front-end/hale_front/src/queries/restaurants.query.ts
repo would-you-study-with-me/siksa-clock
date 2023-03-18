@@ -26,3 +26,31 @@ export const GET_RESTAURANTS_QUERY = gql`
     }
   }
 `;
+
+export const GET_RESTAURANT_QUERY = gql`
+  query GetRestaurant($query: String!) {
+    restaurant(inputData: { restaurantId: $query }) {
+      restaurantAddress
+      restaurantBreakTime
+      restaurantBreakTimeDays
+      restaurantCategory
+      restaurantContact
+      restaurantCongestion
+      restaurantCountSeats
+      restaurantCreatedAt
+      restaurantDescription
+      restaurantDistance
+      restaurantId
+      restaurantImage
+      restaurantMenu
+      restaurantName
+      restaurantOpeningTime
+      restaurantOpeningTimeDays
+      restaurantRate
+      restaurantUpdatedAt
+      restaurantWaitingPeople
+      restaurantX
+      restaurantY
+    }
+  }
+`;
