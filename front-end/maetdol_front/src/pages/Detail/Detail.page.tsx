@@ -13,7 +13,7 @@ import { repeat } from 'utils';
 import { useRestaurantDetail } from './Detail.hooks';
 import { S } from './Detail.styles';
 
-export function Detail() {
+function DetailContents() {
   const { restaurantId } = useParams();
   const { error, loading, restaurantDetail } = useRestaurantDetail(
     restaurantId ?? '',
@@ -27,12 +27,7 @@ export function Detail() {
 
   if (loading) {
     // TODO 애니메이션 유지를 위해 하나의 return 문으로 관리
-    return (
-      <>
-        <HeaderWithBackButton />
-        <Loading hide={!loading} />
-      </>
-    );
+    return <Loading hide={!loading} />;
   }
 
   if (error) {
@@ -52,7 +47,6 @@ export function Detail() {
 
   return (
     <>
-      <HeaderWithBackButton />
       <S.MainImageContainer>
         <Slider indicator={shouldShowSliderIndicator}>
           {mainImages.map(img => (
@@ -115,6 +109,15 @@ export function Detail() {
           </Button>
         </S.ButtonContainer>
       </S.ContentContainer>
+    </>
+  );
+}
+
+export function Detail() {
+  return (
+    <>
+      <HeaderWithBackButton />
+      <DetailContents />
     </>
   );
 }
