@@ -26,6 +26,8 @@ jobs:
           build-env-yaml: |
             REACT_APP_MONA_KAKAO_MAP: ${{ secrets.REACT_APP_MONA_KAKAO_MAP }}
             REACT_APP_MONA_BASENAME: /siksa-clock/front-end/mona_front/
+            REACT_APP_HALE_BASENAME: /siksa-clock/front-end/hale_front/
+            REACT_APP_MAETDOL_BASENAME: /siksa-clock/front-end/maetdol_front/
       
       - uses: Awesome-Tomato/actions/move-build-output-to-parent-directory@v1
         with:
