@@ -1,16 +1,26 @@
-import { Button, HeaderWithBackButton, Icon, IconFileNames } from 'components';
+import {
+  Button,
+  HeaderWithBackButton,
+  Icon,
+  IconFileNames,
+  Slider,
+} from 'components';
 import colors from 'styles/palette';
 import { repeat } from 'utils';
-import { S } from './RestaurantDetail.styles';
+import { S } from './Detail.styles';
 
-export function RestaurantDetail() {
+export function Detail() {
   return (
-    <div>
+    <>
       <HeaderWithBackButton />
-      <S.SliderContainer>
-        <S.SliderWrapper />
-        <S.Indicator>2 / 2</S.Indicator>
-      </S.SliderContainer>
+      <S.MainImageContainer>
+        <Slider indicator>
+          <S.MainImage />
+          <S.MainImage />
+          <S.MainImage />
+          <S.MainImage />
+        </Slider>
+      </S.MainImageContainer>
 
       <S.ContentContainer>
         <S.Category>카테고리</S.Category>
@@ -42,26 +52,26 @@ export function RestaurantDetail() {
         <S.Description>Description here</S.Description>
 
         <S.SlideTitle>메뉴</S.SlideTitle>
-        <S.SlideScrollWrapper>
-          <S.SlidePlaceholderWrapper>
+        <S.MenuImageSlideContainer>
+          <S.MenuImageSlider>
             <S.SlidePlaceholder />
             <S.SlidePlaceholder />
             <S.SlidePlaceholder />
             <S.SlidePlaceholder />
-          </S.SlidePlaceholderWrapper>
-        </S.SlideScrollWrapper>
+          </S.MenuImageSlider>
+        </S.MenuImageSlideContainer>
 
         <S.Map />
 
         <S.ButtonContainer>
-          <Button outline textColor={colors.primaryLight}>
+          <Button outline fullWidth textColor={colors.primaryLight}>
             전화보기
           </Button>
-          <Button outline textColor={colors.primaryLight}>
+          <Button outline fullWidth textColor={colors.primaryLight}>
             위치보기
           </Button>
         </S.ButtonContainer>
       </S.ContentContainer>
-    </div>
+    </>
   );
 }

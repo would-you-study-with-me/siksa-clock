@@ -6,6 +6,7 @@ const Button = styled.button<{
   backgroundColor: Colors;
   hasIcon: boolean;
   outline: boolean;
+  fullWidth: boolean;
 }>`
   cursor: pointer;
   border-radius: 0.8rem;
@@ -14,10 +15,12 @@ const Button = styled.button<{
   border: 1px solid ${props => props.backgroundColor};
   background-color: ${props => props.backgroundColor};
   display: inline-flex;
+  justify-content: center;
   align-items: center;
   gap: 0.8rem;
   ${props => props.theme.typography.button};
 
+  ${props => props.fullWidth && 'width: 100%;'}
   ${props => props.hasIcon && `padding: 1.1rem 2.2rem`};
 
   ${props =>

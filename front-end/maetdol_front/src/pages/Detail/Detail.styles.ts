@@ -1,17 +1,16 @@
 import styled from '@emotion/styled';
 import { Typography } from 'styles/typography';
 
-const SliderContainer = styled.div`
-  background-color: ${p => p.theme.colors.white};
-  padding-top: 68.2%;
-  position: relative;
+const MainImageContainer = styled.div`
+  width: 100%;
+  aspect-ratio: 1 / 0.682;
+  background-color: ${props => props.theme.colors.white};
 `;
 
-const SliderWrapper = styled.div`
-  position: absolute;
-  top: 0;
+const MainImage = styled.img`
   width: 100%;
-  height: 100%;
+  aspect-ratio: 1 / 0.682;
+  background: linear-gradient(to right, #000, #fff);
 `;
 
 const ContentContainer = styled.div`
@@ -72,12 +71,12 @@ const Description = styled.p`
 `;
 
 const SlideTitle = styled.h2`
-  ${Typography.head1};
+  ${Typography.title1};
   color: ${p => p.theme.colors.fontBlack};
   margin-bottom: 16px;
 `;
 
-const SlidePlaceholderWrapper = styled.div`
+const MenuImageSlider = styled.div`
   width: max-content;
 `;
 
@@ -92,7 +91,7 @@ const SlidePlaceholder = styled.div`
   }
 `;
 
-const SlideScrollWrapper = styled.div`
+const MenuImageSlideContainer = styled.div`
   overflow-x: auto;
   margin-bottom: 40px;
 `;
@@ -106,22 +105,16 @@ const Map = styled.div`
 const ButtonContainer = styled.div`
   display: flex;
   gap: 10px;
-`;
-
-const Indicator = styled.span`
-  padding: 4px 7px;
-  ${Typography.caption};
-  color: ${p => p.theme.colors.white};
-  position: absolute;
-  right: 16px;
-  bottom: 8px;
-  border-radius: 4px;
-  background-color: ${p => p.theme.colors.fontBlack};
+  padding: 16px 25px;
+  background: white;
+  bottom: 0;
+  position: sticky;
+  margin: 0 -16px -25px;
 `;
 
 export const S = {
-  SliderContainer,
-  SliderWrapper,
+  MainImageContainer,
+  MainImage,
   Category,
   ContentContainer,
   Title,
@@ -134,10 +127,9 @@ export const S = {
   PhoneNumberAndCloseTimeWrapper,
   Description,
   SlideTitle,
-  SlidePlaceholderWrapper,
+  MenuImageSlider,
   SlidePlaceholder,
-  SlideScrollWrapper,
+  MenuImageSlideContainer,
   Map,
   ButtonContainer,
-  Indicator,
 };

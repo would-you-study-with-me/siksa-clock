@@ -6,6 +6,7 @@ const Header = styled.header`
   position: sticky;
   top: 0;
   background-color: white;
+  z-index: 10;
 `;
 
 const Button = styled.button`

@@ -1,8 +1,7 @@
 import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
 import { Global, ThemeProvider } from '@emotion/react';
-import { HeaderWithSearchAddress } from 'components';
-import { Home } from 'pages/Home/Home.page';
 import { BrowserRouter } from 'react-router-dom';
+import { Routing } from 'routing';
 import globalStyle from 'styles/global';
 import colors from 'styles/palette';
 import typography from 'styles/typography';
@@ -20,8 +19,7 @@ function App() {
         <GlobalContextProvider>
           <Global styles={globalStyle} />
           <BrowserRouter>
-            <HeaderWithSearchAddress />
-            <Home />
+            <Routing />
           </BrowserRouter>
         </GlobalContextProvider>
       </ThemeProvider>
