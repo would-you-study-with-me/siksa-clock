@@ -10,7 +10,7 @@ const MainImageContainer = styled.div`
 const MainImage = styled.img`
   width: 100%;
   aspect-ratio: 1 / 0.682;
-  background: linear-gradient(to right, #000, #fff);
+  background: ${props => props.theme.colors.white};
   object-fit: cover;
   object-position: center;
 `;
@@ -114,6 +114,7 @@ const ButtonContainer = styled.div`
   bottom: 0;
   position: sticky;
   margin: 0 -16px -25px;
+  z-index: 10;
 `;
 
 export const S = {
