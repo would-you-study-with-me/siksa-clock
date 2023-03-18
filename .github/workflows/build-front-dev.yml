@@ -1,7 +1,7 @@
 name: Build FE projects and delpoy
 on:
   push:
-    branches: [dev, maetdol/#184-fe-build-action-env]
+    branches: [dev]
     
 
 jobs:
