@@ -1,3 +1,4 @@
+import { Env, ExternalScriptUrl } from 'constants/';
 import { useLoadExternalScript } from 'hooks';
 import { CSSProperties, useEffect, useRef } from 'react';
 
@@ -10,7 +11,7 @@ interface Props {
 export function KakaoMap({ x, y, style = {} }: Props) {
   const ref = useRef<HTMLDivElement>(null);
   const { isLoaded } = useLoadExternalScript(
-    '//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=c0cd69f58c0fe3da2c180031996aa9e3',
+    `${ExternalScriptUrl.KAKAO_MAP}?autoload=false&appkey=${Env.KAKAO_APP_KEY}`,
     typeof kakao,
   );
 
