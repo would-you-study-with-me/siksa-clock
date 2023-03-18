@@ -32,13 +32,11 @@ function DetailContents() {
   }
 
   if (error) {
-    // TODO 에러처리
-    return null;
+    return <span>상세 페이지를 가져오는 도중 에러가 발생했어요</span>;
   }
 
   if (!restaurantDetail) {
-    // TODO 예외처리
-    return null;
+    return <span>가게 상세 정보가 없어요(어?)</span>;
   }
 
   const { restaurantImage, restaurantMenu, restaurantX, restaurantY } =
