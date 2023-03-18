@@ -3,28 +3,67 @@ import {
   HeaderWithBackButton,
   Icon,
   IconFileNames,
+  Loading,
   Slider,
 } from 'components';
-import colors from 'styles/palette';
+import { CongestionIconMap } from 'components/ThumbnailCard/ThumbnailCard.model';
+import { useParams } from 'react-router-dom';
+import colors, { Colors } from 'styles/palette';
 import { repeat } from 'utils';
+import { useRestaurantDetail } from './Detail.hooks';
 import { S } from './Detail.styles';
 
 export function Detail() {
+  const { restaurantId } = useParams();
+  const { error, loading, restaurantDetail } = useRestaurantDetail(
+    restaurantId ?? '',
+  );
+
+  const getRateColor = (starIdx: number): Colors => {
+    return starIdx < (restaurantDetail?.restaurantRate ?? 0)
+      ? colors.primaryLight
+      : colors.gray;
+  };
+
+  if (loading) {
+    // TODO 애니메이션 유지를 위해 하나의 return 문으로 관리
+    return (
+      <>
+        <HeaderWithBackButton />
+        <Loading hide={!loading} />
+      </>
+    );
+  }
+
+  if (error) {
+    // TODO 에러처리
+    return null;
+  }
+
+  if (!restaurantDetail) {
+    // TODO 예외처리
+    return null;
+  }
+
+  const mainImages = restaurantDetail.restaurantImage.items;
+  const shouldShowSliderIndicator = mainImages.length > 0;
+
+  const menuImages = restaurantDetail.restaurantMenu.items;
+
   return (
     <>
       <HeaderWithBackButton />
       <S.MainImageContainer>
-        <Slider indicator>
-          <S.MainImage />
-          <S.MainImage />
-          <S.MainImage />
-          <S.MainImage />
+        <Slider indicator={shouldShowSliderIndicator}>
+          {mainImages.map(img => (
+            <S.MainImage key={img.link} src={img.link} alt={img.title} />
+          ))}
         </Slider>
       </S.MainImageContainer>
 
       <S.ContentContainer>
-        <S.Category>카테고리</S.Category>
-        <S.Title>타이틀</S.Title>
+        <S.Category>{restaurantDetail.restaurantCategory}</S.Category>
+        <S.Title>{restaurantDetail.restaurantName}</S.Title>
 
         <S.RatingAndCongestionWrapper>
           <S.RatingWrapper>
@@ -34,30 +73,34 @@ export function Detail() {
                 type={IconFileNames.STAR}
                 size={13}
                 colors={{
-                  black: idx < 3 ? colors.primaryLight : colors.gray,
+                  black: getRateColor(idx),
                 }}
               />
             ))}
           </S.RatingWrapper>
 
           <S.CongestionLabel>혼잡도</S.CongestionLabel>
-          <Icon type={IconFileNames.FACE_GOOD} size={14} />
+          <Icon
+            type={CongestionIconMap[restaurantDetail.restaurantCongestion]}
+            size={14}
+          />
         </S.RatingAndCongestionWrapper>
 
         <S.PhoneNumberAndCloseTimeWrapper>
-          <S.PhoneNumber>010-0000-0000</S.PhoneNumber>
-          <S.OpenCloseTime>PM 5:00 ~ AM 12:00</S.OpenCloseTime>
+          <S.PhoneNumber>{restaurantDetail.restaurantContact}</S.PhoneNumber>
+          <S.OpenCloseTime>
+            {restaurantDetail.restaurantOpeningTime}
+          </S.OpenCloseTime>
         </S.PhoneNumberAndCloseTimeWrapper>
 
-        <S.Description>Description here</S.Description>
+        <S.Description>{restaurantDetail.restaurantDescription}</S.Description>
 
         <S.SlideTitle>메뉴</S.SlideTitle>
         <S.MenuImageSlideContainer>
           <S.MenuImageSlider>
-            <S.SlidePlaceholder />
-            <S.SlidePlaceholder />
-            <S.SlidePlaceholder />
-            <S.SlidePlaceholder />
+            {menuImages.map(img => (
+              <S.MenuImage key={img.link} src={img.link} alt={img.title} />
+            ))}
           </S.MenuImageSlider>
         </S.MenuImageSlideContainer>
 
