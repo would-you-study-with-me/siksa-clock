@@ -10,8 +10,8 @@ class Base(DeclarativeBase):
     pass
 
 
-class Account(Base):
-    __tablename__ = "accounts"
+class User(Base):
+    __tablename__ = "user"
 
     id: Mapped[uuid.UUID] = Column(UUID, primary_key=True, default=lambda : uuid.uuid4(), index=True, comment="회원데이터 id")
     email: Mapped[str] = Column(String(100), index=True, unique=True, comment="회원 이메일")
@@ -23,5 +23,5 @@ class Account(Base):
     access_token: Mapped[str] = Column(String(150), nullable=True, comment="엑세스 토큰")
     refresh_token: Mapped[str] = Column(String(150), nullable=True, comment="리프레시 토큰")
     change_password_link: Mapped[str] = Column(String(100), nullable=True, comment="비밀번호 변경 사이트")
-    created_at = Column(DateTime, default=datetime.now(), comment="계정 생성날짜")
-    updated_at = Column(DateTime, default=datetime.now(), onupdate=lambda: datetime.now(), comment="계정 수정날짜")
+    created_at: Mapped[datetime] = Column(DateTime, default=datetime.now(), comment="계정 생성날짜")
+    updated_at: Mapped[datetime] = Column(DateTime, default=datetime.now(), onupdate=lambda: datetime.now(), comment="계정 수정날짜")

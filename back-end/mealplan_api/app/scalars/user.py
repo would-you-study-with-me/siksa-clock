@@ -12,4 +12,5 @@ async def logout(logout_data):
     pass
 
 
-async def 
+async def lost_password(lost_password_data):
+    pass
