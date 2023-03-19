@@ -1,8 +1,9 @@
 
 from sqlalchemy import create_engine
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, DeclarativeBase
 
-from app.models.restaurant import Base
+from app.models.restaurant import RestaurantBase
+from app.models.user import UserBase
 from app.services.secret import get_secret
 
 SQLALCHEMY_DATABASE_URL = "postgresql://{user}:{password}@{host}:{port}/{database_name}".format(
@@ -26,5 +27,8 @@ engine = create_engine(
 session = Session(bind=engine, autocommit=False, autoflush=False)
 
 
+
+
 def create_table():
-    Base.metadata.create_all(engine)
+    UserBase.metadata.create_all(engine)
+    RestaurantBase.metadata.create_all(engine)

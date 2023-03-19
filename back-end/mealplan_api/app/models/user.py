@@ -2,15 +2,15 @@ import uuid
 from datetime import datetime
 
 from sqlalchemy import Column, String, DateTime
-from sqlalchemy.orm import DeclarativeBase, Mapped
+from sqlalchemy.orm import Mapped, DeclarativeBase
 from sqlalchemy.dialects.postgresql import UUID
 
 
-class Base(DeclarativeBase):
+class UserBase(DeclarativeBase):
     pass
 
 
-class User(Base):
+class User(UserBase):
     __tablename__ = "user"
 
     id: Mapped[uuid.UUID] = Column(UUID, primary_key=True, default=lambda : uuid.uuid4(), index=True, comment="회원데이터 id")

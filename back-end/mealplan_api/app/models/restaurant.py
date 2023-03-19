@@ -2,15 +2,13 @@ import uuid
 from datetime import datetime
 
 from sqlalchemy import String, Integer, DateTime
-from sqlalchemy.orm import Mapped, DeclarativeBase, mapped_column
+from sqlalchemy.orm import Mapped, mapped_column, DeclarativeBase
 from sqlalchemy.dialects.postgresql import JSON, UUID, FLOAT
 
-
-class Base(DeclarativeBase):
+class RestaurantBase(DeclarativeBase):
     pass
 
-
-class Restaurant(Base):
+class Restaurant(RestaurantBase):
     __tablename__ = 'restaurant'
 
     restaurant_id: Mapped[uuid.UUID] = mapped_column(UUID, primary_key=True, index=True, default=lambda: uuid.uuid4(), comment="식당 ID")
