@@ -3,6 +3,7 @@ import {
   HeaderWithBackButton,
   Icon,
   IconFileNames,
+  KakaoMap,
   Loading,
   Slider,
 } from 'components';
@@ -31,19 +32,21 @@ function DetailContents() {
   }
 
   if (error) {
-    // TODO 에러처리
-    return null;
+    return <span>상세 페이지를 가져오는 도중 에러가 발생했어요</span>;
   }
 
   if (!restaurantDetail) {
-    // TODO 예외처리
-    return null;
+    return <span>가게 상세 정보가 없어요(어?)</span>;
   }
 
-  const mainImages = restaurantDetail.restaurantImage.items;
+  const { restaurantImage, restaurantMenu, restaurantX, restaurantY } =
+    restaurantDetail;
+
+  const mainImages = restaurantImage.items;
   const shouldShowSliderIndicator = mainImages.length > 0;
 
-  const menuImages = restaurantDetail.restaurantMenu.items;
+  const menuImages = restaurantMenu.items;
+  const hasCoordinates = restaurantX !== null && restaurantY !== null;
 
   return (
     <>
@@ -98,7 +101,17 @@ function DetailContents() {
           </S.MenuImageSlider>
         </S.MenuImageSlideContainer>
 
-        <S.Map />
+        <S.Map>
+          {hasCoordinates ? (
+            <KakaoMap
+              style={{ width: '100%', height: '100%' }}
+              x={restaurantX}
+              y={restaurantY}
+            />
+          ) : (
+            '위치를 알 수 없어요 :('
+          )}
+        </S.Map>
 
         <S.ButtonContainer>
           <Button outline fullWidth textColor={colors.primaryLight}>

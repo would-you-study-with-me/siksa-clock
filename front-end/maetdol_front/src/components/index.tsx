@@ -3,6 +3,7 @@ export * from './DaumPostcode';
 export * from './HeaderWithBackButton';
 export * from './HeaderWithSearchAddress';
 export * from './Icon';
+export * from './KakaoMap';
 export * from './Loading';
 export * from './Portal';
 export * from './ScrollObserver';
