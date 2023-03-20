@@ -9,7 +9,7 @@ interface Props {
 }
 
 export function Slider({ indicator = false, children }: Props) {
-  const [index, setIndex] = useState(1);
+  const [index, setIndex] = useState(0);
 
   return (
     <S.SliderContainer>
@@ -19,7 +19,7 @@ export function Slider({ indicator = false, children }: Props) {
 
       {indicator && (
         <S.Indicator>
-          {index} / {children.length}
+          {index + 1} / {children.length}
         </S.Indicator>
       )}
     </S.SliderContainer>

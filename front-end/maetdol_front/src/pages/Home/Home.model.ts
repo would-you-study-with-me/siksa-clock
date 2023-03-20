@@ -24,7 +24,7 @@ export type RestaurantRawData = {
   restaurantName: string;
   restaurantRate: number;
   restaurantId: string;
-  restaurantCongestion: string;
+  restaurantCongestion: Congestion;
   restaurantWaitingPeople: number;
   restaurantOpeningTimeDays: string | null;
   restaurantOpeningTime: string | null;
@@ -38,6 +38,7 @@ export type RestaurantRawData = {
   restaurantDescription: string | null;
   restaurantContact: string | null;
   restaurantImage: RestaurantImage;
+  restaurantMenu: RestaurantImage;
 };
 
 export type RestaurantThumbnailCard = {

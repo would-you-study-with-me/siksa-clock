@@ -1,5 +1,6 @@
 import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
 import { Global, ThemeProvider } from '@emotion/react';
+import { Env } from 'constants/';
 import { BrowserRouter } from 'react-router-dom';
 import { Routing } from 'routing';
 import globalStyle from 'styles/global';
@@ -18,7 +19,7 @@ function App() {
       <ThemeProvider theme={{ colors, typography }}>
         <GlobalContextProvider>
           <Global styles={globalStyle} />
-          <BrowserRouter>
+          <BrowserRouter basename={Env.BASENAME}>
             <Routing />
           </BrowserRouter>
         </GlobalContextProvider>

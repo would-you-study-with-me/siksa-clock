@@ -10,7 +10,9 @@ const MainImageContainer = styled.div`
 const MainImage = styled.img`
   width: 100%;
   aspect-ratio: 1 / 0.682;
-  background: linear-gradient(to right, #000, #fff);
+  background: ${props => props.theme.colors.white};
+  object-fit: cover;
+  object-position: center;
 `;
 
 const ContentContainer = styled.div`
@@ -80,11 +82,13 @@ const MenuImageSlider = styled.div`
   width: max-content;
 `;
 
-const SlidePlaceholder = styled.div`
+const MenuImage = styled.img`
   width: 110px;
   height: 110px;
   background-color: ${p => p.theme.colors.gray};
   display: inline-block;
+  object-fit: cover;
+  object-position: center;
 
   & + & {
     margin-left: 24px;
@@ -110,6 +114,7 @@ const ButtonContainer = styled.div`
   bottom: 0;
   position: sticky;
   margin: 0 -16px -25px;
+  z-index: 10;
 `;
 
 export const S = {
@@ -128,7 +133,7 @@ export const S = {
   Description,
   SlideTitle,
   MenuImageSlider,
-  SlidePlaceholder,
+  MenuImage,
   MenuImageSlideContainer,
   Map,
   ButtonContainer,
