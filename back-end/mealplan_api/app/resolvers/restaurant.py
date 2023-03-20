@@ -3,7 +3,7 @@ from typing import List
 
 from fastapi import Depends
 from sqlalchemy import select, func
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, aliased
 
 from app.config.database import session
 from app.models.restaurant import Restaurant
@@ -68,10 +68,12 @@ async def get_restaurant(restaurant_input_data: InputRestaurant, get_session: Se
 async def get_restaurants(restaurants_input_data: InputRestaurants, get_session: Session = session) -> List[OutputRestaurant]:
     # x, y 값이 없는 경우로
     if (restaurants_input_data.x is not None) and (restaurants_input_data.y is not None):
-        sql = select(Restaurant) \
+        distance = aliased(func.st_distance_sphere(func.point(restaurants_input_data.x, restaurants_input_data.y),
+                                              func.point(Restaurant.restaurant_x, Restaurant.restaurant_y)))
+
+        sql = select(Restaurant, distance) \
             .where(Restaurant.restaurant_address.like('%%{}%%'.format(restaurants_input_data.query))) \
-            .order_by(func.st_distance_sphere(func.point(restaurants_input_data.x, restaurants_input_data.y),
-                                              func.point(Restaurant.restaurant_x, Restaurant.restaurant_y))) \
+            .order_by(distance) \
             .limit(restaurants_input_data.limit).offset(restaurants_input_data.skip)
     else:
         sql = select(Restaurant).where(Restaurant.restaurant_address.like('%%{}%%'.format(restaurants_input_data.query))) \
