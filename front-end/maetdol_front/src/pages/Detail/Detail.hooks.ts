@@ -1,4 +1,5 @@
 import { ApolloError, gql, useQuery } from '@apollo/client';
+import { useEffect, useState } from 'react';
 import { RestaurantRawData } from '../Home/Home.model';
 
 const GET_RESTAURANT_DETAIL = gql`
@@ -81,4 +82,19 @@ export function useRestaurantDetail(
     }),
     loading: false,
   };
+}
+
+type UseDepsStateReturn<P> = [P, React.Dispatch<React.SetStateAction<P>>];
+export function useDepsState<RawState, State = RawState>(
+  newValue: RawState,
+  dependencies: unknown[],
+  middleware: (value: RawState) => State = val => val as unknown as State,
+): UseDepsStateReturn<State> {
+  const [state, setState] = useState<State>(middleware(newValue));
+  useEffect(() => {
+    setState(middleware(newValue));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, dependencies);
+
+  return [state, setState];
 }

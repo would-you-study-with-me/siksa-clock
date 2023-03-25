@@ -8,12 +8,10 @@ import {
   Slider,
 } from 'components';
 import { CongestionIconMap } from 'components/ThumbnailCard/ThumbnailCard.model';
-import { RestaurantRawData } from 'pages/Home/Home.model';
-import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import colors, { Colors } from 'styles/palette';
 import { repeat } from 'utils';
-import { useRestaurantDetail } from './Detail.hooks';
+import { useDepsState, useRestaurantDetail } from './Detail.hooks';
 import { S } from './Detail.styles';
 
 function DetailContents() {
@@ -22,23 +20,23 @@ function DetailContents() {
     restaurantId ?? '',
   );
 
-  const [heroImages, setHeroImages] = useState<
-    RestaurantRawData['restaurantImage']['items']
-  >([]);
-  useEffect(() => {
-    if (!restaurantDetail) return;
+  const [heroImages, setHeroImages] = useDepsState(
+    restaurantDetail?.restaurantMenu.items,
+    [restaurantDetail],
+    val => val ?? [],
+  );
+  const removeHeroImage = (target: typeof heroImages[number]) => {
+    setHeroImages(imgs => imgs.filter(img => img.link !== target.link));
+  };
 
-    setHeroImages(restaurantDetail.restaurantImage.items);
-  }, [restaurantDetail]);
-
-  const [menuImages, setMenuImages] = useState<
-    RestaurantRawData['restaurantMenu']['items']
-  >([]);
-  useEffect(() => {
-    if (!restaurantDetail) return;
-
-    setMenuImages(restaurantDetail.restaurantMenu.items);
-  }, [restaurantDetail]);
+  const [menuImages, setMenuImages] = useDepsState(
+    restaurantDetail?.restaurantMenu.items,
+    [restaurantDetail],
+    val => val ?? [],
+  );
+  const removeMenuImage = (target: typeof menuImages[number]) => {
+    setMenuImages(imgs => imgs.filter(img => img.link !== target.link));
+  };
 
   const getRateColor = (starIdx: number): Colors => {
     return starIdx < (restaurantDetail?.restaurantRate ?? 0)
@@ -69,9 +67,7 @@ function DetailContents() {
               key={img.link}
               src={img.link}
               alt={img.title}
-              onError={() => {
-                setHeroImages(imgs => imgs.filter(it => it.link !== img.link));
-              }}
+              onError={() => removeHeroImage(img)}
             />
           ))}
         </Slider>
@@ -119,11 +115,7 @@ function DetailContents() {
                 key={img.link}
                 src={img.link}
                 alt={img.title}
-                onError={() => {
-                  setMenuImages(imgs =>
-                    imgs.filter(it => it.link !== img.link),
-                  );
-                }}
+                onError={() => removeMenuImage(img)}
               />
             ))}
           </S.MenuImageSlider>
