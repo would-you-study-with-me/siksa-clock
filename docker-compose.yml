@@ -2,7 +2,7 @@ version: "3"
 
 networks:
   siksa-clock-web:
-    external: true
+    driver: bridge
 services:
   # Back End
   back_end_mvp:
