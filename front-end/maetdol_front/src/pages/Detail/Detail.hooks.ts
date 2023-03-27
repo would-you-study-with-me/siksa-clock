@@ -33,13 +33,13 @@ type Error = {
   loading: false;
 };
 
-type Done = {
+type Success = {
   restaurantDetail: RestaurantRawData;
   error: undefined;
   loading: false;
 };
 
-type UseRestaurantDetailReturn = Loading | Error | Done;
+type UseRestaurantDetailReturn = Loading | Error | Success;
 
 export function useRestaurantDetail(
   restaurantId: string,
