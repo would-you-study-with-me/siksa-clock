@@ -20,13 +20,13 @@ function DetailContents() {
     restaurantId ?? '',
   );
 
-  const [heroImages, setHeroImages] = useDepsState(
+  const [mainImages, setMainImages] = useDepsState(
     restaurantDetail?.restaurantMenu.items,
     [restaurantDetail],
     val => val ?? [],
   );
-  const removeHeroImage = (target: typeof heroImages[number]) => {
-    setHeroImages(imgs => imgs.filter(img => img.link !== target.link));
+  const removeMainImage = (target: typeof mainImages[number]) => {
+    setMainImages(imgs => imgs.filter(img => img.link !== target.link));
   };
 
   const [menuImages, setMenuImages] = useDepsState(
@@ -53,7 +53,7 @@ function DetailContents() {
     return <span>상세 페이지를 가져오는 도중 에러가 발생했어요</span>;
   }
 
-  const shouldShowSliderIndicator = heroImages.length > 0;
+  const shouldShowSliderIndicator = mainImages.length > 0;
 
   const { restaurantX, restaurantY } = restaurantDetail;
   const hasCoordinates = restaurantX !== null && restaurantY !== null;
@@ -62,12 +62,12 @@ function DetailContents() {
     <>
       <S.MainImageContainer>
         <Slider indicator={shouldShowSliderIndicator}>
-          {heroImages.map(img => (
+          {mainImages.map(img => (
             <S.MainImage
               key={img.link}
               src={img.link}
               alt={img.title}
-              onError={() => removeHeroImage(img)}
+              onError={() => removeMainImage(img)}
             />
           ))}
         </Slider>
