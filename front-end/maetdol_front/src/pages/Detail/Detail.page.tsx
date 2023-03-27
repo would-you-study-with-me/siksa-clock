@@ -11,7 +11,7 @@ import { CongestionIconMap } from 'components/ThumbnailCard/ThumbnailCard.model'
 import { useParams } from 'react-router-dom';
 import colors, { Colors } from 'styles/palette';
 import { repeat } from 'utils';
-import { useRestaurantDetail } from './Detail.hooks';
+import { useDepsState, useRestaurantDetail } from './Detail.hooks';
 import { S } from './Detail.styles';
 
 function DetailContents() {
@@ -19,6 +19,24 @@ function DetailContents() {
   const { error, loading, restaurantDetail } = useRestaurantDetail(
     restaurantId ?? '',
   );
+
+  const [mainImages, setMainImages] = useDepsState(
+    restaurantDetail?.restaurantMenu.items,
+    [restaurantDetail],
+    val => val ?? [],
+  );
+  const removeMainImage = (target: typeof mainImages[number]) => {
+    setMainImages(imgs => imgs.filter(img => img.link !== target.link));
+  };
+
+  const [menuImages, setMenuImages] = useDepsState(
+    restaurantDetail?.restaurantMenu.items,
+    [restaurantDetail],
+    val => val ?? [],
+  );
+  const removeMenuImage = (target: typeof menuImages[number]) => {
+    setMenuImages(imgs => imgs.filter(img => img.link !== target.link));
+  };
 
   const getRateColor = (starIdx: number): Colors => {
     return starIdx < (restaurantDetail?.restaurantRate ?? 0)
@@ -35,17 +53,9 @@ function DetailContents() {
     return <span>상세 페이지를 가져오는 도중 에러가 발생했어요</span>;
   }
 
-  if (!restaurantDetail) {
-    return <span>가게 상세 정보가 없어요(어?)</span>;
-  }
-
-  const { restaurantImage, restaurantMenu, restaurantX, restaurantY } =
-    restaurantDetail;
-
-  const mainImages = restaurantImage.items;
   const shouldShowSliderIndicator = mainImages.length > 0;
 
-  const menuImages = restaurantMenu.items;
+  const { restaurantX, restaurantY } = restaurantDetail;
   const hasCoordinates = restaurantX !== null && restaurantY !== null;
 
   return (
@@ -53,7 +63,12 @@ function DetailContents() {
       <S.MainImageContainer>
         <Slider indicator={shouldShowSliderIndicator}>
           {mainImages.map(img => (
-            <S.MainImage key={img.link} src={img.link} alt={img.title} />
+            <S.MainImage
+              key={img.link}
+              src={img.link}
+              alt={img.title}
+              onError={() => removeMainImage(img)}
+            />
           ))}
         </Slider>
       </S.MainImageContainer>
@@ -96,7 +111,12 @@ function DetailContents() {
         <S.MenuImageSlideContainer>
           <S.MenuImageSlider>
             {menuImages.map(img => (
-              <S.MenuImage key={img.link} src={img.link} alt={img.title} />
+              <S.MenuImage
+                key={img.link}
+                src={img.link}
+                alt={img.title}
+                onError={() => removeMenuImage(img)}
+              />
             ))}
           </S.MenuImageSlider>
         </S.MenuImageSlideContainer>
