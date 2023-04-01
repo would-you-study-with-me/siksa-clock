@@ -61,7 +61,7 @@ const CardItem = ({
   return (
     <Container elevation={0}>
       <ImageContainer>
-        <img src={firstImage} alt={title} />
+        <img referrerPolicy="no-referrer" src={firstImage} alt={title} />
       </ImageContainer>
       <Name variant="h2">{title}</Name>
       <DetailContainer>

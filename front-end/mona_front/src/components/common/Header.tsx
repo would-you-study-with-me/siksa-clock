@@ -15,6 +15,7 @@ const HeaderContainer = styled.div`
   align-items: center;
   padding: 16px;
   border-bottom: 1px solid ${Colors.gray};
+  z-index: 2;
 `;
 
 const AddressTypo = styled(Typography)`

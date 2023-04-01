@@ -53,4 +53,6 @@ export interface RestaurantDetailInfo extends RestaurantListInfo {
   restaurantOpeningTimeDays: string;
   restaurantWaitingPeople: number;
   restaurantContact: string;
+  restaurantX: number;
+  restaurantY: number;
 }
