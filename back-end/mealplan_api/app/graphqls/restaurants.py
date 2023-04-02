@@ -3,9 +3,9 @@ from typing import List
 import strawberry
 
 from app.resolvers.choord import geocoding, reverse_geocoding
-from app.scalars.coords import InputGeocoding, OutputGeocoding, OutputReverseGeocoding, InputReverseGeocoding
 from app.resolvers.restaurant import get_restaurant, get_restaurants
-from app.scalars.restaurant import OutputRestaurant, InputRestaurant, InputRestaurants
+from app.schemas.coords import InputGeocoding, OutputGeocoding, InputReverseGeocoding, OutputReverseGeocoding
+from app.schemas.restaurant import InputRestaurant, OutputRestaurant, InputRestaurants
 
 
 @strawberry.type(description="째깍식사 API")

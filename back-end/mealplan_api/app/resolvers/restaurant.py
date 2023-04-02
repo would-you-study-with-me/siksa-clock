@@ -61,7 +61,6 @@ async def get_restaurant(restaurant_input_data: InputRestaurant, get_session: Se
         restaurant_menu=restaurant_menu
     )
 
-
     return restaurant_data
 
 

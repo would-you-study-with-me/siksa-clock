@@ -1,6 +1,6 @@
 
 from sqlalchemy import create_engine
-from sqlalchemy.orm import Session, DeclarativeBase
+from sqlalchemy.orm import Session
 
 from app.models.restaurant import RestaurantBase
 from app.models.user import UserBase
@@ -25,8 +25,6 @@ engine = create_engine(
 )
 
 session = Session(bind=engine, autocommit=False, autoflush=False)
-
-
 
 
 def create_table():
