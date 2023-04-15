@@ -1,0 +1,28 @@
+version: "3"
+
+networks:
+  siksa-clock-web:
+    driver: bridge
+services:
+  # Back End
+  back_end_mvp:
+    build: back-end/mvp
+    ports:
+      - 7777:7777
+    networks:
+      - siksa-clock-web
+
+  siksa_clock_nginx:
+    image: nginx
+    ports:
+      - 80:80
+      - 443:443
+    networks:
+      - siksa-clock-web
+    volumes:
+      - infra/nginx.conf:/etc/nginx/nginx.conf
+      - infra/certificate.crt:/etc/nginx/certificate.crt
+      - infra/private.key:/etc/nginx/private.key
+    
+
+  # Front End

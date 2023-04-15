@@ -2,6 +2,7 @@ import os, json
 
 from fastapi import HTTPException
 
+
 secret_json_file = os.path.join('./', 'secret.json')
 
 
@@ -16,8 +17,7 @@ def get_secret(setting, secret=secret):
     try:
         return secret[setting]
     except KeyError:
-        error_msg = 'Set the {} environment variable'.format(setting)
-        raise HTTPException(status_code=404, message=error_msg)
+        raise HTTPException(status_code=404)
 
 
 def get_os_secrets(setting):
@@ -25,4 +25,4 @@ def get_os_secrets(setting):
     try:
         return os.environ[setting]
     except KeyError:
-        raise HTTPException(status_code=404, message='Not found setting')
+        raise HTTPException(status_code=404)

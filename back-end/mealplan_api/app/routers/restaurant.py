@@ -4,7 +4,7 @@ from strawberry.fastapi import GraphQLRouter
 
 from app.graphqls.restaurants import Query
 
-schema = strawberry.federation.Schema(
+schema = strawberry.Schema(
     query=Query
 )
 
