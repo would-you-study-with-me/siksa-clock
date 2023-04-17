@@ -1,5 +1,3 @@
-from pydantic import Json
-
 from app.schemas.coords import InputGeocoding, OutputGeocoding, InputReverseGeocoding, OutputReverseGeocoding
 from app.services.api_service import NcloudApi
 
