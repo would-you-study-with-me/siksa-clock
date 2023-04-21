@@ -9,7 +9,7 @@ import typography from 'styles/typography';
 import { GlobalContextProvider } from './global-context';
 
 const client = new ApolloClient({
-  uri: 'http://web.siksa-clock.kro.kr/restaurant',
+  uri: 'https://web.siksa-clock.kro.kr/restaurant',
   cache: new InMemoryCache(),
 });
 
