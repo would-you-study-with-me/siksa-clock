@@ -41,24 +41,3 @@ class Query:
             results=reverse_geocoding_data['results']
         )
         return output_reverse_geocoding_scalar_data
-
-
-# @strawberry.type(description="째깍식사 API")
-# class Mutation:
-#     # 회원 관련
-#     @strawberry.field(description="회원가입")
-#     async def register(self):
-#         pass
-#
-#     @strawberry.field(description="로그인")
-#     async def login(self):
-#         pass
-#
-#     @strawberry.field(description="로그아웃")
-#     async def logout(self):
-#         pass
-#
-#     @strawberry.field(description="토큰 재발급")
-#     async def token(self):
-#         pass
-
