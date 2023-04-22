@@ -21,7 +21,7 @@ const globalStyle = css`
   #root {
     background-color: white;
     max-width: 420px;
-    height: 100%;
+    min-height: 100%;
     box-shadow: 2px 0 16px rgba(0, 0, 0, 0.05);
     margin: auto;
   }

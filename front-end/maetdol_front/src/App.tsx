@@ -1,15 +1,15 @@
 import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
 import { Global, ThemeProvider } from '@emotion/react';
-import { HeaderWithSearchAddress } from 'components';
-import { Home } from 'pages/Home/Home.page';
+import { Env } from 'constants/';
 import { BrowserRouter } from 'react-router-dom';
+import { Routing } from 'routing';
 import globalStyle from 'styles/global';
 import colors from 'styles/palette';
 import typography from 'styles/typography';
 import { GlobalContextProvider } from './global-context';
 
 const client = new ApolloClient({
-  uri: 'http://web.siksa-clock.kro.kr/restaurant',
+  uri: 'https://web.siksa-clock.kro.kr/restaurant',
   cache: new InMemoryCache(),
 });
 
@@ -19,9 +19,8 @@ function App() {
       <ThemeProvider theme={{ colors, typography }}>
         <GlobalContextProvider>
           <Global styles={globalStyle} />
-          <BrowserRouter>
-            <HeaderWithSearchAddress />
-            <Home />
+          <BrowserRouter basename={Env.BASENAME}>
+            <Routing />
           </BrowserRouter>
         </GlobalContextProvider>
       </ThemeProvider>

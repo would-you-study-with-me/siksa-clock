@@ -6,7 +6,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 
 const client = new ApolloClient({
-  uri: 'http://web.siksa-clock.kro.kr/restaurant',
+  uri: 'https://web.siksa-clock.kro.kr/restaurant',
   cache: new InMemoryCache(),
 });
 

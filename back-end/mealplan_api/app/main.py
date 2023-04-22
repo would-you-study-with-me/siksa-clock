@@ -23,6 +23,10 @@ origins = [
     "http://localhost:3000",
     "http://web.siksa-clock.kro.kr",
     "https://web.siksa-clock.kro.kr",
+    "https://127.0.0.1:7777",
+    "https://localhost:7777",
+    "https://127.0.0.1",
+    "https://localhost",
 ]
 
 app.add_middleware(

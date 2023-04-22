@@ -10,7 +10,7 @@ export function HeaderWithSearchAddress() {
   const [showSearchAddress, setShowSearchAddress] = useState(false);
   const [currentAddress, setCurrentAddress] = useLocalStorageState(
     LocalStorageKeys.CURRENT_ADDRESS,
-    '서울시 강남구',
+    '서울특별시 강남구',
   );
 
   const { setAddress } = useContext(globalContext);
