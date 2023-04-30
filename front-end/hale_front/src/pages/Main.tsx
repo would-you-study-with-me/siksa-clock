@@ -5,6 +5,7 @@ import { useMain } from 'hooks/useMain.hook';
 import styled from '@emotion/styled';
 import RestaurantCard from '../components/RestaurantCard';
 import LocationHeader from '../components/LocationHeader';
+import Loading from '../components/Loading';
 
 const TitleContainer = styled.div`
   margin-top: 40px;
@@ -21,7 +22,7 @@ const Main: React.FC = () => {
         <Link to="postcode" style={{ textDecoration: 'none' }}>
           <LocationHeader />
         </Link>
-        <p>Loading...</p>
+        <Loading />
       </div>
     );
   if (error)
