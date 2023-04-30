@@ -27,6 +27,7 @@ origins = [
     "https://localhost:7777",
     "https://127.0.0.1",
     "https://localhost",
+    "https://would-you-study-with-me.github.io",
 ]
 
 app.add_middleware(
