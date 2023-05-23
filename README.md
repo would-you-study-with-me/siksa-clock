@@ -18,7 +18,6 @@
 - device : IOS, Android, WebPage (?)
 
 - Front-End : TypeScript, React 18 ...
-- Back-End :
-    - Auth API : Python 3.10, FastAPI
-- Protocol : graphql, grpc
+- Back-End : Python 3.10, FastAPI, Strawberry
+- Protocol : graphql
 - DevOps : Docker, Github
